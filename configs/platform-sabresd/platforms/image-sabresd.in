@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_SABRESD
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX
+	prompt "Generate images/sabresd.hdimg"
+	help
+	  FIXME
