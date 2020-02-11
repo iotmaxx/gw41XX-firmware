@@ -192,6 +192,7 @@ PTXCONF_BOOTLOADER=y
 # bootloader spec entries       
 #
 # PTXCONF_BLSPEC_ENTRY is not set
+PTXCONF_BLSPEC_SABRESD=y
 
 #
 # image creation options        
