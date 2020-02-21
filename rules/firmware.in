@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config FIRMWARE
+	tristate
+	prompt "firmware"
+	help
+	  install i.MX7D SDMA firmware

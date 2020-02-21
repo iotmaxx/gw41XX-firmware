@@ -2,6 +2,7 @@
 # Automatically generated file; DO NOT EDIT.
 # PTXdist 2020.02.0
 #
+PTXCONF_FIRMWARE=y
 
 #
 # ------------------------------------
