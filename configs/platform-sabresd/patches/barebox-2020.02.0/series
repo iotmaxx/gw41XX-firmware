@@ -1,11 +1,12 @@
 # umpf-base: v2020.02.0
 # umpf-name: 2020.02.0/customers/iotmaxx/gateway
-# umpf-version: 2020.02.0/customers/iotmaxx/gateway/20200220-1
+# umpf-version: 2020.02.0/customers/iotmaxx/gateway/20200224-1
 # umpf-topic: v2020.02.0/topic/boards/imx7d-sabresd
-# umpf-hashinfo: 3eb3c19371741a2e6daf391bb22a8b426dc940c4
-# umpf-topic-range: 849b2f8b958a19d28715c187a0d6dca23ccba6b5..e71f616f206354c19c5ad387d1dde4f72ea9de8c
+# umpf-hashinfo: 810a3c9a9afa64f56627c16cc6ead617410419a8
+# umpf-topic-range: 849b2f8b958a19d28715c187a0d6dca23ccba6b5..5774e94f5ae7355fb3c064dcf7e7e02d6cb7e4c0
 0001-ARM-imx7-sdb-add-bareboxenv-partition.patch
-# umpf-release: 2020.02.0/customers/iotmaxx/gateway/20200220-1
-# umpf-topic-range: e71f616f206354c19c5ad387d1dde4f72ea9de8c..5ca56bfde7f6d01fe33702f7cfa01978593771dd
-0101-Release-2020.02.0-customers-iotmaxx-gateway-20200220.patch
+0002-ARM-imx7-sdb-add-bootstate.patch
+# umpf-release: 2020.02.0/customers/iotmaxx/gateway/20200224-1
+# umpf-topic-range: 5774e94f5ae7355fb3c064dcf7e7e02d6cb7e4c0..f19e180a9feb23c077e1c74d21697d4ac2eeef95
+0101-Release-2020.02.0-customers-iotmaxx-gateway-20200224.patch
 # umpf-end
