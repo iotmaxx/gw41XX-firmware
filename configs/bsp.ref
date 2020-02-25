@@ -1,4 +1,14 @@
 includes:
 - file: ptxdist.ref
 
+rootfs_unused_libraries:
+  description: ModemManager plugins and protocols are not yet fully specified.
+  present:
+  - /usr/lib/ModemManager/libmm-shared-icera.so
+  - /usr/lib/ModemManager/libmm-shared-novatel.so
+  - /usr/lib/ModemManager/libmm-shared-option.so
+  - /usr/lib/ModemManager/libmm-shared-sierra.so
+  - /usr/lib/ModemManager/libmm-shared-telit.so
+  - /usr/lib/ModemManager/libmm-shared-xmm.so
+
 # vim: filetype=yaml
