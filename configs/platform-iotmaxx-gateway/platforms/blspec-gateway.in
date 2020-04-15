@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_GATEWAY
+	tristate
+	prompt "/loader/entries/gateway.conf bootloader spec entry"

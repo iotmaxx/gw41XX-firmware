@@ -1,0 +1,3 @@
+#!/bin/sh
+
+boot /mnt/mmc1.0

@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_GATEWAY
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX
+	prompt "Generate images/gateway.hdimg"
+	help
+	  FIXME

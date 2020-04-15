@@ -1,0 +1,11 @@
+# umpf-base: v5.6
+# umpf-name: 5.6/customers/iotmaxx/gateway
+# umpf-version: 5.6/customers/iotmaxx/gateway/20200416-1
+# umpf-topic: v5.6/customers/iotmaxx/boards/gateway
+# umpf-hashinfo: 4ffe580b1fe94d6a18bb21a3348c9552a0d9af46
+# umpf-topic-range: 7111951b8d4973bda27ff663f2cf18b663d15b48..34af40c5c11b6a540c04ef0e3805fc9b2ee4a929
+0001-ARM-imx7-add-support-for-iotmaxx-gateway.patch
+# umpf-release: 5.6/customers/iotmaxx/gateway/20200416-1
+# umpf-topic-range: 34af40c5c11b6a540c04ef0e3805fc9b2ee4a929..e77b51f4915c6dfa4bdfb039eddd31dfab9c70de
+0101-Release-5.6-customers-iotmaxx-gateway-20200416-1.patch
+# umpf-end
