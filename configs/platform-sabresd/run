@@ -1,0 +1,138 @@
+#!/bin/bash
+
+platformconfig=selected_platformconfig
+# fallback to platformconfig in the same dir as this script
+if [ ! -e "$platformconfig" ]; then
+	platformconfig=$(dirname $0)/platformconfig
+fi
+
+#
+# we need information about the platform
+#
+if [ ! -e "$platformconfig" ]; then
+	echo "error: selected_platformconfig does not exist"
+	echo "       please use 'ptxdist platform ...' or 'ptxdist --platformconfig=...'"
+	exit 1
+fi
+
+source $platformconfig
+
+if [ -n "${PTXCONF_PLATFORM}" ]; then
+	PTXDIST_PLATFORMDIR="./platform-${PTXCONF_PLATFORM}"
+else
+	PTXDIST_PLATFORMDIR="."
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/linuximage" ]; then
+	echo "error: run 'ptxdist go' first"
+	exit 1
+fi
+
+# the emulator to run
+QEMU_EXEC="${PTXDIST_PLATFORMDIR}/sysroot-host/bin/qemu-system-arm"
+
+if [ ! -e "${QEMU_EXEC}" ]; then
+	echo "error: enable and install 'host-qemu' first"
+	exit 1
+fi
+
+# the port a 'telned' would connect to (in the emulated sysem)
+TELNET_INTERNAL_PORT=23
+# port QEMU opens at the host side to give access to the ${TELNET_INTERNAL_PORT}
+TELNET_EXTERNAL_PORT=4444
+
+# dito for ssh
+SSH_INTERNAL_PORT=22
+SSH_EXTERNAL_PORT=4445
+
+# check if vde is available for networking
+if [ -z "${VDE_SOCKET}" ]; then
+	for dir in $(ls -d /var/run/vde2/*.ctl 2>/dev/null); do
+		if [ -r "${dir}" ]; then
+			VDE_SOCKET="${dir}"
+		fi
+	done
+fi
+if [ -n "${VDE_SOCKET}" ]; then
+	# make sure qemu supports vde networking
+	if ${QEMU_EXEC} --help | grep -q -- '-net.*vde'; then
+		QEMU_NET=( -netdev vde,id=net1,sock=${VDE_SOCKET} )
+	fi
+fi
+
+# fall back to user network if necessary
+if [ -z "${QEMU_NET}" ]; then
+	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${TELNET_EXTERNAL_PORT}-:${TELNET_INTERNAL_PORT},hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
+fi
+
+BASE_CMDLINE="console=ttymxc0,115200"
+
+# Machine to emulate
+QEMU_ARGS=( -machine mcimx7d-sabre -cpu cortex-a7 -smp 2 -m 1024M )
+# disable graphics output
+QEMU_ARGS[${#QEMU_ARGS[@]}]="-nographic"
+# Exit qemu on reboot
+QEMU_ARGS[${#QEMU_ARGS[@]}]="-no-reboot"
+# Set base time to test NTP and time handling
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -rtc base=2000-01-01 )
+# Add virtual SCSI device if available
+QEMU_LINUX_ARGS=( -kernel ${PTXDIST_PLATFORMDIR}/images/linuximage -dtb ${PTXDIST_PLATFORMDIR}/images/imx7d-sdb.dtb )
+
+check_hd() {
+	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/sabresd.hdimg" ]; then
+		echo "error: sabresd.hdimg is missing. Run 'ptxdist images' first"
+		exit 1
+	fi
+}
+
+#
+# This needs:
+# CONFIG_NET_9P_VIRTIO=y
+# CONFIG_9P_FS=y
+#
+run_qemu_9p() {
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
+		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/root rootfstype=9p rootflags=trans=virtio ${BASE_CMDLINE}"
+}
+
+run_qemu_nfs() {
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/nfs nfsroot=/root,v3,tcp,port=2049,mountport=2049 ip=dhcp ${BASE_CMDLINE}"
+}
+
+run_qemu_mmc() {
+	check_hd
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/sabresd.hdimg,id=mmc0 \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/mmcblk0p1 rootfstype=ext4 rootwait ${BASE_CMDLINE}"
+}
+
+run_qemu_barebox() {
+	check_hd
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-smp 1 \
+		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
+		-device virtio-9p-device,fsdev=images,mount_tag=/dev/images\
+		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model=none \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/sabresd.hdimg,id=mmc0
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_BAREBOX_ARGS[@]}"
+}
+
+target="${1:-9p}"
+
+#set -x
+run_qemu_${target}
