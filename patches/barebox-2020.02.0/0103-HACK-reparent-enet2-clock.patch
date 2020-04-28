@@ -4,11 +4,11 @@ Subject: [PATCH] HACK: reparent enet2 clock
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- drivers/clk/imx/clk-imx7.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/clk/imx/clk-imx7.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/clk/imx/clk-imx7.c b/drivers/clk/imx/clk-imx7.c
-index 781bc43e09d3..217df747398d 100644
+index 781bc43e09d3..545d0276f82a 100644
 --- a/drivers/clk/imx/clk-imx7.c
 +++ b/drivers/clk/imx/clk-imx7.c
 @@ -835,7 +835,7 @@ static int imx7_clk_setup(void)
@@ -20,10 +20,3 @@ index 781bc43e09d3..217df747398d 100644
  	clk_set_parent(clks[IMX7D_ENET2_TIME_ROOT_SRC], clks[IMX7D_PLL_ENET_MAIN_100M_CLK]);
  
  	clk_set_rate(clks[IMX7D_PLL_SYS_PFD4_CLK], 392000000);
-@@ -866,4 +866,4 @@ static int imx7_ccm_init(void)
- {
- 	return platform_driver_register(&imx7_ccm_driver);
- }
--core_initcall(imx7_ccm_init);
-\ No newline at end of file
-+core_initcall(imx7_ccm_init);
