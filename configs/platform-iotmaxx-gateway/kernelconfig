@@ -3745,7 +3745,8 @@ CONFIG_STAGING=y
 # CONFIG_UWB is not set
 # CONFIG_STAGING_EXFAT_FS is not set
 # CONFIG_QLGE is not set
-# CONFIG_NET_VENDOR_HP is not set
+CONFIG_NET_VENDOR_HP=y
+# CONFIG_HP100 is not set
 # CONFIG_WFX is not set
 # CONFIG_GOLDFISH is not set
 # CONFIG_MFD_CROS_EC is not set
