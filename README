@@ -1,0 +1,49 @@
+Bootstrap
+=========
+
+When the eMMC is unflashed the board falls back to serial boot mode.
+Start barebox with:
+
+  platform-iotmaxx-gateway/build-target/barebox-2020.04.0/scripts/imx/imx-usb-loader platform-iotmaxx-gateway/images/barebox-iotmaxx-imx7d-gateway.img
+
+Then the bootloader can be flashed to the eMMC via network with
+
+  barebox@IoTMAXX i.MX7D Gateway:/ barebox_update /mnt/tftp/barebox-iotmaxx-imx7d-gateway.img
+
+To set the boot partition to boot0 of the eMMC
+
+  barebox@IoTMAXX i.MX7D Gateway:/ mmc2.boot=boot0
+
+and check with
+
+  barebox@IoTMAXX i.MX7D Gateway:/ devinfo mmc2          
+  Host information:
+    current clock: 52000000
+    current buswidth: 8
+    capabilities: 4bit 8bit sd-hs mmc-hs 
+  Card information:
+    Attached is a MMC card
+    Version: 5.1
+    Capacity: 7456 MiB
+    High capacity card
+     CID: 11010030-30384742-3004348F-C3EEA600
+     CSD: D0270032-8F5903FF-FFFFFFE7-86400000
+    Max. transfer speed: 52000000 Hz
+    capabilities: 4bit mmc-hs mmc-52MHz 
+    Manufacturer ID: 11
+    OEM/Application ID: 0100
+    Product name: '008GB'
+    Product revision: 3.0
+    Serial no: 881837038
+    Manufacturing date: 10.2019
+  Parameters:
+    boot: boot0 (type: enum) (values: "disabled", "boot0", "boot1", "user")
+    probe: 0 (type: bool)
+
+Now reboot.
+
+eMMC BKOPS
+==========
+To optimize write performance enable BKOPS in the eMMC with
+  mmc_extcsd -b /dev/mmc2
+This operation is NOT reversible! Linux supports this feature since v3.7.
