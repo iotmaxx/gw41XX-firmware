@@ -1,0 +1,21 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 7 May 2020 11:12:44 +0200
+Subject: [PATCH] Release 2020.04.0/customers/iotmaxx/gateway/20200507-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index b3d67b0863ac..49ebd6b5a392 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 2020
+ PATCHLEVEL = 04
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION =-20200507-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

@@ -1,0 +1,31 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Wed, 8 Apr 2020 13:11:05 +0200
+Subject: [PATCH] i.MX7: Add CCM definitions for UART3
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/mach-imx/include/mach/imx7-ccm-regs.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/mach-imx/include/mach/imx7-ccm-regs.h b/arch/arm/mach-imx/include/mach/imx7-ccm-regs.h
+index de6eb1bbd10d..5c60794ca74f 100644
+--- a/arch/arm/mach-imx/include/mach/imx7-ccm-regs.h
++++ b/arch/arm/mach-imx/include/mach/imx7-ccm-regs.h
+@@ -3,6 +3,7 @@
+ 
+ #define IMX7_CCM_CCGR_UART1		148
+ #define IMX7_CCM_CCGR_UART2		149
++#define IMX7_CCM_CCGR_UART3		150
+ 
+ #define IMX7_CLOCK_ROOT_INDEX(x)	(((x) - 0x8000) / 128)
+ 
+@@ -16,6 +17,9 @@
+ #define IMX7_UART2_CLK_ROOT		IMX7_CLOCK_ROOT_INDEX(0xb000)
+ #define IMX7_UART2_CLK_ROOT__OSC_24M IMX7_CCM_TARGET_ROOTn_MUX(0b000)
+ 
++#define IMX7_UART3_CLK_ROOT		IMX7_CLOCK_ROOT_INDEX(0xb080)
++#define IMX7_UART3_CLK_ROOT__OSC_24M IMX7_CCM_TARGET_ROOTn_MUX(0b000)
++
+ /* 0 <= n <= 190 */
+ #define IMX7_CCM_CCGRn_SET(n)	(0x4004 + 16 * (n))
+ #define IMX7_CCM_CCGRn_CLR(n)	(0x4008 + 16 * (n))
