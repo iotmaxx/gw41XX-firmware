@@ -1,0 +1,12 @@
+# umpf-base: v5.7-rc1
+# umpf-name: 5.7/customers/iotmaxx/boards/gateway
+# umpf-version: 5.7/customers/iotmaxx/boards/gateway/20200507-1
+# umpf-topic: v5.7/customers/iotmaxx/boards/gateway
+# umpf-hashinfo: 23aca7410e4cf266a3fb1e8a223a8aab6c007ce7
+# umpf-topic-range: 8f3d9f354286745c751374f5f1fcafee6b3f3136..62e1e036fe45b7eb6f44adf8f46124601451614a
+0001-ARM-imx7-add-support-for-iotmaxx-gateway.patch
+0002-ARM-imx7d-add-phy-fixup-and-change-enet2-clock-for-g.patch
+# umpf-release: 5.7/customers/iotmaxx/boards/gateway/20200507-1
+# umpf-topic-range: 62e1e036fe45b7eb6f44adf8f46124601451614a..ffb0cc03814ab3c964ead4c5397d2ab485d375c8
+0101-Release-5.7-customers-iotmaxx-boards-gateway-2020050.patch
+# umpf-end
