@@ -1,13 +1,13 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 13 May 2020 14:13:55 +0200
-Subject: [PATCH] Release 2020.04.0/customers/iotmaxx/gateway/20200513-1
+Date: Thu, 14 May 2020 11:55:15 +0200
+Subject: [PATCH] Release 2020.04.0/customers/iotmaxx/gateway/20200514-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index b3d67b0863ac..ae64c1dbba23 100644
+index b3d67b0863ac..186290fdebfc 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
@@ -15,7 +15,7 @@ index b3d67b0863ac..ae64c1dbba23 100644
  PATCHLEVEL = 04
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20200513-1
++EXTRAVERSION =-20200514-1
  NAME = None
  
  # *DOCUMENTATION*

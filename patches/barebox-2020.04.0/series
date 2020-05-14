@@ -1,18 +1,18 @@
 # umpf-base: v2020.04.0
 # umpf-name: 2020.04.0/customers/iotmaxx/gateway
-# umpf-version: 2020.04.0/customers/iotmaxx/gateway/20200513-1
+# umpf-version: 2020.04.0/customers/iotmaxx/gateway/20200514-1
 # umpf-topic: v2020.04.0/topic/boards/imx7d-sabresd
 # umpf-hashinfo: e21cd87b07105110003264761af61ec741d0793a
 # umpf-topic-range: a999dc558770732d475e423060d54b93e36436ce..886f993da5901e3fb5ad3cb995c0ab4c83804c40
 0001-ARM-imx7-sdb-add-bareboxenv-partition.patch
 0002-ARM-imx7-sdb-add-bootstate.patch
 # umpf-topic: v2020.04.0/customers/iotmaxx/board/gateway
-# umpf-hashinfo: 8bc8aff150344a0a1ce8adba13657e1fb2f43017
-# umpf-topic-range: 886f993da5901e3fb5ad3cb995c0ab4c83804c40..a45da8605f64517e3551859b28ddb1123dbaf549
+# umpf-hashinfo: 7cf945824bec960512a370d1c062f769fb09fd1b
+# umpf-topic-range: 886f993da5901e3fb5ad3cb995c0ab4c83804c40..5e25743a972f4a9b6d56d71c468402c1ac63ed04
 0101-i.MX7-Add-CCM-definitions-for-UART3.patch
 0102-net-mdio-gpio-fix-typos-in-dev_dbg.patch
 0103-ARM-i.MX7-add-support-for-iotmaxx-gateway.patch
-# umpf-release: 2020.04.0/customers/iotmaxx/gateway/20200513-1
-# umpf-topic-range: a45da8605f64517e3551859b28ddb1123dbaf549..284a91b16c9d9bc242df0e43b832cbb572805cd8
-0201-Release-2020.04.0-customers-iotmaxx-gateway-20200513.patch
+# umpf-release: 2020.04.0/customers/iotmaxx/gateway/20200514-1
+# umpf-topic-range: 5e25743a972f4a9b6d56d71c468402c1ac63ed04..b5509f16874e7181d427439422fdf225696bbb87
+0201-Release-2020.04.0-customers-iotmaxx-gateway-20200514.patch
 # umpf-end

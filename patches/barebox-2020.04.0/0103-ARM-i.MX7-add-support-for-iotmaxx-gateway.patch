@@ -10,11 +10,11 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  .../flash-header-iotmaxx-imx7d-gateway.imxcfg      |   5 +
  arch/arm/boards/iotmaxx-gateway/lowlevel.c         |  44 ++
  arch/arm/dts/Makefile                              |   1 +
- arch/arm/dts/imx7d-iotmaxx-gateway.dts             | 117 ++++++
+ arch/arm/dts/imx7d-iotmaxx-gateway.dts             | 169 ++++++++
  arch/arm/dts/imx7d-iotmaxx-gateway.dtsi            | 454 +++++++++++++++++++++
  arch/arm/mach-imx/Kconfig                          |   4 +
  images/Makefile.imx                                |   5 +
- 10 files changed, 710 insertions(+)
+ 10 files changed, 762 insertions(+)
  create mode 100644 arch/arm/boards/iotmaxx-gateway/Makefile
  create mode 100644 arch/arm/boards/iotmaxx-gateway/board.c
  create mode 100644 arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
@@ -200,10 +200,10 @@ index ddfe64e83bdf..cb1a9d64e8ef 100644
  lwl-dtb-$(CONFIG_MACH_LENOVO_IX4_300D) += armada-xp-lenovo-ix4-300d-bb.dtb.o
 diff --git a/arch/arm/dts/imx7d-iotmaxx-gateway.dts b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
 new file mode 100644
-index 000000000000..f06a4335f753
+index 000000000000..05b44d7086a0
 --- /dev/null
 +++ b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
-@@ -0,0 +1,117 @@
+@@ -0,0 +1,169 @@
 +/dts-v1/;
 +
 +#include <arm/imx7d.dtsi>
@@ -223,6 +223,58 @@ index 000000000000..f06a4335f753
 +			compatible = "barebox,environment";
 +			device-path = &bareboxenvsd;
 +			status = "disabled";
++		};
++	};
++
++	state: state {
++		magic = <0x496f546d>;
++		compatible = "barebox,state";
++		backend-type = "raw";
++		backend = <&state_emmc>;
++		backend-stridesize = <1024>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		bootstate {
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			system0 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x0 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x4 0x4>;
++					type = "uint32";
++					default = <21>;
++				};
++			};
++
++			system1 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x10 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x14 0x4>;
++					type = "uint32";
++					default = <20>;
++				};
++			};
++
++			last_chosen {
++				reg = <0x20 0x4>;
++				type = "uint32";
++			};
 +		};
 +	};
 +};
