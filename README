@@ -47,3 +47,18 @@ eMMC BKOPS
 To optimize write performance enable BKOPS in the eMMC with
   mmc_extcsd -b /dev/mmc2
 This operation is NOT reversible! Linux supports this feature since v3.7.
+
+Fastboot
+========
+
+To copy the image to the eMMC via fastboot and optionally update barebox,
+first export the mmc2 via fastboot
+  barebox@IoTMAXX i.MX7D Gateway:/ usbgadget -A/dev/mmc2(emmc),/dev/mmc2.boot0(barebox)
+
+Then on the host PC
+  fastboot flash emmc platform-iotmaxx-gateway/images/gateway.hdimg
+
+To update barebox
+  fastboot flash barebox platform-iotmaxx-gateway/images/barebox-iotmaxx-imx7d-gateway.img
+
+Now reset the board.
