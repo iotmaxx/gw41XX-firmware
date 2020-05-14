@@ -10,11 +10,11 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  .../flash-header-iotmaxx-imx7d-gateway.imxcfg      |   5 +
  arch/arm/boards/iotmaxx-gateway/lowlevel.c         |  44 ++
  arch/arm/dts/Makefile                              |   1 +
- arch/arm/dts/imx7d-iotmaxx-gateway.dts             | 169 ++++++++
+ arch/arm/dts/imx7d-iotmaxx-gateway.dts             | 173 ++++++++
  arch/arm/dts/imx7d-iotmaxx-gateway.dtsi            | 454 +++++++++++++++++++++
  arch/arm/mach-imx/Kconfig                          |   4 +
  images/Makefile.imx                                |   5 +
- 10 files changed, 762 insertions(+)
+ 10 files changed, 766 insertions(+)
  create mode 100644 arch/arm/boards/iotmaxx-gateway/Makefile
  create mode 100644 arch/arm/boards/iotmaxx-gateway/board.c
  create mode 100644 arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
@@ -200,16 +200,20 @@ index ddfe64e83bdf..cb1a9d64e8ef 100644
  lwl-dtb-$(CONFIG_MACH_LENOVO_IX4_300D) += armada-xp-lenovo-ix4-300d-bb.dtb.o
 diff --git a/arch/arm/dts/imx7d-iotmaxx-gateway.dts b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
 new file mode 100644
-index 000000000000..05b44d7086a0
+index 000000000000..fdad410f503d
 --- /dev/null
 +++ b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
-@@ -0,0 +1,169 @@
+@@ -0,0 +1,173 @@
 +/dts-v1/;
 +
 +#include <arm/imx7d.dtsi>
 +#include "imx7d-iotmaxx-gateway.dtsi"
 +
 +/ {
++	aliases {
++		state = &state;
++	};
++
 +	chosen {
 +		stdout-path = &uart3;
 +
