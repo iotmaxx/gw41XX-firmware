@@ -10,11 +10,10 @@ Then the bootloader can be flashed to the eMMC via network with
 
   barebox@IoTMAXX i.MX7D Gateway:/ barebox_update /mnt/tftp/barebox-iotmaxx-imx7d-gateway.img
 
-To set the boot partition to boot0 of the eMMC
+barebox does atomic updates. That means, that barebox_update will always flash the new barebox
+to the boot partition that is not currently booted and then update the mmc2.boot variable.
 
-  barebox@IoTMAXX i.MX7D Gateway:/ mmc2.boot=boot0
-
-and check with
+To check the activated boot partition:
 
   barebox@IoTMAXX i.MX7D Gateway:/ devinfo mmc2          
   Host information:
@@ -40,7 +39,12 @@ and check with
     boot: boot0 (type: enum) (values: "disabled", "boot0", "boot1", "user")
     probe: 0 (type: bool)
 
-Now reboot.
+or just
+
+  barebox@IoTMAXX i.MX7D Gateway:/ echo $mmc2.boot
+  boot0
+
+After the update barebox will boot from the other boot partition.
 
 eMMC BKOPS
 ==========
