@@ -8,7 +8,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 61 insertions(+)
 
 diff --git a/arch/arm/dts/imx7d-sdb.dts b/arch/arm/dts/imx7d-sdb.dts
-index ac692d9d38a0..e41f68d4c4aa 100644
+index 1cb48f8a777b..2a906c11a850 100644
 --- a/arch/arm/dts/imx7d-sdb.dts
 +++ b/arch/arm/dts/imx7d-sdb.dts
 @@ -10,6 +10,10 @@
@@ -81,7 +81,7 @@ index ac692d9d38a0..e41f68d4c4aa 100644
  };
  
  &extended_io {
-@@ -51,5 +107,10 @@
+@@ -62,5 +118,10 @@
  			label = "bareboxenv";
  			reg = <0xe0000 0x20000>;
  		};

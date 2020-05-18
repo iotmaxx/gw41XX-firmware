@@ -8,7 +8,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 25 insertions(+)
 
 diff --git a/arch/arm/dts/imx7d-sdb.dts b/arch/arm/dts/imx7d-sdb.dts
-index b90ada61b805..ac692d9d38a0 100644
+index 16bfabe9b358..1cb48f8a777b 100644
 --- a/arch/arm/dts/imx7d-sdb.dts
 +++ b/arch/arm/dts/imx7d-sdb.dts
 @@ -12,6 +12,11 @@
@@ -23,9 +23,9 @@ index b90ada61b805..ac692d9d38a0 100644
  	};
  
  	memory {
-@@ -28,3 +33,23 @@
- 		line-name = "enet-rst-b";
- 	};
+@@ -39,3 +44,23 @@
+ 	/delete-property/ assigned-clocks;
+ 	/delete-property/ assigned-clock-parents;
  };
 +
 +&usdhc1 {

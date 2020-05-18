@@ -1,52 +1,52 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 Date: Thu, 16 Apr 2020 14:07:18 +0200
-Subject: [PATCH] ARM: i.MX7: add support for iotmaxx gateway
+Subject: [PATCH] ARM: i.MX7: add support for iotmaxx gw4100
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boards/Makefile                           |   1 +
- arch/arm/boards/iotmaxx-gateway/Makefile           |   2 +
- arch/arm/boards/iotmaxx-gateway/board.c            |  77 ++++
- .../flash-header-iotmaxx-imx7d-gateway.imxcfg      |   5 +
- arch/arm/boards/iotmaxx-gateway/lowlevel.c         |  44 ++
+ arch/arm/boards/iotmaxx-gw4100/Makefile            |   2 +
+ arch/arm/boards/iotmaxx-gw4100/board.c             |  77 ++++
+ .../flash-header-iotmaxx-imx7d-gw4100.imxcfg       |   5 +
+ arch/arm/boards/iotmaxx-gw4100/lowlevel.c          |  44 ++
  arch/arm/dts/Makefile                              |   1 +
- arch/arm/dts/imx7d-iotmaxx-gateway.dts             | 173 ++++++++
- arch/arm/dts/imx7d-iotmaxx-gateway.dtsi            | 454 +++++++++++++++++++++
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dts              | 173 ++++++++
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi             | 471 +++++++++++++++++++++
  arch/arm/mach-imx/Kconfig                          |   4 +
  images/Makefile.imx                                |   5 +
- 10 files changed, 766 insertions(+)
- create mode 100644 arch/arm/boards/iotmaxx-gateway/Makefile
- create mode 100644 arch/arm/boards/iotmaxx-gateway/board.c
- create mode 100644 arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
- create mode 100644 arch/arm/boards/iotmaxx-gateway/lowlevel.c
- create mode 100644 arch/arm/dts/imx7d-iotmaxx-gateway.dts
- create mode 100644 arch/arm/dts/imx7d-iotmaxx-gateway.dtsi
+ 10 files changed, 783 insertions(+)
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/Makefile
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/board.c
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+ create mode 100644 arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+ create mode 100644 arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi
 
 diff --git a/arch/arm/boards/Makefile b/arch/arm/boards/Makefile
-index 9fe458e0a390..a271cc062c83 100644
+index 9fe458e0a390..349a0c53ee50 100644
 --- a/arch/arm/boards/Makefile
 +++ b/arch/arm/boards/Makefile
 @@ -61,6 +61,7 @@ obj-$(CONFIG_MACH_GUF_VINCELL)			+= guf-vincell/
  obj-$(CONFIG_MACH_GW_VENTANA)			+= gateworks-ventana/
  obj-$(CONFIG_MACH_HABA_KNX_LITE)		+= haba-knx/
  obj-$(CONFIG_MACH_HIGHBANK)			+= highbank/
-+obj-$(CONFIG_MACH_IOTMAXX_IMX7D_GATEWAY)	+= iotmaxx-gateway/
++obj-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100)		+= iotmaxx-gw4100/
  obj-$(CONFIG_MACH_IMX21ADS)			+= freescale-mx21-ads/
  obj-$(CONFIG_MACH_IMX233_OLINUXINO)		+= imx233-olinuxino/
  obj-$(CONFIG_MACH_IMX27ADS)			+= freescale-mx27-ads/
-diff --git a/arch/arm/boards/iotmaxx-gateway/Makefile b/arch/arm/boards/iotmaxx-gateway/Makefile
+diff --git a/arch/arm/boards/iotmaxx-gw4100/Makefile b/arch/arm/boards/iotmaxx-gw4100/Makefile
 new file mode 100644
 index 000000000000..01c7a259e9a5
 --- /dev/null
-+++ b/arch/arm/boards/iotmaxx-gateway/Makefile
++++ b/arch/arm/boards/iotmaxx-gw4100/Makefile
 @@ -0,0 +1,2 @@
 +obj-y += board.o
 +lwl-y += lowlevel.o
-diff --git a/arch/arm/boards/iotmaxx-gateway/board.c b/arch/arm/boards/iotmaxx-gateway/board.c
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
 new file mode 100644
-index 000000000000..c904003a7d7e
+index 000000000000..58b20bb5e45d
 --- /dev/null
-+++ b/arch/arm/boards/iotmaxx-gateway/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
 @@ -0,0 +1,77 @@
 +#include <bootsource.h>
 +#include <common.h>
@@ -73,28 +73,28 @@ index 000000000000..c904003a7d7e
 +	int flag_emmc = 0;
 +	int flag_sd = 0;
 +
-+        if (!of_machine_is_compatible("iotmaxx,imx7d-gateway"))
++	if (!of_machine_is_compatible("iotmaxx,imx7d-gw4100"))
 +		return 0;
 +
-+        barebox_set_hostname("iotmaxx-gateway");
++	barebox_set_hostname("iotmaxx-gw4100");
 +
-+        switch (bootsource_get_instance()) {
-+        case 1:
++	switch (bootsource_get_instance()) {
++	case 1:
 +		flag_sd = BBU_HANDLER_FLAG_DEFAULT;
 +		of_device_enable_path("/chosen/environment-sd");
 +		break;
-+        case 2:
++	case 2:
 +		flag_emmc = BBU_HANDLER_FLAG_DEFAULT;
 +		of_device_enable_path("/chosen/environment-emmc");
 +		break;
 +	}
 +
-+        imx7_bbu_internal_mmcboot_register_handler("eMMC", "/dev/mmc2",
++	imx7_bbu_internal_mmcboot_register_handler("eMMC", "/dev/mmc2",
 +						   flag_emmc);
-+        imx7_bbu_internal_mmcboot_register_handler("SD", "/dev/mmc1",
-+                                                   flag_sd);
++	imx7_bbu_internal_mmcboot_register_handler("SD", "/dev/mmc1",
++						   flag_sd);
 +
-+        return 0;
++	return 0;
 +}
 +device_initcall(imx7d_iotmaxx_gateway_dev_init);
 +
@@ -108,13 +108,13 @@ index 000000000000..c904003a7d7e
 +	 */
 +	gpr1 = readl(gpr + IOMUXC_GPR1);
 +	gpr1 |=  IMX7D_GPR1_ENET2_CLK_DIR_MASK;
-+        gpr1 &= ~IMX7D_GPR1_ENET2_TX_CLK_SEL_MASK;
-+        writel(gpr1, gpr + IOMUXC_GPR1);
++	gpr1 &= ~IMX7D_GPR1_ENET2_TX_CLK_SEL_MASK;
++	writel(gpr1, gpr + IOMUXC_GPR1);
 +}
 +
 +static int imx7d_iotmaxx_gateway_coredevices_init(void)
 +{
-+	if (!of_machine_is_compatible("iotmaxx,imx7d-gateway"))
++	if (!of_machine_is_compatible("iotmaxx,imx7d-gw4100"))
 +		return 0;
 +
 +	imx7d_iotmaxx_gateway_init_fec();
@@ -122,25 +122,25 @@ index 000000000000..c904003a7d7e
 +	phy_register_fixup_for_uid(PHY_ID_KSZ8081, MICREL_PHY_ID_MASK,
 +				   ksz8081_phy_fixup);
 +
-+        return 0;
++	return 0;
 +}
 +coredevice_initcall(imx7d_iotmaxx_gateway_coredevices_init);
-diff --git a/arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg b/arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
+diff --git a/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
 new file mode 100644
 index 000000000000..9d1d20310094
 --- /dev/null
-+++ b/arch/arm/boards/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
++++ b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
 @@ -0,0 +1,5 @@
 +soc imx7
 +loadaddr 0x80000000
 +dcdofs 0x400
 +
 +#include <mach/flash-header/imx7d-ddr-sabresd.imxcfg>
-diff --git a/arch/arm/boards/iotmaxx-gateway/lowlevel.c b/arch/arm/boards/iotmaxx-gateway/lowlevel.c
+diff --git a/arch/arm/boards/iotmaxx-gw4100/lowlevel.c b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
 new file mode 100644
-index 000000000000..76f54dbbb0f0
+index 000000000000..b01950e036f2
 --- /dev/null
-+++ b/arch/arm/boards/iotmaxx-gateway/lowlevel.c
++++ b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
 @@ -0,0 +1,44 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +#include <debug_ll.h>
@@ -156,7 +156,7 @@ index 000000000000..76f54dbbb0f0
 +#include <asm/cache.h>
 +#include <mach/esdctl.h>
 +
-+extern char __dtb_imx7d_iotmaxx_gateway_start[];
++extern char __dtb_imx7d_iotmaxx_gw4100_start[];
 +
 +static inline void setup_uart(void)
 +{
@@ -176,38 +176,38 @@ index 000000000000..76f54dbbb0f0
 +	putc_ll('>');
 +}
 +
-+ENTRY_FUNCTION(start_imx7d_iotmaxx_gateway, r0, r1, r2)
++ENTRY_FUNCTION(start_imx7d_iotmaxx_gw4100, r0, r1, r2)
 +{
 +	imx7_cpu_lowlevel_init();
 +
 +	if (IS_ENABLED(CONFIG_DEBUG_LL))
 +		setup_uart();
 +
-+	imx7d_barebox_entry(__dtb_imx7d_iotmaxx_gateway_start +
++	imx7d_barebox_entry(__dtb_imx7d_iotmaxx_gw4100_start +
 +			    get_runtime_offset());
 +}
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index ddfe64e83bdf..cb1a9d64e8ef 100644
+index ddfe64e83bdf..e65572b07ef1 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
 @@ -30,6 +30,7 @@ lwl-dtb-$(CONFIG_MACH_GRINN_LITEBOARD) += imx6ul-liteboard.dtb.o
  lwl-dtb-$(CONFIG_MACH_GUF_SANTARO) += imx6q-guf-santaro.dtb.o
  lwl-dtb-$(CONFIG_MACH_GUF_VINCELL) += imx53-guf-vincell.dtb.o imx53-guf-vincell-lt.dtb.o
  lwl-dtb-$(CONFIG_MACH_GW_VENTANA) += imx6q-gw54xx.dtb.o
-+lwl-dtb-$(CONFIG_MACH_IOTMAXX_IMX7D_GATEWAY) += imx7d-iotmaxx-gateway.dtb.o
++lwl-dtb-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += imx7d-iotmaxx-gw4100.dtb.o
  lwl-dtb-$(CONFIG_MACH_KONTRON_SAMX6I) += imx6q-samx6i.dtb.o \
  					imx6dl-samx6i.dtb.o
  lwl-dtb-$(CONFIG_MACH_LENOVO_IX4_300D) += armada-xp-lenovo-ix4-300d-bb.dtb.o
-diff --git a/arch/arm/dts/imx7d-iotmaxx-gateway.dts b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..fdad410f503d
+index 000000000000..4179d6106dcd
 --- /dev/null
-+++ b/arch/arm/dts/imx7d-iotmaxx-gateway.dts
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
 @@ -0,0 +1,173 @@
 +/dts-v1/;
 +
 +#include <arm/imx7d.dtsi>
-+#include "imx7d-iotmaxx-gateway.dtsi"
++#include "imx7d-iotmaxx-gw4100.dtsi"
 +
 +/ {
 +	aliases {
@@ -377,18 +377,18 @@ index 000000000000..fdad410f503d
 +		};
 +	};
 +};
-diff --git a/arch/arm/dts/imx7d-iotmaxx-gateway.dtsi b/arch/arm/dts/imx7d-iotmaxx-gateway.dtsi
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi b/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi
 new file mode 100644
-index 000000000000..b8254eb2c9ac
+index 000000000000..7fe7dd05df14
 --- /dev/null
-+++ b/arch/arm/dts/imx7d-iotmaxx-gateway.dtsi
-@@ -0,0 +1,454 @@
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi
+@@ -0,0 +1,471 @@
 +// FIXME: delete when define is fixed in upstream
 +#define MX7D_PAD_UART2_RX_DATA__ENET2_MDIO                        0x0130 0x03A0 0x0574 0x6 0x1
 +
 +/ {
-+	model = "IoTMAXX i.MX7D Gateway";
-+	compatible = "iotmaxx,imx7d-gateway", "fsl,imx7d";
++	model = "IoTMAXX i.MX7D GW4100 Gateway";
++	compatible = "iotmaxx,imx7d-gw4100", "fsl,imx7d";
 +
 +	chosen {
 +		stdout-path = &uart3;
@@ -541,8 +541,8 @@ index 000000000000..b8254eb2c9ac
 +	gpio-line-names = "",
 +	"", "", "", "",	"",
 +	"", "", "", "", "",
-+	"", "", "", "led_usr2", "led_usr1",
-+	"", "gsm_rst", "gsm_power_on_off", "n_gsm_pwr_ind", "",
++	"", "n_can_term_en", "", "led_usr2", "led_usr1",
++	"sim_sel", "gsm_rst", "gsm_power_on_off", "n_gsm_pwr_ind", "",
 +	"", "", "", "", "",
 +	"", "", "", "", "",
 +	"";
@@ -657,6 +657,8 @@ index 000000000000..b8254eb2c9ac
 +		fsl,pins = <
 +		MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x59	/* GSM_RST */
 +		MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x40000059	/* !GSM_PWR_IND */
++		MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59
++		MX7D_PAD_I2C3_SCL__GPIO4_IO12			0x59	/* !CAN_TERM_EN */
 +		>;
 +	};
 +
@@ -694,6 +696,14 @@ index 000000000000..b8254eb2c9ac
 +		MX7D_PAD_UART3_TX_DATA__UART3_DCE_TX		0x79
 +		MX7D_PAD_UART3_RTS_B__UART3_DCE_RTS		0x79
 +		MX7D_PAD_UART3_CTS_B__UART3_DCE_CTS		0x79
++		>;
++	};
++
++	pinctrl_uart4: uart4grp {
++		fsl,pins = <
++		MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79
++		MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79
++		MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79
 +		>;
 +	};
 +
@@ -801,6 +811,13 @@ index 000000000000..b8254eb2c9ac
 +	status = "okay";
 +};
 +
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart4>;
++	rts-gpios = <&gpio4 8 GPIO_ACTIVE_HIGH>;
++	status = "okay";
++};
++
 +&usbh {
 +	status = "okay";
 +	disable-over-current;
@@ -838,32 +855,32 @@ index 000000000000..b8254eb2c9ac
 +	status = "okay";
 +};
 diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
-index 116761bdad1f..e8446c8a8566 100644
+index 072c65900834..607cef6ddf22 100644
 --- a/arch/arm/mach-imx/Kconfig
 +++ b/arch/arm/mach-imx/Kconfig
-@@ -495,6 +495,10 @@ config MACH_PHYTEC_PHYCORE_IMX7
+@@ -496,6 +496,10 @@ config MACH_PHYTEC_PHYCORE_IMX7
  	bool "Phytec phyCORE i.MX7"
  	select ARCH_IMX7
  
-+config MACH_IOTMAXX_IMX7D_GATEWAY
-+	bool "IoTMaxx i.MX7D Gateway"
++config MACH_IOTMAXX_IMX7D_GW4100
++	bool "IoTMaxx i.MX7D MAXX GW4100 Gateway"
 +	select ARCH_IMX7
 +
  config MACH_FREESCALE_MX7_SABRESD
  	bool "NXP i.MX7 SabreSD Board"
  	select ARCH_IMX7
 diff --git a/images/Makefile.imx b/images/Makefile.imx
-index 765702f26deb..aad94ac8511f 100644
+index 765702f26deb..30c6a3e5c5d9 100644
 --- a/images/Makefile.imx
 +++ b/images/Makefile.imx
 @@ -349,6 +349,11 @@ CFG_start_imx7d_sabresd.pblb.imximg = $(board)/freescale-mx7-sabresd/flash-heade
  FILE_barebox-freescale-mx7-sabresd.img = start_imx7d_sabresd.pblb.imximg
  image-$(CONFIG_MACH_FREESCALE_MX7_SABRESD) += barebox-freescale-mx7-sabresd.img
  
-+pblb-$(CONFIG_MACH_IOTMAXX_IMX7D_GATEWAY) += start_imx7d_iotmaxx_gateway
-+CFG_start_imx7d_iotmaxx_gateway.pblb.imximg = $(board)/iotmaxx-gateway/flash-header-iotmaxx-imx7d-gateway.imxcfg
-+FILE_barebox-iotmaxx-imx7d-gateway.img = start_imx7d_iotmaxx_gateway.pblb.imximg
-+image-$(CONFIG_MACH_IOTMAXX_IMX7D_GATEWAY) += barebox-iotmaxx-imx7d-gateway.img
++pblb-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += start_imx7d_iotmaxx_gw4100
++CFG_start_imx7d_iotmaxx_gw4100.pblb.imximg = $(board)/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
++FILE_barebox-iotmaxx-imx7d-gw4100.img = start_imx7d_iotmaxx_gw4100.pblb.imximg
++image-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += barebox-iotmaxx-imx7d-gw4100.img
 +
  pblb-$(CONFIG_MACH_PHYTEC_PHYCORE_IMX7) += start_phytec_phycore_imx7
  CFG_start_phytec_phycore_imx7.pblb.imximg = $(board)/phytec-phycore-imx7/flash-header-phytec-phycore-imx7.imxcfg
