@@ -1,12 +1,13 @@
 # umpf-base: v5.7-rc1
-# umpf-name: 5.7/customers/iotmaxx/boards/gateway
-# umpf-version: 5.7/customers/iotmaxx/boards/gateway/20200513-1
+# umpf-name: 5.7/customers/iotmaxx/gateway
+# umpf-version: 5.7/customers/iotmaxx/gateway/20200518-3
 # umpf-topic: v5.7/customers/iotmaxx/boards/gateway
-# umpf-hashinfo: ae1d11c1ab2173dcf8fca16dfb566868dc9431a1
-# umpf-topic-range: 8f3d9f354286745c751374f5f1fcafee6b3f3136..e53e64a9b1e3e429e87b0cef1207b15651e543e3
-0001-ARM-imx7-add-support-for-iotmaxx-gateway.patch
+# umpf-hashinfo: 90b8581238c1097786a1e6f74db2f73120bdeae4
+# umpf-topic-range: 8f3d9f354286745c751374f5f1fcafee6b3f3136..9b564fb3a3fad3f73ce4a92e749f663bbf357b3e
+0001-ARM-dts-imx7d-pinfunc-add-input-mux-for-ENET2-mdio.patch
 0002-ARM-imx7d-add-phy-fixup-and-change-enet2-clock-for-g.patch
-# umpf-release: 5.7/customers/iotmaxx/boards/gateway/20200513-1
-# umpf-topic-range: e53e64a9b1e3e429e87b0cef1207b15651e543e3..ab6de50aa9ced8a3c8e1f36c12ec7d87b2986321
-0101-Release-5.7-customers-iotmaxx-boards-gateway-2020051.patch
+0003-ARM-imx7-add-support-for-iotmaxx-gateway.patch
+# umpf-release: 5.7/customers/iotmaxx/gateway/20200518-3
+# umpf-topic-range: 9b564fb3a3fad3f73ce4a92e749f663bbf357b3e..2308f4bf2a71b30749ef7b2ea803cda8231fc359
+0101-Release-5.7-customers-iotmaxx-gateway-20200518-3.patch
 # umpf-end
