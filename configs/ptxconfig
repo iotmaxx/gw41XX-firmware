@@ -3,6 +3,7 @@
 # PTXdist 2020.05.0
 #
 PTXCONF_FIRMWARE=y
+PTXCONF_PROJECTFILES=y
 
 #
 # ------------------------------------

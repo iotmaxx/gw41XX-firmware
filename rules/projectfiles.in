@@ -1,0 +1,6 @@
+## SECTION=project_specific
+
+config PROJECTFILES
+        prompt "Enable project-specific files"
+        bool
+        default y
