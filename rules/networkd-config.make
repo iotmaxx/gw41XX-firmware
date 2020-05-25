@@ -31,6 +31,8 @@ $(STATEDIR)/networkd-config.targetinstall:
 	# install can
 	@$(call install_alternative, networkd-config, 0, 0, 0644, \
 		/etc/systemd/network/30-can.network)
+	@$(call install_alternative, networkd-config, 0, 0, 0644, \
+		/etc/systemd/network/10-eth0.network)
 
 	@$(call install_finish,networkd-config)
 
