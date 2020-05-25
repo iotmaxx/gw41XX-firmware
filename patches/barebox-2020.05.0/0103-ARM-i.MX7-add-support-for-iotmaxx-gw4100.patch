@@ -11,10 +11,10 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  arch/arm/boards/iotmaxx-gw4100/lowlevel.c          |  44 ++
  arch/arm/dts/Makefile                              |   1 +
  arch/arm/dts/imx7d-iotmaxx-gw4100.dts              | 173 ++++++++
- arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi             | 471 +++++++++++++++++++++
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi             | 464 +++++++++++++++++++++
  arch/arm/mach-imx/Kconfig                          |   4 +
  images/Makefile.imx                                |   5 +
- 10 files changed, 783 insertions(+)
+ 10 files changed, 776 insertions(+)
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/Makefile
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/board.c
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
@@ -379,10 +379,10 @@ index 000000000000..4179d6106dcd
 +};
 diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi b/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi
 new file mode 100644
-index 000000000000..7fe7dd05df14
+index 000000000000..01d3ef8e1c46
 --- /dev/null
 +++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dtsi
-@@ -0,0 +1,471 @@
+@@ -0,0 +1,464 @@
 +// FIXME: delete when define is fixed in upstream
 +#define MX7D_PAD_UART2_RX_DATA__ENET2_MDIO                        0x0130 0x03A0 0x0574 0x6 0x1
 +
@@ -447,15 +447,6 @@ index 000000000000..7fe7dd05df14
 +		regulator-always-on;
 +	};
 +
-+	reg_usb_gsm_reset: regulator-usb-gsm-reset {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb_gsm_reset";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio4 17 GPIO_ACTIVE_LOW>;
-+		regulator-always-on;
-+	};
-+
 +	reg_usb_gsm_power_on_off: regulator-usb-gsm-on-off {
 +		compatible = "regulator-fixed";
 +		regulator-name = "usb_gsm_power_on_off";
@@ -509,7 +500,7 @@ index 000000000000..7fe7dd05df14
 +	status = "okay";
 +
 +	gpio-line-names = "",
-+	"", "5v_periph_en", "", "", "",
++	"", "5v_periph_en", "", "sim_cd1", "sim_cd2",
 +	"", "", "", "", "",
 +	"", "", "", "", "gsm_pwr_en_3v3",
 +	"", "", "n_usbhub_int", "usbhub_connect", "",
@@ -643,6 +634,8 @@ index 000000000000..7fe7dd05df14
 +		fsl,pins = <
 +		MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x14	/* 5V_PERIPH_EN */
 +		MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x40000059	/* GSM_PWR_EN_3V3 */
++		MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14	/* SIM_CD1 */
++		MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14	/* SIM_CD2 */
 +		>;
 +	};
 +
