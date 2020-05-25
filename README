@@ -66,3 +66,50 @@ To update barebox
   fastboot flash barebox platform-iotmaxx-gateway/images/barebox-iotmaxx-imx7d-gateway.img
 
 Now reset the board.
+
+
+GSM Modem
+=========
+
+For testing purposes a small script sim_setup.sh is included in projectroot/usr/bin.
+This sets the GPIOs for SIM-card 2 usage.
+
+The modem can then be used with
+
+oot@Gateway:~ mmcli -m 1
+  --------------------------------
+  General  |            dbus path: /org/freedesktop/ModemManager1/Modem/1
+           |            device id: dd1983f3c13bd25a19647d2fca076dad57ef5c57
+  --------------------------------
+  Hardware |         manufacturer: Quectel
+           |                model: EC21
+           |    firmware revision: EC21EFAR06A02M4G
+           |            supported: gsm-umts, lte
+           |              current: gsm-umts, lte
+           |         equipment id: 867962042149685
+  --------------------------------
+  System   |               device: /sys/devices/platform/soc/30800000.bus/30b30000.usb/ci_hdrc.1/usb1/1-1/1-1.1
+           |              drivers: option1
+           |               plugin: Quectel
+           |         primary port: ttyUSB2
+           |                ports: ttyUSB0 (qcdm), ttyUSB2 (at), ttyUSB3 (at)
+  --------------------------------
+  Numbers  |                  own: +4915140075573
+  --------------------------------
+  Status   |       unlock retries: sim-pin (3), sim-puk (10), sim-pin2 (3), sim-puk2 (10)
+           |                state: disabled
+           |          power state: on
+           |       signal quality: 0% (cached)
+  --------------------------------
+  Modes    |            supported: allowed: 2g, 3g, 4g; preferred: none
+           |              current: allowed: 2g, 3g, 4g; preferred: none
+  --------------------------------
+  IP       |            supported: ipv4, ipv6, ipv4v6
+  --------------------------------
+  3GPP     |                 imei: 867962042149685
+  --------------------------------
+  3GPP EPS | ue mode of operation: csps-2
+  --------------------------------
+  SIM      |            dbus path: /org/freedesktop/ModemManager1/SIM/0 
+
+After every reset the modem increases its number.
