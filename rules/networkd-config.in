@@ -1,0 +1,5 @@
+## SECTION=project_specific
+
+config NETWORKD_CONFIG 
+	tristate
+	default y

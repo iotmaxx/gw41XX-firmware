@@ -3,6 +3,7 @@
 # PTXdist 2020.05.0
 #
 PTXCONF_FIRMWARE=y
+PTXCONF_NETWORKD_CONFIG=y
 PTXCONF_PROJECTFILES=y
 
 #
@@ -260,6 +261,7 @@ PTXCONF_USR_ROOTFS=y
 #
 PTXCONF_BASE=y
 # PTXCONF_GLOBAL_PAM is not set
+# PTXCONF_GLOBAL_SELINUX is not set
 # PTXCONF_CRYPTODEV_API is not set
 # PTXCONF_CRYPTODEV is not set
 
@@ -627,7 +629,7 @@ PTXCONF_BUSYBOX_FEATURE_SORT_BIG=y
 PTXCONF_BUSYBOX_STAT=y
 # PTXCONF_BUSYBOX_FEATURE_STAT_FORMAT is not set
 PTXCONF_BUSYBOX_FEATURE_STAT_FILESYSTEM=y
-PTXCONF_BUSYBOX_STTY=y
+# PTXCONF_BUSYBOX_STTY is not set
 PTXCONF_BUSYBOX_SUM=y
 PTXCONF_BUSYBOX_SYNC=y
 # PTXCONF_BUSYBOX_FEATURE_SYNC_FANCY is not set
@@ -1214,7 +1216,295 @@ PTXCONF_BUSYBOX_LOGGER=y
 # PTXCONF_BUSYBOX_SYSLOGD is not set
 # PTXCONF_BZIP2 is not set
 # PTXCONF_COLLECTD is not set
-# PTXCONF_COREUTILS is not set
+PTXCONF_COREUTILS=y
+
+#
+# busybox' echo is selected!
+#
+
+#
+# busybox' stat is selected!
+#
+
+#
+# busybox' date is selected!
+#
+# PTXCONF_COREUTILS_HOSTID is not set
+
+#
+# busybox' uname is selected!
+#
+# PTXCONF_COREUTILS_DIRCOLORS is not set
+
+#
+# busybox' seq is selected!
+#
+
+#
+# busybox' nohup is selected!
+#
+
+#
+# busybox' groups is selected!
+#
+# PTXCONF_COREUTILS_SHA224SUM is not set
+
+#
+# busybox' expr is selected!
+#
+# PTXCONF_COREUTILS_TRUNCATE is not set
+# PTXCONF_COREUTILS_CHCON is not set
+
+#
+# busybox' printf is selected!
+#
+
+#
+# busybox' rmdir is selected!
+#
+
+#
+# busybox' printenv is selected!
+#
+# PTXCONF_COREUTILS_EXPAND is not set
+
+#
+# busybox' chmod is selected!
+#
+
+#
+# busybox' chown is selected!
+#
+# PTXCONF_COREUTILS_SHA512SUM is not set
+
+#
+# busybox' uniq is selected!
+#
+# PTXCONF_COREUTILS_INSTALL is not set
+
+#
+# busybox' tty is selected!
+#
+# PTXCONF_COREUTILS_SHA384SUM is not set
+
+#
+# busybox' cut is selected!
+#
+# PTXCONF_COREUTILS_SHRED is not set
+
+#
+# busybox' od is selected!
+#
+
+#
+# busybox' chgrp is selected!
+#
+# PTXCONF_COREUTILS_DIR is not set
+
+#
+# busybox' mkfifo is selected!
+#
+
+#
+# busybox' chroot is selected!
+#
+
+#
+# busybox' ln is selected!
+#
+
+#
+# busybox' sum is selected!
+#
+
+#
+# busybox' users is selected!
+#
+
+#
+# busybox' touch is selected!
+#
+
+#
+# busybox' paste is selected!
+#
+
+#
+# busybox' mknod is selected!
+#
+# PTXCONF_COREUTILS_TSORT is not set
+
+#
+# busybox' mktemp is selected!
+#
+# PTXCONF_COREUTILS_RUNCON is not set
+
+#
+# busybox' readlink is selected!
+#
+
+#
+# busybox' realpath is selected!
+#
+# PTXCONF_COREUTILS_TAC is not set
+
+#
+# busybox' md5sum is selected!
+#
+
+#
+# busybox' dd is selected!
+#
+
+#
+# busybox' df is selected!
+#
+
+#
+# busybox' yes is selected!
+#
+# PTXCONF_COREUTILS_FACTOR is not set
+# PTXCONF_COREUTILS_JOIN is not set
+
+#
+# busybox' pwd is selected!
+#
+# PTXCONF_COREUTILS_SHUF is not set
+# PTXCONF_COREUTILS_SHA1SUM is not set
+# PTXCONF_COREUTILS_TR is not set
+# PTXCONF_COREUTILS_CSPLIT is not set
+
+#
+# busybox' du is selected!
+#
+
+#
+# busybox' tail is selected!
+#
+# PTXCONF_COREUTILS_PTX is not set
+# PTXCONF_COREUTILS_BASE64 is not set
+# PTXCONF_COREUTILS_TIMEOUT is not set
+
+#
+# busybox' sort is selected!
+#
+
+#
+# busybox' false is selected!
+#
+
+#
+# busybox' dirname is selected!
+#
+
+#
+# busybox' test is selected!
+#
+# PTXCONF_COREUTILS_FMT is not set
+# PTXCONF_COREUTILS_STDBUF is not set
+# PTXCONF_COREUTILS_PINKY is not set
+
+#
+# busybox' basename is selected!
+#
+# PTXCONF_COREUTILS_ID is not set
+
+#
+# busybox' link is selected!
+#
+
+#
+# busybox' sleep is selected!
+#
+# PTXCONF_COREUTILS_SHA256SUM is not set
+
+#
+# busybox' env is selected!
+#
+
+#
+# busybox' who is selected!
+#
+# PTXCONF_COREUTILS_LOGNAME is not set
+
+#
+# busybox' whoami is selected!
+#
+PTXCONF_COREUTILS_STTY=y
+# PTXCONF_COREUTILS_PATHCHK is not set
+
+#
+# busybox' nl is selected!
+#
+
+#
+# busybox' wc is selected!
+#
+# PTXCONF_COREUTILS_UNLINK is not set
+# PTXCONF_COREUTILS_UNEXPAND is not set
+
+#
+# busybox' nproc is selected!
+#
+# PTXCONF_COREUTILS_NUMFMT is not set
+# PTXCONF_COREUTILS_VDIR is not set
+
+#
+# busybox' sync is selected!
+#
+
+#
+# busybox' rm is selected!
+#
+# PTXCONF_COREUTILS_CKSUM is not set
+
+#
+# busybox' tee is selected!
+#
+
+#
+# busybox' mkdir is selected!
+#
+
+#
+# busybox' mv is selected!
+#
+
+#
+# busybox' ls is selected!
+#
+
+#
+# busybox' head is selected!
+#
+
+#
+# busybox' true is selected!
+#
+
+#
+# busybox' cat is selected!
+#
+
+#
+# busybox' kill is selected!
+#
+
+#
+# busybox' cp is selected!
+#
+# PTXCONF_COREUTILS_COMM is not set
+# PTXCONF_COREUTILS_SPLIT is not set
+# PTXCONF_COREUTILS_FOLD is not set
+# PTXCONF_COREUTILS_PR is not set
+
+#
+# busybox' uptime is selected!
+#
+
+#
+# busybox' nice is selected!
+#
 # PTXCONF_CPUFREQUTILS is not set
 # PTXCONF_DAEMONIZE is not set
 # PTXCONF_DASH is not set
@@ -1338,7 +1628,8 @@ PTXCONF_PROCPS_TOP=y
 # PTXCONF_RNG_TOOLS is not set
 # PTXCONF_SCHED_SWITCH is not set
 # PTXCONF_SCHEDTOOL is not set
-# PTXCONF_SCREEN is not set
+PTXCONF_SCREEN=y
+# PTXCONF_SCREEN_ETC_SCREENRC is not set
 
 #
 # BusyBox' sed selected
@@ -1687,7 +1978,7 @@ PTXCONF_LIBQMI=y
 # PTXCONF_LLDPD is not set
 # PTXCONF_LSH is not set
 # PTXCONF_MEMCACHED is not set
-# PTXCONF_MICROCOM is not set
+PTXCONF_MICROCOM=y
 # PTXCONF_MII_DIAG is not set
 PTXCONF_MODEMMANAGER=y
 PTXCONF_MODEMMANAGER_SYSTEMD_UNIT=y
@@ -1860,13 +2151,40 @@ PTXCONF_MMC_UTILS=y
 #
 # Communication Utilities       
 #
-# PTXCONF_BERLIOS_CAN_UTILS is not set
+PTXCONF_BERLIOS_CAN_UTILS=y
+# PTXCONF_BERLIOS_CAN_UTILS_ASC2LOG is not set
+# PTXCONF_BERLIOS_CAN_UTILS_BCMSERVER is not set
+# PTXCONF_BERLIOS_CAN_UTILS_CANBUSLOAD is not set
+PTXCONF_BERLIOS_CAN_UTILS_CANDUMP=y
+PTXCONF_BERLIOS_CAN_UTILS_CANFDTEST=y
+PTXCONF_BERLIOS_CAN_UTILS_CANGEN=y
+# PTXCONF_BERLIOS_CAN_UTILS_CANGW is not set
+# PTXCONF_BERLIOS_CAN_UTILS_CANLOGSERVER is not set
+# PTXCONF_BERLIOS_CAN_UTILS_CANPLAYER is not set
+PTXCONF_BERLIOS_CAN_UTILS_CANSEND=y
+PTXCONF_BERLIOS_CAN_UTILS_CANSNIFFER=y
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPDUMP is not set
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPRECV is not set
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPSEND is not set
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPSERVER is not set
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPSNIFFER is not set
+# PTXCONF_BERLIOS_CAN_UTILS_ISOTPTUN is not set
+# PTXCONF_BERLIOS_CAN_UTILS_LOG2ASC is not set
+# PTXCONF_BERLIOS_CAN_UTILS_LOG2LONG is not set
+# PTXCONF_BERLIOS_CAN_UTILS_SLCAN_ATTACH is not set
+# PTXCONF_BERLIOS_CAN_UTILS_SLCAND is not set
+# PTXCONF_BERLIOS_CAN_UTILS_SLCANPTY is not set
+# PTXCONF_BERLIOS_CAN_UTILS_JSPY is not set
+# PTXCONF_BERLIOS_CAN_UTILS_JSR is not set
+# PTXCONF_BERLIOS_CAN_UTILS_JACD is not set
+# PTXCONF_BERLIOS_CAN_UTILS_JCAT is not set
+# PTXCONF_BERLIOS_CAN_UTILS_TESTJ1939 is not set
 # PTXCONF_BLUEZ is not set
 # PTXCONF_CKERMIT is not set
 # PTXCONF_EFAX is not set
 # PTXCONF_HEIRLOOM_MAILX is not set
 # PTXCONF_IMX_UUC is not set
-# PTXCONF_LIBSOCKETCAN is not set
+PTXCONF_LIBSOCKETCAN=y
 # PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
 # PTXCONF_OPEN62541 is not set
@@ -2374,4 +2692,37 @@ PTXCONF_GLIB=y
 #
 # ------------------------------------
 #
-# PTXCONF_STAGING is not set
+PTXCONF_STAGING=y
+PTXCONF_CANUTILS=y
+# PTXCONF_CANUTILS_CANCONFIG is not set
+# PTXCONF_CANUTILS_CANDUMP is not set
+# PTXCONF_CANUTILS_CANECHO is not set
+# PTXCONF_CANUTILS_CANSEND is not set
+# PTXCONF_CANUTILS_CANSEQUENCE is not set
+# PTXCONF_COMMONCPP2 is not set
+# PTXCONF_DC3DD is not set
+# PTXCONF_GETTEXT is not set
+# PTXCONF_GST_PLUGINS_BAD is not set
+# PTXCONF_GST_PLUGINS_BASE is not set
+# PTXCONF_GST_PLUGINS_FSL_VPU is not set
+# PTXCONF_GST_PLUGINS_GL is not set
+# PTXCONF_GST_PLUGINS_GOOD is not set
+# PTXCONF_GST_PLUGINS_UGLY is not set
+# PTXCONF_GSTREAMER is not set
+# PTXCONF_LIBCGIC is not set
+# PTXCONF_LIBNL is not set
+# PTXCONF_LIBSELINUX is not set
+# PTXCONF_LIBSEMANAGE is not set
+# PTXCONF_LIBWEBSOCKETS is not set
+# PTXCONF_MONO is not set
+# PTXCONF_MSMTP is not set
+# PTXCONF_OPTEE_TEST is not set
+# PTXCONF_ORACLE_JAVA7_JRE is not set
+# PTXCONF_PHP5 is not set
+# PTXCONF_POLICYCOREUTILS is not set
+# PTXCONF_PYSIDE is not set
+# PTXCONF_SEPOLGEN is not set
+# PTXCONF_SHIBOKEN is not set
+# PTXCONF_TCPWRAPPER is not set
+# PTXCONF_UDISKS is not set
+# PTXCONF_UNSTRUNG is not set
