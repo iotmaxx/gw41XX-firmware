@@ -6,8 +6,8 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                  |   1 +
  arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts  |  65 ++++
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi | 464 ++++++++++++++++++++++++++++
- 3 files changed, 530 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi | 465 ++++++++++++++++++++++++++++
+ 3 files changed, 531 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
 
@@ -96,10 +96,10 @@ index 000000000000..ca03cb7d2660
 +};
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
 new file mode 100644
-index 000000000000..01d3ef8e1c46
+index 000000000000..ca4c87b114ed
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
-@@ -0,0 +1,464 @@
+@@ -0,0 +1,465 @@
 +// FIXME: delete when define is fixed in upstream
 +#define MX7D_PAD_UART2_RX_DATA__ENET2_MDIO                        0x0130 0x03A0 0x0574 0x6 0x1
 +
@@ -525,6 +525,7 @@ index 000000000000..01d3ef8e1c46
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_uart4>;
 +	rts-gpios = <&gpio4 8 GPIO_ACTIVE_HIGH>;
++	linux,rs485-enabled-at-boot-time;
 +	status = "okay";
 +};
 +
