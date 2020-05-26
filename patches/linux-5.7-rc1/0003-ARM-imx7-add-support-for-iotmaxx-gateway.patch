@@ -4,12 +4,10 @@ Subject: [PATCH] ARM: imx7: add support for iotmaxx gateway
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- arch/arm/boot/dts/Makefile                  |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts  |  65 ++++
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi | 465 ++++++++++++++++++++++++++++
- 3 files changed, 531 insertions(+)
+ arch/arm/boot/dts/Makefile                 |   1 +
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 537 +++++++++++++++++++++++++++++
+ 2 files changed, 538 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
- create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
 index e8dd99201397..f596492a115c 100644
@@ -25,83 +23,17 @@ index e8dd99201397..f596492a115c 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..ca03cb7d2660
+index 000000000000..91befd26072f
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,537 @@
++// SPDX-License-Identifier: GPL-2.0+
++/*
++* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
++*/
++
 +/dts-v1/;
-+
 +#include "imx7d.dtsi"
-+#include "imx7d-iotmaxx-gw4100.dtsi"
-+
-+/ {
-+	iio-hwmon {
-+		compatible = "iio-hwmon";
-+		io-channels = <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
-+			      <&adc2 0>, <&adc2 1>, <&adc2 2>;
-+	};
-+};
-+
-+&adc1 {
-+	status = "okay";
-+};
-+
-+&adc2 {
-+	status = "okay";
-+};
-+
-+&fec2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_enet2>,
-+		    <&pinctrl_mdio>;
-+	assigned-clocks = <&clks IMX7D_ENET2_TIME_ROOT_SRC>,
-+			  <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
-+			  <&clks IMX7D_ENET_PHY_REF_ROOT_DIV>;
-+	assigned-clock-parents = <&clks IMX7D_PLL_ENET_MAIN_100M_CLK>;
-+	assigned-clock-rates = <0>, <100000000>, <50000000>;
-+	clocks = <&clks IMX7D_ENET2_IPG_ROOT_CLK>,
-+		 <&clks IMX7D_ENET_AXI_ROOT_CLK>,
-+		 <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
-+		 <&clks IMX7D_PLL_ENET_MAIN_50M_CLK>,
-+		 <&clks IMX7D_ENET2_REF_ROOT_DIV>;
-+	clock-names = "ipg", "ahb", "ptp",
-+		      "enet_clk_ref", "enet_out";
-+	phy-handle = <&ethphy1>;
-+	phy-mode = "rmii";
-+	phy-reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
-+	fsl,magic-packet;
-+	status = "okay";
-+
-+	mdio {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		ethphy1: ethernet-phy@1 {
-+			pinctrl-names = "default";
-+			pinctrl-0 = <&pinctrl_rmii_phy_irq>;
-+			interrupt-parent = <&gpio2>;
-+			interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
-+
-+			clocks = <&clks IMX7D_ENET2_REF_ROOT_DIV>;
-+			clock-names = "rmii-ref";
-+			reg = <1>;
-+		};
-+	};
-+};
-+
-+&flexcan1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_flexcan1>;
-+	status = "okay";
-+};
-diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
-new file mode 100644
-index 000000000000..ca4c87b114ed
---- /dev/null
-+++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dtsi
-@@ -0,0 +1,465 @@
-+// FIXME: delete when define is fixed in upstream
-+#define MX7D_PAD_UART2_RX_DATA__ENET2_MDIO                        0x0130 0x03A0 0x0574 0x6 0x1
 +
 +/ {
 +	model = "IoTMAXX i.MX7D GW4100 Gateway";
@@ -114,6 +46,12 @@ index 000000000000..ca4c87b114ed
 +	memory {
 +		device_type = "memory";
 +		reg = <0x80000000 0x40000000>;
++	};
++
++	iio-hwmon {
++		compatible = "iio-hwmon";
++		io-channels = <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,
++			      <&adc2 0>, <&adc2 1>, <&adc2 2>;
 +	};
 +
 +	gpio-leds {
@@ -131,6 +69,22 @@ index 000000000000..ca4c87b114ed
 +			label = "iotmaxx:green:usr2";
 +			gpios = <&gpio4 14 GPIO_ACTIVE_HIGH>;
 +		};
++	};
++
++	reg_ldo_emmc_3v3: ldo_emmc_3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "ldo_emmc_v3v3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
++	reg_dcdc_1v8: ldo_dcdc_1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "ldo_dcdc_1v8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-always-on;
 +	};
 +
 +	reg_5v_periph: regulator-5v-periph {
@@ -164,18 +118,6 @@ index 000000000000..ca4c87b114ed
 +		regulator-always-on;
 +	};
 +
-+	reg_usb_gsm_power_on_off: regulator-usb-gsm-on-off {
-+		compatible = "regulator-fixed";
-+		regulator-name = "usb_gsm_power_on_off";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_usb_gsm_pwr>;
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpio = <&gpio4 18 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
 +	reg_usb_otg2_vbus: regulator-usb-otg2-vbus {
 +		compatible = "regulator-fixed";
 +		regulator-name = "usb_otg2_vbus";
@@ -188,8 +130,56 @@ index 000000000000..ca4c87b114ed
 +	};
 +};
 +
-+&fec1 {
-+	status = "disabled";
++&adc1 {
++	status = "okay";
++};
++
++&adc2 {
++	status = "okay";
++};
++
++&fec2 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_enet2>,
++		    <&pinctrl_mdio>,
++		    <&pinctrl_rmii_phy>;
++	assigned-clocks = <&clks IMX7D_ENET2_TIME_ROOT_SRC>,
++			  <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
++			  <&clks IMX7D_ENET_PHY_REF_ROOT_DIV>;
++	assigned-clock-parents = <&clks IMX7D_PLL_ENET_MAIN_100M_CLK>;
++	assigned-clock-rates = <0>, <100000000>, <50000000>;
++	clocks = <&clks IMX7D_ENET2_IPG_ROOT_CLK>,
++		 <&clks IMX7D_ENET_AXI_ROOT_CLK>,
++		 <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
++		 <&clks IMX7D_PLL_ENET_MAIN_50M_CLK>,
++		 <&clks IMX7D_ENET2_REF_ROOT_DIV>;
++	clock-names = "ipg", "ahb", "ptp",
++		      "enet_clk_ref", "enet_out";
++	phy-handle = <&ethphy1>;
++	phy-mode = "rmii";
++	phy-reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
++	fsl,magic-packet;
++	status = "okay";
++
++	mdio {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		ethphy1: ethernet-phy@1 {
++			interrupt-parent = <&gpio2>;
++			interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
++
++			clocks = <&clks IMX7D_ENET2_REF_ROOT_DIV>;
++			clock-names = "rmii-ref";
++			reg = <1>;
++		};
++	};
++};
++
++&flexcan1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_flexcan1>;
++	status = "okay";
 +};
 +
 +&gpio1 {
@@ -197,18 +187,13 @@ index 000000000000..ca4c87b114ed
 +	pinctrl-0 = <&pinctrl_gpio1>;
 +
 +	gpio-line-names = "gpio1_highside",
-+	"gpio1_lowside",
-+	"gpio1_pullup",
-+	"n_gpio1_in",
-+	"gpio2_highside",
-+	"gpio2_lowside",
-+	"n_usb_ext_oc",
-+	"usb_ext_pwr", "", "",
-+	"", "",	"", "", "",
++	"gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
++	"n_usb_ext_oc",	"usb_ext_pwr", "", "", "",
 +	"", "", "", "", "",
 +	"", "", "", "", "",
 +	"", "", "", "", "",
-+	"", "";
++	"", "", "", "", "",
++	"";
 +};
 +
 +&gpio2 {
@@ -243,17 +228,25 @@ index 000000000000..ca4c87b114ed
 +
 +&gpio4 {
 +	pinctrl-names = "default";
-+	pinctrl-0 = <&pinctrl_gpio4>;
++	pinctrl-0 = <&pinctrl_gpio4>,
++	            <&pinctrl_gpio4_hog>;
 +	status = "okay";
 +
 +	gpio-line-names = "",
 +	"", "", "", "",	"",
 +	"", "", "", "", "",
 +	"", "n_can_term_en", "", "led_usr2", "led_usr1",
-+	"sim_sel", "gsm_rst", "gsm_power_on_off", "n_gsm_pwr_ind", "",
++	"sim_sel", "gsm_reset", "", "n_gsm_pwr_ind", "",
 +	"", "", "", "", "",
 +	"", "", "", "", "",
 +	"";
++
++	gsm-pwr-on-off {
++		gpio-hog;
++		gpios = <18 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "gsm_power_on_off";
++	};
 +};
 +
 +&i2c1 {
@@ -320,7 +313,7 @@ index 000000000000..ca4c87b114ed
 +		MX7D_PAD_UART2_TX_DATA__ENET2_MDC		0x3  	/* ENET_MDC */
 +		>;
 +	};
-+	pinctrl_enet2: enet1grp {
++	pinctrl_enet2: enet2grp {
 +		fsl,pins = <
 +		MX7D_PAD_EPDC_SDCE0__ENET2_RGMII_RX_CTL		0x5	/* ENET2_CRS_DV */
 +		MX7D_PAD_EPDC_SDCE1__ENET2_RX_ER		0x5	/* ENET2_RXER */
@@ -330,12 +323,12 @@ index 000000000000..ca4c87b114ed
 +		MX7D_PAD_EPDC_SDLE__ENET2_RGMII_RD1		0x5	/* ENET2_RXD1 */
 +		MX7D_PAD_EPDC_GDCLK__GPIO2_IO24			0x5	/* ENET2_B-CAST_OFF */
 +		MX7D_PAD_EPDC_GDRL__ENET2_RGMII_TX_CTL		0x5	/* ENET2_TXEN */
-+		MX7D_PAD_EPDC_GDSP__GPIO2_IO27			0x59	/* !ENET2_RST */
 +		MX7D_PAD_EPDC_BDR0__CCM_ENET_REF_CLK2		0x40000001	/* ENET2_TX_CLK */
 +		>;
 +	};
-+	pinctrl_rmii_phy_irq: phygrp {
++	pinctrl_rmii_phy: phygrp {
 +		fsl,pins = <
++		MX7D_PAD_EPDC_GDSP__GPIO2_IO27			0x59	/* !ENET2_RST */
 +		MX7D_PAD_EPDC_GDOE__GPIO2_IO25			0x59	/* !ENET2_INT */
 +		>;
 +	};
@@ -365,10 +358,16 @@ index 000000000000..ca4c87b114ed
 +
 +	pinctrl_gpio4: gpio4grp {
 +		fsl,pins = <
-+		MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x59	/* GSM_RST */
 +		MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x40000059	/* !GSM_PWR_IND */
 +		MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59
 +		MX7D_PAD_I2C3_SCL__GPIO4_IO12			0x59	/* !CAN_TERM_EN */
++		MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x03	/* GSM_RST */
++		>;
++	};
++
++	pinctrl_gpio4_hog: gpio4hoggrp {
++		fsl,pins = <
++		MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73	/* GSM_POWER_ON_OFF */
 +		>;
 +	};
 +
@@ -395,8 +394,8 @@ index 000000000000..ca4c87b114ed
 +
 +	pinctrl_leds_usr: ledsusrgrp {
 +		fsl,pins = <
-+		MX7D_PAD_I2C4_SDA__GPIO4_IO15			0x59	/* LED USR1 */
-+		MX7D_PAD_I2C4_SCL__GPIO4_IO14			0x59	/* LED USR2 */
++		MX7D_PAD_I2C4_SDA__GPIO4_IO15			0x51	/* LED USR1 */
++		MX7D_PAD_I2C4_SCL__GPIO4_IO14			0x51	/* LED USR2 */
 +		>;
 +	};
 +
@@ -411,15 +410,9 @@ index 000000000000..ca4c87b114ed
 +
 +	pinctrl_uart4: uart4grp {
 +		fsl,pins = <
-+		MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79
-+		MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79
-+		MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79
-+		>;
-+	};
-+
-+	pinctrl_usb_gsm_pwr: usbgsmpwrgrp {
-+		fsl,pins = <
-+		MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x40000059	/* GSM_POWER_ON_OFF */
++		MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79	/* RS485_DE */
++		MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79	/* RS485_R */
++		MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79	/* RS458_D */
 +		>;
 +	};
 +
@@ -521,6 +514,7 @@ index 000000000000..ca4c87b114ed
 +	status = "okay";
 +};
 +
++/* Maxlinear SP483 RS-485 transceiver */
 +&uart4 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_uart4>;
@@ -561,7 +555,12 @@ index 000000000000..ca4c87b114ed
 +	assigned-clocks = <&clks IMX7D_USDHC3_ROOT_CLK>;
 +	assigned-clock-rates = <400000000>;
 +	bus-width = <8>;
++	no-sd;
++	no-sdio;
++	disable-wp;
 +	fsl,tuning-step = <2>;
 +	non-removable;
++	vmmc-supply = <&reg_ldo_emmc_3v3>;
++	vqmmc-supply = <&reg_dcdc_1v8>;
 +	status = "okay";
 +};
