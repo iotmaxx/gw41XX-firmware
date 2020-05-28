@@ -1,6 +1,10 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 Date: Mon, 4 May 2020 15:07:52 +0200
-Subject: [PATCH] ARM: imx7d: add phy fixup and change enet2 clock for gateway
+Subject: [PATCH] ARM: imx7d: add enet2 clk sel
+
+Add clock source init for the second ethernet port.
+This changes the clock direction and clock selection in a way that the
+ethernet phy reference clock is routed as an output.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---

@@ -1,12 +1,17 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 Date: Thu, 16 Apr 2020 15:02:17 +0200
-Subject: [PATCH] ARM: imx7: add support for iotmaxx gateway
+Subject: [PATCH] ARM: imx7: add support for iotmaxx GW4100
+
+The GW4100 will be an i.MX7D based board from IoTMaxx.
+The support is almost complete apart from the pmic setup which currently
+can not be used because of a hardware bug. This can and will be changed
+once it is fixed in hardware.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 537 +++++++++++++++++++++++++++++
- 2 files changed, 538 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 574 +++++++++++++++++++++++++++++
+ 2 files changed, 575 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -23,10 +28,10 @@ index e8dd99201397..f596492a115c 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..91befd26072f
+index 000000000000..cc78dac80da2
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,537 @@
+@@ -0,0 +1,574 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -79,9 +84,25 @@ index 000000000000..91befd26072f
 +		regulator-always-on;
 +	};
 +
++	reg_ldo_misc_3v3: ldo_misc_3v3 {
++		compatible = "regulator-fixed";
++		regulator-name = "ldo_misc_v3v3";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		regulator-always-on;
++	};
++
 +	reg_dcdc_1v8: ldo_dcdc_1v8 {
 +		compatible = "regulator-fixed";
 +		regulator-name = "ldo_dcdc_1v8";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		regulator-always-on;
++	};
++
++	reg_vadc_1v8: regulator-vadc-1v8 {
++		compatible = "regulator-fixed";
++		regulator-name = "vadc_1v8";
 +		regulator-min-microvolt = <1800000>;
 +		regulator-max-microvolt = <1800000>;
 +		regulator-always-on;
@@ -118,6 +139,14 @@ index 000000000000..91befd26072f
 +		regulator-always-on;
 +	};
 +
++	reg_usb_otg1_vbus: regulator-usb-otg1-vbus {
++		compatible = "regulator-fixed";
++		regulator-name = "usb_otg1_vbus";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		regulator-always-on;
++	};
++
 +	reg_usb_otg2_vbus: regulator-usb-otg2-vbus {
 +		compatible = "regulator-fixed";
 +		regulator-name = "usb_otg2_vbus";
@@ -131,10 +160,12 @@ index 000000000000..91befd26072f
 +};
 +
 +&adc1 {
++	vref-supply = <&reg_vadc_1v8>;
 +	status = "okay";
 +};
 +
 +&adc2 {
++	vref-supply = <&reg_vadc_1v8>;
 +	status = "okay";
 +};
 +
@@ -143,11 +174,10 @@ index 000000000000..91befd26072f
 +	pinctrl-0 = <&pinctrl_enet2>,
 +		    <&pinctrl_mdio>,
 +		    <&pinctrl_rmii_phy>;
-+	assigned-clocks = <&clks IMX7D_ENET2_TIME_ROOT_SRC>,
-+			  <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
-+			  <&clks IMX7D_ENET_PHY_REF_ROOT_DIV>;
++	/* set the enet_ref_clk and enet_out with a 50MHz clock */
++	assigned-clocks = <&clks IMX7D_ENET_PHY_REF_ROOT_DIV>;
 +	assigned-clock-parents = <&clks IMX7D_PLL_ENET_MAIN_100M_CLK>;
-+	assigned-clock-rates = <0>, <100000000>, <50000000>;
++	assigned-clock-rates = <50000000>;
 +	clocks = <&clks IMX7D_ENET2_IPG_ROOT_CLK>,
 +		 <&clks IMX7D_ENET_AXI_ROOT_CLK>,
 +		 <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
@@ -179,6 +209,7 @@ index 000000000000..91befd26072f
 +&flexcan1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_flexcan1>;
++	xceiver-supply = <&reg_5v_periph>;
 +	status = "okay";
 +};
 +
@@ -254,7 +285,7 @@ index 000000000000..91befd26072f
 +	pinctrl-0 = <&pinctrl_i2c1>;
 +	status = "okay";
 +
-+	1wire@18 {
++	1wiremaster@18 {
 +		compatible = "ds2482";
 +		reg = <0x18>;
 +	};
@@ -265,9 +296,6 @@ index 000000000000..91befd26072f
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_i2c3>;
 +	status = "okay";
-+
-+	/* pmic@xx { */
-+	/* }; */
 +
 +	usb_hub: usb-hub@8 {
 +		compatible = "smsc,usb3503";
@@ -289,6 +317,7 @@ index 000000000000..91befd26072f
 +
 +	eeprom: eeprom@50 {
 +		compatible = "atmel,24c01";
++		vcc-supply = <&reg_ldo_misc_3v3>;
 +		pagesize = <8>;
 +		reg = <0x50>;
 +	};
@@ -343,7 +372,7 @@ index 000000000000..91befd26072f
 +	pinctrl_gpio2: gpio2grp {
 +		fsl,pins = <
 +		MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x14	/* 5V_PERIPH_EN */
-+		MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x40000059	/* GSM_PWR_EN_3V3 */
++		MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14	/* GSM_PWR_EN_3V3 */
 +		MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14	/* SIM_CD1 */
 +		MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14	/* SIM_CD2 */
 +		>;
@@ -358,8 +387,8 @@ index 000000000000..91befd26072f
 +
 +	pinctrl_gpio4: gpio4grp {
 +		fsl,pins = <
-+		MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x40000059	/* !GSM_PWR_IND */
-+		MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59
++		MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x59	/* !GSM_PWR_IND */
++		MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59	/* SIM_SEL */
 +		MX7D_PAD_I2C3_SCL__GPIO4_IO12			0x59	/* !CAN_TERM_EN */
 +		MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x03	/* GSM_RST */
 +		>;
@@ -523,15 +552,28 @@ index 000000000000..91befd26072f
 +	status = "okay";
 +};
 +
++&usbphynop3 {
++	vcc-supply = <&reg_ldo_misc_3v3>;
++};
++
 +&usbh {
-+	status = "okay";
 +	disable-over-current;
++	status = "okay";
++};
++
++&usbphynop1 {
++	vcc-supply = <&reg_usb_otg1_vbus>;
 +};
 +
 +&usbotg1 {
++	vbus-supply = <&reg_ldo_misc_3v3>;
 +	dr_mode = "otg";
 +	disable-over-current;
 +	status = "okay";
++};
++
++&usbphynop2 {
++	vcc-supply = <&reg_usb_otg2_vbus>;
 +};
 +
 +&usbotg2 {

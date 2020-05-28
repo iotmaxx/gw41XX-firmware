@@ -1,13 +1,14 @@
 # umpf-base: v5.7-rc1
-# umpf-name: 5.7/customers/iotmaxx/gateway
-# umpf-version: 5.7/customers/iotmaxx/gateway/20200526-2
+# umpf-name: 5.7/customers/iotmaxx/boards/gateway
+# umpf-version: 5.7/customers/iotmaxx/boards/gateway/20200528-1
 # umpf-topic: v5.7/customers/iotmaxx/boards/gateway
-# umpf-hashinfo: 6483a0603c8c7ef4509a76ec278ce2c91243f1bc
-# umpf-topic-range: 8f3d9f354286745c751374f5f1fcafee6b3f3136..b890d71e06a1be11ec186c76723f7074ddc9ff43
+# umpf-hashinfo: 44371683c170a3dbb73b376c7adf5cebcc77ed77
+# umpf-topic-range: 8f3d9f354286745c751374f5f1fcafee6b3f3136..84f36ec3bd3c5b1162f4cfdb2d43ba11fa499026
 0001-ARM-dts-imx7d-pinfunc-add-input-mux-for-ENET2-mdio.patch
-0002-ARM-imx7d-add-phy-fixup-and-change-enet2-clock-for-g.patch
-0003-ARM-imx7-add-support-for-iotmaxx-gateway.patch
-# umpf-release: 5.7/customers/iotmaxx/gateway/20200526-2
-# umpf-topic-range: b890d71e06a1be11ec186c76723f7074ddc9ff43..207000cdec1ee444da261bf1ecf266a4e9dc713b
-0101-Release-5.7-customers-iotmaxx-gateway-20200526-2.patch
+0002-ARM-imx7d-add-enet2-clk-sel.patch
+0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
+0004-ARM-imx7-add-support-for-iotmaxx-GW4100.patch
+# umpf-release: 5.7/customers/iotmaxx/boards/gateway/20200528-1
+# umpf-topic-range: 84f36ec3bd3c5b1162f4cfdb2d43ba11fa499026..f66966de9e23bda431eff374979667b006a43ab2
+0101-Release-5.7-customers-iotmaxx-boards-gateway-2020052.patch
 # umpf-end
