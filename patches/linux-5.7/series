@@ -1,0 +1,14 @@
+# umpf-base: v5.7
+# umpf-name: 5.7/customers/iotmaxx/gateway
+# umpf-version: 5.7/customers/iotmaxx/gateway/20200602-1
+# umpf-topic: v5.7/customers/iotmaxx/boards/gateway
+# umpf-hashinfo: 44371683c170a3dbb73b376c7adf5cebcc77ed77
+# umpf-topic-range: 3d77e6a8804abcc0504c904bd6e5cdf3a5cf8162..d2517e960a72e523458ada2994f20b693652a4fc
+0001-ARM-dts-imx7d-pinfunc-add-input-mux-for-ENET2-mdio.patch
+0002-ARM-imx7d-add-enet2-clk-sel.patch
+0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
+0004-ARM-imx7-add-support-for-iotmaxx-GW4100.patch
+# umpf-release: 5.7/customers/iotmaxx/gateway/20200602-1
+# umpf-topic-range: d2517e960a72e523458ada2994f20b693652a4fc..b0dffb394ce34f48d5877acd247e656e7c7575a9
+0101-Release-5.7-customers-iotmaxx-gateway-20200602-1.patch
+# umpf-end
