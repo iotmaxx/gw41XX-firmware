@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.12.6
-MODEMMANAGER_MD5	:= 796bf7bfc156c4229cef1a9cb8c79f37
+MODEMMANAGER_VERSION	:= 1.12.10
+MODEMMANAGER_MD5	:= 35cf22849d243cd2a026caf9851959d3
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= https://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
@@ -42,7 +42,6 @@ MODEMMANAGER_CONF_OPT	:= \
 	--disable-rpath \
 	--disable-introspection \
 	--disable-vala \
-	--disable-more-warnings \
 	--with-gnu-ld \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--with-udev-base-dir=/usr/lib/udev \
