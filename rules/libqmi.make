@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LIBQMI) += libqmi
 #
 # Paths and names
 #
-LIBQMI_VERSION	:= 1.24.4
-LIBQMI_MD5	:= be6539fde54fec1fc9d852db201c8560
+LIBQMI_VERSION	:= 1.25.900
+LIBQMI_MD5	:= 4d9bf60d0beff5bca6af864755607b25
 LIBQMI		:= libqmi-$(LIBQMI_VERSION)
 LIBQMI_SUFFIX	:= tar.xz
 LIBQMI_URL	:= http://www.freedesktop.org/software/libqmi/$(LIBQMI).$(LIBQMI_SUFFIX)
@@ -33,7 +33,6 @@ LIBQMI_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
 LIBQMI_CONF_TOOL	:= autoconf
 LIBQMI_CONF_OPT		:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-more-warnings \
 	--disable-firmware-update \
 	--disable-mm-runtime-check \
 	--disable-gtk-doc \
