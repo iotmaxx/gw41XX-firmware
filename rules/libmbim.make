@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_LIBMBIM) += libmbim
 #
 # Paths and names
 #
-LIBMBIM_VERSION	:= 1.18.2
-LIBMBIM_MD5	:= 7f7da7fa4bf37e64e44822fa00d42d6b
+LIBMBIM_VERSION	:= 1.23.900
+LIBMBIM_MD5	:= 5fe80b889c24295c791794ae45460b56
 LIBMBIM		:= libmbim-$(LIBMBIM_VERSION)
 LIBMBIM_SUFFIX	:= tar.xz
 LIBMBIM_URL	:= http://www.freedesktop.org/software/libmbim/$(LIBMBIM).$(LIBMBIM_SUFFIX)
@@ -36,7 +36,6 @@ LIBMBIM_CONF_ENV	:= \
 LIBMBIM_CONF_TOOL	:= autoconf
 LIBMBIM_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
-	--disable-more-warnings \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
