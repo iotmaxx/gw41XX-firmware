@@ -1,0 +1,13 @@
+# umpf-base: v5.8-rc4
+# umpf-name: 5.8/customers/iotmaxx/gateway
+# umpf-version: 5.8/customers/iotmaxx/gateway/20200709-1
+# umpf-topic: v5.8/customers/iotmaxx/boards/gateway
+# umpf-hashinfo: b46afbd993c4027cb0d0396ac536b3f3a663dc11
+# umpf-topic-range: dcb7fd82c75ee2d6e6f9d8cc71c52519ed52e258..21bfbca2f9e70bf11d3af7c0aefb9c43135dae71
+0001-ARM-imx7d-add-enet2-clk-sel.patch
+0002-ARM-imx7-add-support-for-iotmaxx-gateway.patch
+0003-dt-bindings-Add-DS2482-as-trivial-device.patch
+# umpf-release: 5.8/customers/iotmaxx/gateway/20200709-1
+# umpf-topic-range: 21bfbca2f9e70bf11d3af7c0aefb9c43135dae71..1d66c1ffd3f1a6c0d257f93241bcc88669f8fc98
+0101-Release-5.8-customers-iotmaxx-gateway-20200709-1.patch
+# umpf-end
