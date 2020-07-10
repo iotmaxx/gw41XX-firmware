@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config EXPANSION_BOARDS
+	tristate
+	prompt "expansion-boards"
+	help
+	  FIXME

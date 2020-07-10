@@ -1,0 +1,14 @@
+/dts-v1/;
+/plugin/;
+
+&expansion {
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	adc0: adc@0 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "atmel,at91sam9x5-adc";
+		reg = <0x0 0x100>;
+	};
+};
