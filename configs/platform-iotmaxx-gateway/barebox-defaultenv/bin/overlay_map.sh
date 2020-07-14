@@ -13,7 +13,7 @@ if test -e $EEPROM; then
     echo "Loading overlay $global.board.overlay_id"
 
     if [ $state.bootstate.last_chosen == 0 ]; then
-	PATH="/mnt/${nv.bootchooser.system0.boot}/loader/entries/${global.board.overlay_id}.dto"
+	PATH="/mnt/${nv.bootchooser.system0.boot}/boot/${global.board.overlay_id}.dto"
 	if test -e $PATH; then
 	    of_overlay $PATH
 	else
@@ -21,7 +21,7 @@ if test -e $EEPROM; then
 	    exit 1
 	fi
     elif [ $state.bootstate.last_chosen == 1 ]; then
-	PATH="/mnt/${nv.bootchooser.system1.boot}/loader/entries/${global.board.overlay_id}.dto"
+	PATH="/mnt/${nv.bootchooser.system1.boot}/boot/${global.board.overlay_id}.dto"
 	if test -e $PATH; then
 	    of_overlay $PATH
 	else

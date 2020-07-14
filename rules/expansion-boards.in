@@ -1,7 +1,18 @@
 ## SECTION=project_specific
 
-config EXPANSION_BOARDS
-	tristate
+menuconfig EXPANSION_BOARDS
+	bool
 	prompt "expansion-boards"
 	help
 	  FIXME
+
+if EXPANSION_BOARDS
+
+config EXPANSION_BOARD_TEST
+	bool
+	prompt "testboard one with adc"
+
+config EXPANSION_BOARD_TEST2
+	bool
+	prompt "testboard two with serial"
+endif
