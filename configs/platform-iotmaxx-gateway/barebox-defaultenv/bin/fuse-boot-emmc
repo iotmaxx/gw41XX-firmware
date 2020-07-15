@@ -1,0 +1,6 @@
+#!/bin/sh
+ocotp0.permanent_write_enable=1
+# BOOT_CFG[11:10] = USDHC-3 (RM Page 1169)
+# BOOT_CFG[13] = eMMC boot (RM Page 1053)
+# BT_FUS_SEL[28] = boot selected from fuses (RM 1059)
+mw -d /dev/imx-ocotp 0x1c 0x10002800
