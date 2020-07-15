@@ -5,7 +5,7 @@ menuconfig IMAGE_RAUC
 	prompt "Generate RAUC Update Bundle   "
 	select HOST_GENIMAGE
 	select HOST_RAUC
-	select IMAGE_ROOT_TGZ
+	select IMAGE_ROOT_EXT
 	select CODE_SIGNING
 	help
 	  This generates a RAUC update Bundle for the selected platform using
