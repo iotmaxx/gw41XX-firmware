@@ -1,0 +1,25 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 28 May 2020 11:24:43 +0200
+Subject: [PATCH] dt-bindings: Add vendor prefix for IoTmaxx GmbH
+
+IoTmaxx GmbH is a developer of IoT solutions. The website is
+https://www.iotmaxx.com/
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index 9aeab66be85f..26bffde7fe0a 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -497,6 +497,8 @@ patternProperties:
+     description: Inverse Path
+   "^iom,.*":
+     description: Iomega Corporation
++  "^iotmaxx,.*":
++    description: IoTmaxx GmbH
+   "^isee,.*":
+     description: ISEE 2007 S.L.
+   "^isil,.*":
