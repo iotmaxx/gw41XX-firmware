@@ -1,6 +1,6 @@
 # umpf-base: v2020.07.0
 # umpf-name: 2020.07.0/customers/iotmaxx/gateway
-# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20200715-1
+# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20200715-2
 # umpf-topic: v2020.06.0/topic/imx7_ocotp
 # umpf-hashinfo: f3a941ff7f66929038a26ec9bbbcdcb6f9d7c1f4
 # umpf-topic-range: 3322880d50b964c17021f9a6089d191b6cf1586b..377cad2190d3745db8525378ec00c808ab7820d8
@@ -9,21 +9,21 @@
 0003-nvmem-ocotp-add-new-timing-function-for-i.MX7.patch
 0004-nvmem-ocotp-read-write-i.MX7-support.patch
 0005-nvmem-enable-OCOTP-for-i.MX7.patch
-# umpf-topic: v2020.07.0/customers/iotmaxx/board/gateway
-# umpf-hashinfo: 9bc0cdad348ed764cc8193ce25a50fc91703f909
-# umpf-topic-range: 377cad2190d3745db8525378ec00c808ab7820d8..ddb411ba0231a506cfc91e9d9ae648d22b9f6f75
-0101-i.MX7-Add-CCM-definitions-for-UART3.patch
-0102-net-mdio-gpio-fix-typos-in-dev_dbg.patch
-0103-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
-0104-ARM-dts-imx7d-pinfunc-add-input-mux-for-ENET2-mdio.patch
-0105-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
-0106-HACK-workaround-for-reset-issue.patch
 # umpf-topic: v2020.05.0/topic/boards/imx7d-sabresd
 # umpf-hashinfo: 9004fc2bc6a69032ec799903d5049427e2856b94
-# umpf-topic-range: ddb411ba0231a506cfc91e9d9ae648d22b9f6f75..000e999b38b18742e25eb4037b65cd5c6e39a0ff
-0201-ARM-imx7-sdb-add-bareboxenv-partition.patch
-0202-ARM-imx7-sdb-add-bootstate.patch
-# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20200715-1
-# umpf-topic-range: 000e999b38b18742e25eb4037b65cd5c6e39a0ff..506118a6357e8d68dbe515f50337cf80fee479e3
+# umpf-topic-range: 377cad2190d3745db8525378ec00c808ab7820d8..1fa4ff551dcc3de0ab9bc6cb818aafb4c9444ea4
+0101-ARM-imx7-sdb-add-bareboxenv-partition.patch
+0102-ARM-imx7-sdb-add-bootstate.patch
+# umpf-topic: v2020.07.0/customers/iotmaxx/board/gateway
+# umpf-hashinfo: 0bf03a5fdc6ca1ed5cad33bae12606badaeecb90
+# umpf-topic-range: 1fa4ff551dcc3de0ab9bc6cb818aafb4c9444ea4..f413eb01301b0d8d06f35a50f84d6767eea60dd5
+0201-i.MX7-Add-CCM-definitions-for-UART3.patch
+0202-net-mdio-gpio-fix-typos-in-dev_dbg.patch
+0203-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
+0204-ARM-dts-imx7d-pinfunc-add-input-mux-for-ENET2-mdio.patch
+0205-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
+0206-HACK-workaround-for-reset-issue.patch
+# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20200715-2
+# umpf-topic-range: f413eb01301b0d8d06f35a50f84d6767eea60dd5..a2eefc8e6f737c3e7eaeb5e636242e94bd76868b
 0301-Release-2020.07.0-customers-iotmaxx-gateway-20200715.patch
 # umpf-end
