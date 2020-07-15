@@ -1,0 +1,88 @@
+From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+Date: Tue, 7 Jul 2020 11:45:10 +0200
+Subject: [PATCH] nvmem: ocotp: retrieve set_timing from structure
+
+i.MX7S/D use a different timing setup, prepare for a new different
+timing function.
+
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+---
+ drivers/nvmem/ocotp.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/nvmem/ocotp.c b/drivers/nvmem/ocotp.c
+index 34e33dee827f..3f475e5b1f0a 100644
+--- a/drivers/nvmem/ocotp.c
++++ b/drivers/nvmem/ocotp.c
+@@ -86,11 +86,14 @@ enum imx_ocotp_format_mac_direction {
+ 	OCOTP_MAC_TO_HW,
+ };
+ 
++struct ocotp_priv;
++
+ struct imx_ocotp_data {
+ 	int num_regs;
+ 	u32 (*addr_to_offset)(u32 addr);
+ 	void (*format_mac)(u8 *dst, const u8 *src,
+ 			   enum imx_ocotp_format_mac_direction dir);
++	int (*set_timing)(struct ocotp_priv *priv);
+ 	u8  mac_offsets[MAX_MAC_OFFSETS];
+ 	u8  mac_offsets_num;
+ };
+@@ -183,7 +186,7 @@ static int imx6_ocotp_prepare(struct ocotp_priv *priv)
+ {
+ 	int ret;
+ 
+-	ret = imx6_ocotp_set_timing(priv);
++	ret = priv->data->set_timing(priv);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -694,6 +697,7 @@ static struct imx_ocotp_data imx6q_ocotp_data = {
+ 	.mac_offsets_num = 1,
+ 	.mac_offsets = { MAC_OFFSET_0 },
+ 	.format_mac = imx_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static struct imx_ocotp_data imx6sl_ocotp_data = {
+@@ -702,6 +706,7 @@ static struct imx_ocotp_data imx6sl_ocotp_data = {
+ 	.mac_offsets_num = 1,
+ 	.mac_offsets = { MAC_OFFSET_0 },
+ 	.format_mac = imx_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static struct imx_ocotp_data imx6ul_ocotp_data = {
+@@ -710,6 +715,7 @@ static struct imx_ocotp_data imx6ul_ocotp_data = {
+ 	.mac_offsets_num = 2,
+ 	.mac_offsets = { MAC_OFFSET_0, IMX6UL_MAC_OFFSET_1 },
+ 	.format_mac = imx_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static struct imx_ocotp_data imx6ull_ocotp_data = {
+@@ -718,6 +724,7 @@ static struct imx_ocotp_data imx6ull_ocotp_data = {
+ 	.mac_offsets_num = 2,
+ 	.mac_offsets = { MAC_OFFSET_0, IMX6UL_MAC_OFFSET_1 },
+ 	.format_mac = imx_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static struct imx_ocotp_data vf610_ocotp_data = {
+@@ -726,6 +733,7 @@ static struct imx_ocotp_data vf610_ocotp_data = {
+ 	.mac_offsets_num = 2,
+ 	.mac_offsets = { MAC_OFFSET_0, MAC_OFFSET_1 },
+ 	.format_mac = vf610_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static struct imx_ocotp_data imx8mq_ocotp_data = {
+@@ -734,6 +742,7 @@ static struct imx_ocotp_data imx8mq_ocotp_data = {
+ 	.mac_offsets_num = 1,
+ 	.mac_offsets = { 0x90 },
+ 	.format_mac = imx_ocotp_format_mac,
++	.set_timing = imx6_ocotp_set_timing,
+ };
+ 
+ static __maybe_unused struct of_device_id imx_ocotp_dt_ids[] = {

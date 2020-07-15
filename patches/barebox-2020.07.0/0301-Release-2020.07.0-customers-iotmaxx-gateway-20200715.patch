@@ -1,0 +1,21 @@
+From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+Date: Wed, 15 Jul 2020 07:20:31 +0200
+Subject: [PATCH] Release 2020.07.0/customers/iotmaxx/gateway/20200715-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index b31ba050c273..5888959ad60a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 2020
+ PATCHLEVEL = 07
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION =-20200715-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

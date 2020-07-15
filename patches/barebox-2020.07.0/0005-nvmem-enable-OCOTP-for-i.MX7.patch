@@ -1,0 +1,25 @@
+From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+Date: Tue, 14 Jul 2020 09:48:07 +0200
+Subject: [PATCH] nvmem: enable OCOTP for i.MX7
+
+Since we now have proper timing, read and write support, enable the
+OCOTP driver for i.MX7
+
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+---
+ drivers/nvmem/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/nvmem/Kconfig b/drivers/nvmem/Kconfig
+index 968342b281ad..f0fb9122c652 100644
+--- a/drivers/nvmem/Kconfig
++++ b/drivers/nvmem/Kconfig
+@@ -18,7 +18,7 @@ config NVMEM_SNVS_LPGPR
+ 
+ config IMX_OCOTP
+ 	tristate "i.MX6 On Chip OTP controller"
+-	depends on ARCH_IMX6 || ARCH_VF610 || ARCH_IMX8MQ
++	depends on ARCH_IMX6 || ARCH_VF610 || ARCH_IMX8MQ || ARCH_IMX7
+ 	depends on OFDEVICE
+ 	help
+ 	  This adds support for the i.MX6 On-Chip OTP controller. Currently the
