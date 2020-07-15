@@ -67,6 +67,13 @@ To update barebox
 
 Now reset the board.
 
+Boot from eMMC
+==============
+
+To fuse the system to boot from eMMC a small script is added to barebox. Just issue
+
+  barebox@IoTMAXX i.MX7D Gateway:/ fuse-boot-emmc
+
 
 GSM Modem
 =========
@@ -188,3 +195,19 @@ root@Gateway:~ mmcli -m 1
   --------------------------------
   Bearer   |            dbus path: /org/freedesktop/ModemManager1/Bearer/0
 
+
+Overlays
+========
+
+Barebox can load and apply devicetree overlays that are found in /boot on the rootfs.
+To add overlays just put them in local-src/expansion-boards/ and add them to
+rules/expansion-boards.{in,make}.
+
+To apply them in barebox issue 
+
+  barebox@IoTMAXX i.MX7D Gateway:/ overlay_map.sh
+
+If an EEPROM is found (for testing purposes /dev/eeprom0 is used, this is on the baseboard !!!)
+the first 16 bytes are read out and used as an identifier for the devicetree that is to be loaded.
+E.g. if the first 16 bytes are "test", the script searches for a file /mnt/mmc2.4/boot/test.dto and
+applies it to the devicetree that is handed to the kernel.
