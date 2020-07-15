@@ -30,13 +30,13 @@ EXPANSION_BOARDS_CONF_TOOL	:= NO
 # Compile
 # ----------------------------------------------------------------------------
 
-OVERLAYS := test test2
+EXPANSION_BOARDS_OVERLAYS := test test2
 
 $(STATEDIR)/expansion-boards.compile:
 	@$(call targetinfo)
 	@dtc -o $(EXPANSION_BOARDS_DIR)/test.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test.dts"
-	@dtc -o $(EXPANSION_BOARDS_DIR)/test2dto \
+	@dtc -o $(EXPANSION_BOARDS_DIR)/test2.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test2.dts"
 	@$(call touch)
 
@@ -46,9 +46,10 @@ $(STATEDIR)/expansion-boards.compile:
 
 $(STATEDIR)/expansion-boards.install:
 	@$(call targetinfo)
-	@$(foreach file, $(OVERLAYS), \
-		$(call install -D -m644 $(EXPANSION_BOARDS_DIR)/$(file).dto \
-			$(EXPANSION_BOARDS_PKGDIR)/boot/$(file).dto))
+	@install -D -m644 $(EXPANSION_BOARDS_DIR)/test.dto \
+			$(EXPANSION_BOARDS_PKGDIR)/boot/test.dto
+	@install -D -m644 $(EXPANSION_BOARDS_DIR)/test2.dto \
+			$(EXPANSION_BOARDS_PKGDIR)/boot/test2.dto
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -64,8 +65,8 @@ $(STATEDIR)/expansion-boards.targetinstall:
 	@$(call install_fixup, expansion-boards,AUTHOR,"Steffen Trumtrar <s.trumtrar@pengutronix.de>")
 	@$(call install_fixup, expansion-boards,DESCRIPTION,missing)
 
-	@$(foreach file,$(OVERLAYS), \
-		$(call install_copy, expansion-boards, 0, 0, 0644, /boot/$(file).dto);)
+	@$(foreach file,$(EXPANSION_BOARDS_OVERLAYS), \
+		$(call install_copy, expansion-boards, 0, 0, 0644, -, /boot/$(file).dto);)
 
 	@$(call install_finish, expansion-boards)
 
