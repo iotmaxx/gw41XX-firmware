@@ -11,3 +11,4 @@
 Documentation/
 /local_src/kernel.*
 /local_src/barebox.*
+*.dto
