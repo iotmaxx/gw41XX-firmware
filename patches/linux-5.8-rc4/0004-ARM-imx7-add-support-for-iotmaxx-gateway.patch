@@ -10,8 +10,8 @@ once it is fixed in hardware.
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 611 +++++++++++++++++++++++++++++
- 2 files changed, 612 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 612 +++++++++++++++++++++++++++++
+ 2 files changed, 613 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -28,10 +28,10 @@ index e6a1cac0bfc7..819c3811e35b 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..6de19c59679b
+index 000000000000..63fb839c3f50
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,611 @@
+@@ -0,0 +1,612 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -113,6 +113,7 @@ index 000000000000..6de19c59679b
 +		gpio = <&gpio2 2 GPIO_ACTIVE_HIGH>;
 +		enable-active-high;
 +		regulator-boot-on;
++		regulator-always-on;
 +	};
 +
 +	/*

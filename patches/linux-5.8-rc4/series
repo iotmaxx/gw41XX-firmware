@@ -1,15 +1,15 @@
 # umpf-base: v5.8-rc4
 # umpf-name: 5.8/customers/iotmaxx/gateway
-# umpf-version: 5.8/customers/iotmaxx/gateway/20200715-1
+# umpf-version: 5.8/customers/iotmaxx/gateway/20200723-1
 # umpf-topic: v5.8/customers/iotmaxx/boards/gateway
-# umpf-hashinfo: bcdb4f79ff447ee4a93b2f94e7ffd201ed5cf2ff
-# umpf-topic-range: dcb7fd82c75ee2d6e6f9d8cc71c52519ed52e258..235eeffdefb26a1a86ceddafc041932a7706c747
+# umpf-hashinfo: 34bb8d28ccc9afb45fb646cdd77c9afd8e3a679b
+# umpf-topic-range: dcb7fd82c75ee2d6e6f9d8cc71c52519ed52e258..40429b9d47a6ba71b8bbeba0c994acc5f962f604
 0001-ARM-imx7d-add-enet2-clk-sel.patch
 0002-dt-bindings-Add-DS2482-as-trivial-device.patch
 0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
 0004-ARM-imx7-add-support-for-iotmaxx-gateway.patch
 0005-ARM-iotmaxx-add-expansion-slot.patch
-# umpf-release: 5.8/customers/iotmaxx/gateway/20200715-1
-# umpf-topic-range: 235eeffdefb26a1a86ceddafc041932a7706c747..6210fef39f76a0395abbb1722cef11340ef0b19d
-0101-Release-5.8-customers-iotmaxx-gateway-20200715-1.patch
+# umpf-release: 5.8/customers/iotmaxx/gateway/20200723-1
+# umpf-topic-range: 40429b9d47a6ba71b8bbeba0c994acc5f962f604..e9003024ee8576c13fba197a33827101c98f3d38
+0101-Release-5.8-customers-iotmaxx-gateway-20200723-1.patch
 # umpf-end
