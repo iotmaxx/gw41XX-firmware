@@ -34,9 +34,10 @@ EXPANSION_BOARDS_OVERLAYS := test test2
 
 $(STATEDIR)/expansion-boards.compile:
 	@$(call targetinfo)
-	@dtc -o $(EXPANSION_BOARDS_DIR)/test.dto \
+	# FIXME: use ptxdist wrappers
+	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/test.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test.dts"
-	@dtc -o $(EXPANSION_BOARDS_DIR)/test2.dto \
+	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/test2.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test2.dts"
 	@$(call touch)
 
