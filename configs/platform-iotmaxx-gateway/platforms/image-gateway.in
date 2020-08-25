@@ -4,6 +4,9 @@ config IMAGE_GATEWAY
 	tristate
 	select HOST_GENIMAGE
 	select IMAGE_ROOT_EXT
+	select ROOT_CONFIG
+	select ROOT_DATA1
+	select ROOT_DATA2
 	select BAREBOX
 	prompt "Generate images/gateway.hdimg"
 	help

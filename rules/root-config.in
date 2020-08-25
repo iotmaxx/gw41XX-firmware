@@ -1,0 +1,7 @@
+## SECTION=image
+
+config ROOT_CONFIG
+	tristate
+	prompt "root-config"
+	help
+	  FIXME

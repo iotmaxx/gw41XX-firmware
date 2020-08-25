@@ -1,0 +1,7 @@
+## SECTION=image
+
+config ROOT_DATA1
+	tristate
+	prompt "root-data1"
+	help
+	  FIXME
