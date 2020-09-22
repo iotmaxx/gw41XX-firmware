@@ -95,7 +95,8 @@ Can be found at *J1305*
 .. hint:: This is UART#3
 
 .. attention:: In order to use this serial connection, an internal voltage
-               switch must be enabled to power the level shifter.
+               switch must be enabled to power the level shifter. Refer
+               :ref:`manual,partial_power_management` for details.
 
 .. _manual,boot_config:
 
@@ -283,7 +284,8 @@ Can be found at *J1305*
 +-----+--------+
 
 .. attention:: In order to use this CAN connection, an internal voltage
-               switch must be enabled to power the level shifter.
+               switch must be enabled to power the level shifter. Refer
+               :ref:`manual,partial_power_management` for details.
 
 .. _manual,rs485:
 
@@ -314,7 +316,8 @@ Can be found at *J1305*
 +-----+--------+
 
 .. attention:: In order to use this serial connection, an internal voltage
-               switch must be enabled to power the signal transmitter.
+               switch must be enabled to power the signal transmitter. Refer
+               :ref:`manual,partial_power_management` for details.
 
 1Wire
 -----
@@ -343,7 +346,8 @@ Can be found at *J1305*
 +-----+--------+
 
 .. attention:: In order to use this connection, an internal voltage
-               switch must be enabled to power the 1Wire master device.
+               switch must be enabled to power the 1Wire master device. Refer
+               :ref:`manual,partial_power_management` for details.
 
 USB Map
 -------
