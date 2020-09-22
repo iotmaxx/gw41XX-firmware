@@ -5,6 +5,7 @@ IoTmaxx BSP Documentation
    :glob:
 
    hardware-specific
+   bsp-specific
    bootstrap
    overlays
    gsm-modem
