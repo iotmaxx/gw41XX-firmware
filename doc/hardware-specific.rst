@@ -314,4 +314,33 @@ Can be found at *J1305*
 
 .. attention:: In order to use this serial connection, an internal voltage
                switch must be enabled to power the signal transmitter.
+
+1Wire
+-----
+
+.. code-block:: text
+
+                                                     +--+
+                  J1305                 J1306        || | <--- USB A
+      +---+---+---+---+---+---+   +---+---+---+---+  || |
+      | 2 | 4 | 6 | 8 | 10| 12|   | O | O | O | O |  || |
+      +---+---+---+---+---+---+   +---+---+---+---+  || |
+      | 1 | 3 | 5 | 7 | 9 | 11|   | O | O | O | O |  || |
+    --+---+---+---+---+---+---+---+---+---+---+---+--+--+--
+    -------------------------------------------------------
+
+Can be found at *J1305*
+
++-----+--------+
+| Pin | Signal |
++=====+========+
+|  1  |  DATA  |
++-----+--------+
+|  2  |  VCC   |
++-----+--------+
+| 5/6 |  GND   |
++-----+--------+
+
+.. attention:: In order to use this connection, an internal voltage
+               switch must be enabled to power the 1Wire master device.
 TODO
