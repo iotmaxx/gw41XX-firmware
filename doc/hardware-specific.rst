@@ -189,7 +189,7 @@ TODO
 UART#6
 ''''''
 
-TODO
+Used for the GSM modem connection. Refer :ref:`manual,gsm_modem`.
 
 UART#7
 ''''''
@@ -216,3 +216,42 @@ Can be found at J500:
 +-----+--------+---------+
 
 .. important:: The serial signals are at 3.3 V TTL levels
+
+.. _manual,gsm_modem:
+
+Modem
+-----
+
+Two variants are available:
+
+ - Quectel EC21-E (default type)
+ - Fibocomm Wireless Inc, L610 (PCB version 1.07) (just for tests)
+
+Connections to the modem
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+UART
+''''
+
+Used serial unit: UART6
+
++--------+---------+---------+
+| Signal |   Dir   |  Notes  |
++========+=========+=========+
+|  RxD   |  input  | DCE/RX  |
++--------+---------+---------+
+|  TxD   | output  | DCE/TX  |
++--------+---------+---------+
+|  CTS   |  input  | DCE/CTS |
++--------+---------+---------+
+|  RTS   |  output | DCE/RTS |
++--------+---------+---------+
+|  RI    |  input  | GPIO5/4 |
++--------+---------+---------+
+
+*Dir* is meant at the *SoC*, e.g. the *SoC's* UART is connected in *DCE* style.
+
+USB
+'''
+
+TODO
