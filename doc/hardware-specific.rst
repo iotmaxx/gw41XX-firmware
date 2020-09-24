@@ -254,6 +254,7 @@ Used serial unit: UART6
 USB
 '''
 
+Connected via USB HUB. Refer :ref:`manual,usb-host`.
 
 CAN Bus
 -------
@@ -343,4 +344,41 @@ Can be found at *J1305*
 
 .. attention:: In order to use this connection, an internal voltage
                switch must be enabled to power the 1Wire master device.
+
+USB Map
+-------
+
+OTG1
+^^^^
+
 TODO
+
+OTG2
+^^^^
+
+TODO
+
+.. _manual,usb-host:
+
+HOST
+^^^^
+
+.. code-block:: text
+
+    +------------+
+    |            |
+    | i.MX7  SoC |----- OTG1 ----------------------> TODO
+    |            |----- OTG2 ----------------------> TODO
+    +------------+
+      |   |
+      |   |             +-------------+
+      |   |             | USB HUB     |
+      |   +--- HOST --->|           p1|----------------> GSM Modem
+      |                 |             |
+      +-- TODO -------<>|I²C        p2|----------------> USB#0 (expansion)
+      |                 |___          |
+      +-- TODO---------<|INT        p3|----------------> USB#1 (expansion)
+      |                 |___       OC#|<---------------- USB#1 OverCurrent
+      +-- GPIO3/13 ---->|RES       PWR|----------------> USB#1 Port Power
+                        |             |
+                        +-------------+
