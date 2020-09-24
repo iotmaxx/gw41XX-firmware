@@ -179,7 +179,7 @@ Debug console at *J1305*. Refer :ref:`manual,debug_console`.
 UART#4
 ''''''
 
-TODO
+Used for RS485 connections. Refer :ref:`manual,rs485`.
 
 UART#5
 ''''''
@@ -283,4 +283,35 @@ Can be found at *J1305*
 
 .. attention:: In order to use this CAN connection, an internal voltage
                switch must be enabled to power the level shifter.
+
+.. _manual,rs485:
+
+RS485
+-----
+
+.. code-block:: text
+
+                                                     +--+
+                  J1305                 J1306        || | <--- USB A
+      +---+---+---+---+---+---+   +---+---+---+---+  || |
+      | 2 | 4 | 6 | 8 | 10| 12|   | O | O | O | O |  || |
+      +---+---+---+---+---+---+   +---+---+---+---+  || |
+      | 1 | 3 | 5 | 7 | 9 | 11|   | O | O | O | O |  || |
+    --+---+---+---+---+---+---+---+---+---+---+---+--+--+--
+    -------------------------------------------------------
+
+Can be found at *J1305*
+
++-----+--------+
+| Pin | Signal |
++=====+========+
+| 5/6 |  GND   |
++-----+--------+
+|  7  |   B    |
++-----+--------+
+|  8  |   A    |
++-----+--------+
+
+.. attention:: In order to use this serial connection, an internal voltage
+               switch must be enabled to power the signal transmitter.
 TODO
