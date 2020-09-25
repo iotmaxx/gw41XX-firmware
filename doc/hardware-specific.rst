@@ -125,3 +125,94 @@ By shorten pins 1-2, the *i.MX7* bootmode is set to *serial download*.
 .. attention:: To shorten the pins, an 1.28 mm jumper is required.
 
 .. hint:: A 2 mm jumper does the work as well
+
+Misc Hardware Information
+-------------------------
+
+SoC's UART usage
+^^^^^^^^^^^^^^^^
+
+UART#1
+''''''
+
+TODO
+
+UART#2
+''''''
+
+Can be found at J1300:
+
+.. code-block:: text
+
+   |       4 4                                                          |
+   |       3 1                                     3 1                  |
+   |       O O O O O O O O O O O O O O O O O O O O O O                  |
+   |       O O O O O O O O O O O O O O O O O O O O O O                  |
+   |       4 4                                     4 2                  |
+   |       4 2                                                          |
+   |                                                                    |
+   |         +----------------------------------------+                 |
+   |         |                                        |       top layer |
+   +---------+                                        +-----------------+
+
++-----+--------+---------+
+| Pin | Signal |   Dir   |
++=====+========+=========+
+| 37  |   CTS  |  input  |
++-----+--------+---------+
+| 38  |   RTS  | output  |
++-----+--------+---------+
+| 39  |   TXD  | output  |
++-----+--------+---------+
+| 40  |   RXD  |  input  |
++-----+--------+---------+
+| 41  |   GND  | passive |
++-----+--------+---------+
+
+.. important:: The serial signals are at 3.3 V TTL levels
+
+UART#3
+''''''
+
+Debug console at *J1305*. Refer :ref:`manual,debug_console`.
+
+UART#4
+''''''
+
+TODO
+
+UART#5
+''''''
+
+TODO
+
+UART#6
+''''''
+
+TODO
+
+UART#7
+''''''
+
+Can be found at J500:
+
+.. code-block:: text
+
+   |                                          +-----+                   |
+   |                                          | J500|                   |
+   |                                          +-----+                   |
+   |         +----------------------------------------+                 |
+   |         |                              TODO Pin1 |       top layer |
+   +---------+                                        +-----------------+
+
++-----+--------+---------+
+| Pin | Signal |   Dir   |
++=====+========+=========+
+|  1  |  RxD   |  input  |
++-----+--------+---------+
+|  2  |  TxD   | output  |
++-----+--------+---------+
+|  3  |  GND   | passive |
++-----+--------+---------+
+
+.. important:: The serial signals are at 3.3 V TTL levels
