@@ -11,4 +11,12 @@ rootfs_unused_libraries:
   - /usr/lib/ModemManager/libmm-shared-telit.so
   - /usr/lib/ModemManager/libmm-shared-xmm.so
 
+kernel_smp_on_up:
+  description: |
+     This option should be off to enforce the presence of the PSCI provided by
+     the booloader. Currently it is broken and thus, only one CPU core can be
+     used at run-time
+     TODO: when fixed, change this entry to FALSE!
+  value: True
+
 # vim: filetype=yaml
