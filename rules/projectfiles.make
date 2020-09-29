@@ -34,6 +34,17 @@ $(STATEDIR)/projectfiles.targetinstall:
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
 		/usr/lib/udev/rules.d/99-data-partition.rules)
 
+#	rauc-hawkbit-updater
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/etc/rauc-hawkbit-updater/config.conf.initial)
+	@$(call install_link, projectfiles, \
+		../../config/rauc-hawkbit-updater/config.conf, \
+		/etc/rauc-hawkbit-updater/config.conf)
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/usr/lib/systemd/system/rauc-hawkbit-updater.service.d/10-require-config-mount.conf)
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/usr/lib/systemd/system/rauc-hawkbit-updater.service.d/20-install-initial-config.conf)
+
 	@$(call install_finish, projectfiles)
 	@$(call touch)
 

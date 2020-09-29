@@ -4,3 +4,5 @@ config PROJECTFILES
 	prompt "Enable project-specific files"
 	bool
 	default y
+	select COREUTILS
+	select COREUTILS_CP
