@@ -230,6 +230,7 @@ PTXCONF_IMAGE_ROOT_TGZ=y
 PTXCONF_IMAGE_ROOT_TGZ_LABEL=""
 # PTXCONF_IMAGE_ROOT_UBI is not set
 # PTXCONF_IMAGE_ROOT_UBIFS is not set
+PTXCONF_IMAGE_SD=y
 
 #
 # ipkg options                  

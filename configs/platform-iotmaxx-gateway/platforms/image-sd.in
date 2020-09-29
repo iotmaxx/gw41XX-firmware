@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_SD
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX
+	prompt "Generate images/sd.hdimg"
+	help
+	  For simple boot tests. Can be used to boot the IOTMAXX platform with
+	  a broken eMMC for example.
