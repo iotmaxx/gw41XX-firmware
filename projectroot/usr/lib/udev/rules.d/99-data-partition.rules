@@ -1,0 +1,17 @@
+IMPORT{builtin}="path_id"
+IMPORT{cmdline}="bootchooser.active"
+
+ENV{bootchooser.active}=="system0", GOTO="data_partitions_system_a"
+ENV{bootchooser.active}=="system1", GOTO="data_partitions_system_b"
+GOTO="data_partitions_end"
+
+LABEL="data_partitions_system_a"
+ENV{ID_PATH}=="platform-30b60000.usdhc", ENV{PARTN}=="7", SYMLINK+="data", SYMLINK+="data1"
+ENV{ID_PATH}=="platform-30b60000.usdhc", ENV{PARTN}=="8", SYMLINK+="data_inactive", SYMLINK+="data2"
+GOTO="data_partitions_end"
+
+LABEL="data_partitions_system_b"
+ENV{ID_PATH}=="platform-30b60000.usdhc", ENV{PARTN}=="8", SYMLINK+="data", SYMLINK+="data2"
+ENV{ID_PATH}=="platform-30b60000.usdhc", ENV{PARTN}=="7", SYMLINK+="data_inactive", SYMLINK+="data1"
+
+LABEL="data_partitions_end"

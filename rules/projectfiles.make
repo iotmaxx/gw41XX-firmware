@@ -30,6 +30,10 @@ $(STATEDIR)/projectfiles.targetinstall:
 	@$(call install_alternative, projectfiles, 0, 0, 0755, \
 		/usr/bin/sim_setup.sh)
 
+#	udev rules
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/usr/lib/udev/rules.d/99-data-partition.rules)
+
 	@$(call install_finish, projectfiles)
 	@$(call touch)
 

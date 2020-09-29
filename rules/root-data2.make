@@ -19,8 +19,8 @@ ROOT_DATA2_VERSION	:= 0
 
 $(STATEDIR)/root-data2.compile:
 	@$(call targetinfo)
-	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/data2
-	@touch $(PTXDIST_SYSROOT_TARGET)/data2/.empty
+	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/data_inactive
+	@touch $(PTXDIST_SYSROOT_TARGET)/data_inactive/.empty
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -44,7 +44,7 @@ $(STATEDIR)/root-data2.targetinstall:
 	@$(call install_fixup,root-data2,AUTHOR,"Steffen Trumtrar <s.trumtrar@pengutronix.de>")
 	@$(call install_fixup,root-data2,DESCRIPTION,missing)
 
-	@$(call install_copy, root-data2, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/data2/.empty, /data2/.empty)
+	@$(call install_copy, root-data2, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/data_inactive/.empty, /data_inactive/.empty)
 
 	@$(call install_finish,root-data2)
 
