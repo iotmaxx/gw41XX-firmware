@@ -3699,17 +3699,7 @@ CONFIG_CLKSRC_IMX_GPT=y
 # end of Clock Source drivers
 
 # CONFIG_MAILBOX is not set
-CONFIG_IOMMU_SUPPORT=y
-
-#
-# Generic IOMMU Pagetable Support
-#
-# CONFIG_IOMMU_IO_PGTABLE_LPAE is not set
-# CONFIG_IOMMU_IO_PGTABLE_ARMV7S is not set
-# end of Generic IOMMU Pagetable Support
-
-# CONFIG_IOMMU_DEBUGFS is not set
-# CONFIG_ARM_SMMU is not set
+# CONFIG_IOMMU_SUPPORT is not set
 
 #
 # Remoteproc drivers
