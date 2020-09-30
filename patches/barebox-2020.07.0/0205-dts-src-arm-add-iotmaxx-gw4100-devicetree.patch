@@ -6,16 +6,16 @@ Remove this patch once devicetree hits mainline.
 
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
- dts/src/arm/imx7d-iotmaxx-gw4100.dts | 615 +++++++++++++++++++++++++++++++++++
- 1 file changed, 615 insertions(+)
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts | 629 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 629 insertions(+)
  create mode 100644 dts/src/arm/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..affd2695a69d
+index 000000000000..58c30e5ee413
 --- /dev/null
 +++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,615 @@
+@@ -0,0 +1,629 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -152,12 +152,13 @@ index 000000000000..affd2695a69d
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_ecspi2>;
 +	num-chipselects = <1>;
++	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
 +	status = "okay";
 +
 +	flash: m25p80@0 {
 +		compatible = "sst,sst25vf512", "m25p80";
 +		spi-max-frequency = <20000000>;
-+		reg = <1>;
++		reg = <0>;
 +		#address-cells = <1>;
 +		#size-cells = <1>;
 +
@@ -337,16 +338,27 @@ index 000000000000..affd2695a69d
 +&i2c4 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_i2c4>;
++	clock-frequency = <100000>;
 +	status = "okay";
++	/*
++	 * This EEPROM is part of an expansion board. And thus, it might not
++	 * be present, if no expansion board is attached.
++	 * But in order to be able to detect it, we must list here a dummy.
++	 */
++	exp_eeprom: eeprom@50 {
++		compatible = "atmel,24c64";
++		pagesize = <32>;
++		reg = <0x50>;
++	};
 +};
 +
 +&iomuxc {
 +	pinctrl_ecspi2: ecspi2grp {
 +		fsl,pins = <
-+			MX7D_PAD_ECSPI2_MISO__ECSPI2_MISO		0x7c
-+			MX7D_PAD_ECSPI2_MOSI__ECSPI2_MOSI		0x74
-+			MX7D_PAD_ECSPI2_SCLK__ECSPI2_SCLK		0x74
-+			MX7D_PAD_ECSPI2_SS0__ECSPI2_SS0			0x74
++			MX7D_PAD_ECSPI2_MISO__ECSPI2_MISO		0x7c /* 100 k PU */
++			MX7D_PAD_ECSPI2_MOSI__ECSPI2_MOSI		0x74 /* 100 k PU */
++			MX7D_PAD_ECSPI2_SCLK__ECSPI2_SCLK		0x70 /* 100 k PU, fast slew rate */
++			MX7D_PAD_ECSPI2_SS0__GPIO4_IO23			0x00 /* fast slew rate */
 +		>;
 +	};
 +
@@ -427,8 +439,10 @@ index 000000000000..affd2695a69d
 +
 +	pinctrl_i2c4: i2c4grp {
 +		fsl,pins = <
-+			MX7D_PAD_ENET1_RGMII_TD3__I2C4_SDA		0x40000078
-+			MX7D_PAD_ENET1_RGMII_TD2__I2C4_SCL		0x40000078
++			/* external 4.7 k PU */
++			MX7D_PAD_ENET1_RGMII_TD3__I2C4_SDA		0x4000000C
++			/* external 4.7 k PU */
++			MX7D_PAD_ENET1_RGMII_TD2__I2C4_SCL		0x4000000C
 +		>;
 +	};
 +
