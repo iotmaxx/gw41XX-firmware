@@ -43,7 +43,7 @@ $(STATEDIR)/root-config.targetinstall:
 	@$(call install_fixup,root-config,AUTHOR,"Steffen Trumtrar <s.trumtrar@pengutronix.de>")
 	@$(call install_fixup,root-config,DESCRIPTION,missing)
 
-	@$(call install_copy, root-config, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/config/.empty, /config/.empty)
+	@$(call install_copy, root-config, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/config/.empty, /config/.empty)
 
 	@$(call install_finish,root-config)
 
