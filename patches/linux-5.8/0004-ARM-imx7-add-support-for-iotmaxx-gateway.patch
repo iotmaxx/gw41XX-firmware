@@ -10,8 +10,8 @@ once it is fixed in hardware.
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 612 +++++++++++++++++++++++++++++
- 2 files changed, 613 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 747 +++++++++++++++++++++++++++++
+ 2 files changed, 748 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -28,10 +28,10 @@ index e6a1cac0bfc7..819c3811e35b 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..63fb839c3f50
+index 000000000000..e6ff678ef1be
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,612 @@
+@@ -0,0 +1,747 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -76,6 +76,26 @@ index 000000000000..63fb839c3f50
 +		};
 +	};
 +
++	/* Main power supply at J1303 */
++	main_input: main-input-power-24v0 {
++		compatible = "regulator-fixed";
++		regulator-name = "24v0";
++		regulator-min-microvolt = <24000000>;
++		regulator-max-microvolt = <24000000>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
++	main_power: regulator-main-5v0 {
++		compatible = "regulator-fixed";
++		regulator-name = "5v0";
++		regulator-min-microvolt = <5000000>;
++		regulator-max-microvolt = <5000000>;
++		vin-supply = <&main_input>;
++		regulator-boot-on;
++		regulator-always-on;
++	};
++
 +	reg_ldo_emmc_3v3: regulator-ldo-emmc-3v3 {
 +		compatible = "regulator-fixed";
 +		regulator-name = "ldo_emmc_v3v3";
@@ -106,8 +126,11 @@ index 000000000000..63fb839c3f50
 +
 +	/* Power for the serial converter. Needs to be enabled on boot */
 +	reg_5v_periph: regulator-5v-periph {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_5v_reg>;
 +		compatible = "regulator-fixed";
 +		regulator-name = "5v_periph";
++		vin-supply = <&main_power>;
 +		regulator-min-microvolt = <5000000>;
 +		regulator-max-microvolt = <5000000>;
 +		gpio = <&gpio2 2 GPIO_ACTIVE_HIGH>;
@@ -165,12 +188,13 @@ index 000000000000..63fb839c3f50
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_ecspi2>;
 +	num-chipselects = <1>;
++	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
 +	status = "okay";
 +
 +	flash: m25p80@0 {
-+		compatible = "sst,sst25vf512", "m25p80";
++		compatible = "sst,sst25vf512", "m25p80", "jedec,spi-nor";
 +		spi-max-frequency = <20000000>;
-+		reg = <1>;
++		reg = <0>;
 +		#address-cells = <1>;
 +		#size-cells = <1>;
 +
@@ -182,10 +206,11 @@ index 000000000000..63fb839c3f50
 +
 +/* Expansion slot */
 +&ecspi3 {
++	/* disabled by default, changed by a DTS overlay */
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_ecspi3>;
 +	num-chipselects = <1>;
-+	status = "okay";
++	cs-gpios = <&gpio6 22 GPIO_ACTIVE_LOW>;
 +};
 +
 +&fec2 {
@@ -301,6 +326,7 @@ index 000000000000..63fb839c3f50
 +&i2c1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_i2c1>;
++	clock-frequency = <100000>;
 +	status = "okay";
 +
 +	1wiremaster@18 {
@@ -329,7 +355,10 @@ index 000000000000..63fb839c3f50
 +	};
 +
 +	tpm: tpm@20 {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_tpm_irq>;
 +		compatible = "infineon,slb9645tt";
++		interrupts-extended = <&gpio2 0 IRQ_TYPE_LEVEL_LOW>;
 +		reg = <0x20>;
 +	};
 +
@@ -341,8 +370,20 @@ index 000000000000..63fb839c3f50
 +	};
 +
 +	pcf85363: pcf85363@51 {
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_pcf_irq>;
 +		compatible = "nxp,pcf85363";
++		interrupts-extended = <&gpio2 29 IRQ_TYPE_LEVEL_LOW>;
 +		reg = <0x51>;
++	};
++
++	ACT8847: act8847@5a {
++		/* PMIC */
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_act_irg>;
++		compatible = "activa,act8847";
++		interrupts-extended = <&gpio3 26 IRQ_TYPE_LEVEL_LOW>;
++		reg = <0x5A>;
 +	};
 +};
 +
@@ -350,16 +391,60 @@ index 000000000000..63fb839c3f50
 +&i2c4 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_i2c4>;
++	clock-frequency = <100000>;
 +	status = "okay";
++	/*
++	 * This EEPROM is part of an expansion board. And thus, it might not
++	 * be present, if no expansion board is attached.
++	 * But in order to be able to detect it, we must list it here a dummy.
++	 * Due to the nature of an optional expansion board, we cannot define
++	 * the EEPROM's power supply here, as it can be 5V (regulator-5v-periph)
++	 * or * 3.3 V (regulator-ldo-misc-3v3)
++	 */
++	exp_eeprom: eeprom@50 {
++		compatible = "atmel,24c64";
++		pagesize = <32>;
++		reg = <0x50>;
++	};
 +};
 +
 +&iomuxc {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_hook>;
++
++	pinctrl_hook: hookgrp {
++		/*
++		 * The following pads correspond to the UART6 connected to
++		 * the modem. As long the modem is not powered, the signals
++		 * should be forced to low level. It isn't possible for RxD,
++		 * since it has an external PU.
++		 * This block can be removed, when dealing with the modem is implemented.
++		 */
++		fsl,pins = <
++			/* 1.8 V power domain */
++			MX7D_PAD_SD1_CLK__GPIO5_IO3			0x14 /* 100 k PD */
++			MX7D_PAD_SD1_CD_B__GPIO5_IO0			0x04 /* external PU */
++			MX7D_PAD_SD1_WP__UART6_DCE_TX			0x14 /* 100 k PD */
++			MX7D_PAD_SD1_WP__GPIO5_IO1			0x14 /* 100 k PD */
++			MX7D_PAD_SD1_CMD__GPIO5_IO4			0x14 /* RI input, 100 k PD */
++			/* 3.3 V power domain */
++			MX7D_PAD_I2C1_SDA__GPIO4_IO9			0x04 /* DTR out, external PD and level shifter */
++			MX7D_PAD_I2C3_SDA__GPIO4_IO13			0x14 /* DCD in, 100 k PD, external level shifter */
++		>;
++	};
++
++	pinctrl_act_irg: act1grp {
++		fsl,pins = <
++			MX7D_PAD_LCD_DATA21__GPIO3_IO26			0x58		/* 47 k PU + Hys */
++		>;
++	};
++
 +	pinctrl_ecspi2: ecspi2grp {
 +		fsl,pins = <
-+			MX7D_PAD_ECSPI2_MISO__ECSPI2_MISO		0x7c
-+			MX7D_PAD_ECSPI2_MOSI__ECSPI2_MOSI		0x74
-+			MX7D_PAD_ECSPI2_SCLK__ECSPI2_SCLK		0x74
-+			MX7D_PAD_ECSPI2_SS0__ECSPI2_SS0			0x74
++			MX7D_PAD_ECSPI2_MISO__ECSPI2_MISO		0x7c /* 100 k PU */
++			MX7D_PAD_ECSPI2_MOSI__ECSPI2_MOSI		0x74 /* 100 k PU */
++			MX7D_PAD_ECSPI2_SCLK__ECSPI2_SCLK		0x00 /* fast slew rate */
++			MX7D_PAD_ECSPI2_SS0__GPIO4_IO23			0x00 /* fast slew rate */
 +		>;
 +	};
 +
@@ -367,8 +452,14 @@ index 000000000000..63fb839c3f50
 +		fsl,pins = <
 +			MX7D_PAD_SAI2_TX_SYNC__ECSPI3_MISO		0x7c	/* EXP_SPI_MISO */
 +			MX7D_PAD_SAI2_TX_BCLK__ECSPI3_MOSI		0x74	/* EXP_SPI_MOSI */
-+			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x74	/* EXP_SPI_CLK */
-+			MX7D_PAD_SAI2_TX_DATA__ECSPI3_SS0		0x74	/* EXP_SPI_CS */
++			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x00	/* EXP_SPI_CLK */
++			MX7D_PAD_SAI2_TX_DATA__GPIO6_IO22		0x00	/* EXP_SPI_CS, fast slew rate */
++		>;
++	};
++
++	pinctrl_pcf_irq: pcf1grp{
++		fsl,pins = <
++			MX7D_PAD_EPDC_BDR1__GPIO2_IO29			0x58		/* 47 k PU + Hys */
 +		>;
 +	};
 +
@@ -386,6 +477,12 @@ index 000000000000..63fb839c3f50
 +		>;
 +	};
 +
++	pinctrl_tpm_irq: tpm1grp  {
++		fsl,pins = <
++			MX7D_PAD_EPDC_DATA00__GPIO2_IO0			0x58		/* 47 k PU + Hys */
++		>;
++	};
++
 +	pinctrl_flexcan1: flexcan1grp {
 +		fsl,pins = <
 +			MX7D_PAD_GPIO1_IO12__FLEXCAN1_RX		0x5a
@@ -393,9 +490,14 @@ index 000000000000..63fb839c3f50
 +		>;
 +	};
 +
++	pinctrl_5v_reg: reg5v1grp {
++		fsl,pins = <
++			MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x04		/* 5V_PERIPH_EN */
++		>;
++	};
++
 +	pinctrl_gpio2: gpio2grp {
 +		fsl,pins = <
-+			MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x14		/* 5V_PERIPH_EN */
 +			MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14		/* GSM_PWR_EN_3V3 */
 +			MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14		/* SIM_CD1 */
 +			MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14		/* SIM_CD2 */
@@ -440,8 +542,10 @@ index 000000000000..63fb839c3f50
 +
 +	pinctrl_i2c4: i2c4grp {
 +		fsl,pins = <
-+			MX7D_PAD_ENET1_RGMII_TD3__I2C4_SDA		0x40000078
-+			MX7D_PAD_ENET1_RGMII_TD2__I2C4_SCL		0x40000078
++			/* external 4.7 k PU */
++			MX7D_PAD_ENET1_RGMII_TD3__I2C4_SDA		0x4000000C
++			/* external 4.7 k PU */
++			MX7D_PAD_ENET1_RGMII_TD2__I2C4_SCL		0x4000000C
 +		>;
 +	};
 +
@@ -480,6 +584,20 @@ index 000000000000..63fb839c3f50
 +			MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79		/* RS485_DE */
 +			MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79		/* RS485_R */
 +			MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79		/* RS458_D */
++		>;
++	};
++
++	pinctrl_uart6: uart6grp {
++		fsl,pins = <
++			/* 1.8 V power domain */
++			MX7D_PAD_SD1_CLK__UART6_DCE_CTS			0x04 /* input */
++			MX7D_PAD_SD1_CD_B__UART6_DCE_RX			0x04 /* input, external PU */
++			MX7D_PAD_SD1_WP__UART6_DCE_TX			0x00
++			MX7D_PAD_SD1_RESET_B__UART6_DCE_RTS		0x00
++			MX7D_PAD_SD1_CMD__GPIO5_IO4			0x04 /* RI input */
++			/* 3.3 V power domain */
++			MX7D_PAD_I2C1_SDA__GPIO4_IO9			0x00 /* DTR out, external level shifter */
++			MX7D_PAD_I2C3_SDA__GPIO4_IO13			0x54 /* DCD in, 47 k PU, external level shifter */
 +		>;
 +	};
 +
@@ -572,7 +690,13 @@ index 000000000000..63fb839c3f50
 +	};
 +};
 +
++&uart2 {
++	/* TODO spare serial at J1300 */
++	uart-has-rtscts;
++};
++
 +&uart3 {
++	/* Serial Console at J1305 */
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_uart3>;
 +	assigned-clocks = <&clks IMX7D_UART3_ROOT_SRC>;
@@ -588,6 +712,17 @@ index 000000000000..63fb839c3f50
 +	rts-gpios = <&gpio4 8 GPIO_ACTIVE_HIGH>;
 +	linux,rs485-enabled-at-boot-time;
 +	status = "okay";
++};
++
++&uart6 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart6>;
++	/* TODO used for GSM communication */
++	uart-has-rtscts;
++};
++
++&uart7 {
++	/* spare serial at J500 */
 +};
 +
 +&usbphynop3 {
