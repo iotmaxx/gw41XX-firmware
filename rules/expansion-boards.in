@@ -3,6 +3,7 @@
 menuconfig EXPANSION_BOARDS
 	bool
 	prompt "expansion-boards"
+	select HOST_DTC
 	help
 	  FIXME
 

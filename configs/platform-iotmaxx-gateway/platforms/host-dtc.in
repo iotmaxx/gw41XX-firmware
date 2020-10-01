@@ -1,4 +1,5 @@
 ## SECTION=devicetree
+## SECTION=hosttools_noprompt
 
 menuconfig HOST_DTC
 	tristate "dtc                           "
