@@ -13,10 +13,9 @@ rootfs_unused_libraries:
 
 kernel_smp_on_up:
   description: |
-     This option should be off to enforce the presence of the PSCI provided by
-     the booloader. Currently it is broken and thus, only one CPU core can be
-     used at run-time
-     TODO: when fixed, change this entry to FALSE!
-  value: True
+     This option should be off to enforce the presence of the second CPU core.
+     This relies on the PSCI feature provided by the booloader. Refer
+     doc/bsp-specific.rst, section "CPU Core Control" for details
+  value: False
 
 # vim: filetype=yaml

@@ -56,3 +56,19 @@ eMMC Partitioning
              broken regarding images larger than 2 GiB and/or 4 GiB. In order
              to prepare the eMMC successfully a different transfer method must
              be used, to bring the image into the device.
+
+CPU Core Control
+----------------
+
+In order to enable the second CPU core of the *i.MX7D* SoC, the so called
+*Power State Coordination Interface* (aka *PSCI*) is used. This requires the
+Linux kernel to be started in the *nonsecure mode*. The *PSCI* feature itself
+is provided by the bootloader and the Linux kernel depends on it. Else the
+*GW4100* runs with a single CPU core only.
+
+.. warning:: As of October 2020 the bootloader's *PSCI* feature is incomplete
+             and the Linux kernel's PSCI based *CPU IDLE* driver crashes. This
+             driver must not be used as long as the bootloader's *PSCI* feature
+             is incomplete
+.. warning:: As of October 2020 the Linux kernel's *PSCI checker* should not
+             be used
