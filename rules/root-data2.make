@@ -44,7 +44,7 @@ $(STATEDIR)/root-data2.targetinstall:
 	@$(call install_fixup,root-data2,AUTHOR,"Steffen Trumtrar <s.trumtrar@pengutronix.de>")
 	@$(call install_fixup,root-data2,DESCRIPTION,missing)
 
-	@$(call install_copy, root-data2, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/data_inactive/.empty, /data_inactive/.empty)
+	@$(call install_copy, root-data2, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/data_inactive/.empty, /data_inactive/.empty)
 
 	@$(call install_finish,root-data2)
 
