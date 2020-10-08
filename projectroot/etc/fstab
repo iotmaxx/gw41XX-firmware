@@ -16,7 +16,7 @@ tmpfs	/run			tmpfs	nosuid,nodev,strictatime,mode=0755	0 0
 @VAR_OVERLAYFS@tmpfs	/var/tmp		tmpfs	nosuid,nodev,mode=1777,size=20%		0 0
 
 # config partition
-/dev/mmcblk1p7		/config	ext4	defaults,data=journal,noatime,nodev	0 2
+/dev/mmcblk1p6		/config	ext4	defaults,data=journal,noatime,nodev	0 2
 
 # data partitions
 /dev/data		/data		ext4	defaults,data=journal,noatime,nodev	0 2
