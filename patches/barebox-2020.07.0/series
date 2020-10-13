@@ -1,6 +1,6 @@
 # umpf-base: v2020.07.0
 # umpf-name: 2020.07.0/customers/iotmaxx/gateway
-# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20200930-1
+# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20201013-2
 # umpf-topic: v2020.06.0/topic/imx7_ocotp
 # umpf-hashinfo: f3a941ff7f66929038a26ec9bbbcdcb6f9d7c1f4
 # umpf-topic-range: 3322880d50b964c17021f9a6089d191b6cf1586b..377cad2190d3745db8525378ec00c808ab7820d8
@@ -15,8 +15,8 @@
 0101-ARM-imx7-sdb-add-bareboxenv-partition.patch
 0102-ARM-imx7-sdb-add-bootstate.patch
 # umpf-topic: v2020.07.0/customers/iotmaxx/board/gateway
-# umpf-hashinfo: 03883d28a5db13a062dd8a56ef7d421ac966b094
-# umpf-topic-range: 1fa4ff551dcc3de0ab9bc6cb818aafb4c9444ea4..6f0155d88d8a1fe0e6ae96974a39ab146daa74cf
+# umpf-hashinfo: 1c40313da9b8303b4775d4d21e360631541d59a4
+# umpf-topic-range: 1fa4ff551dcc3de0ab9bc6cb818aafb4c9444ea4..7fa2cc9ea2024ffdaa835d511d520b6c64184f48
 0201-i.MX7-Add-CCM-definitions-for-UART3.patch
 0202-net-mdio-gpio-fix-typos-in-dev_dbg.patch
 0203-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
@@ -24,7 +24,7 @@
 0205-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
 0206-HACK-workaround-for-reset-issue.patch
 0207-GW4100-add-sane-pad-setup-for-the-expansion-board.patch
-# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20200930-1
-# umpf-topic-range: 6f0155d88d8a1fe0e6ae96974a39ab146daa74cf..769d23bcd6352c8a5b9732d6e76f60f056565e64
-0301-Release-2020.07.0-customers-iotmaxx-gateway-20200930.patch
+# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20201013-2
+# umpf-topic-range: 7fa2cc9ea2024ffdaa835d511d520b6c64184f48..69fd3d08a72d1782a51e2b2244b9240e9d89523d
+0301-Release-2020.07.0-customers-iotmaxx-gateway-20201013.patch
 # umpf-end

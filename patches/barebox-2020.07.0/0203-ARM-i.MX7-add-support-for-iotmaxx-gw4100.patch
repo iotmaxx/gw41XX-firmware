@@ -190,7 +190,7 @@ index d61a052310ce..dfa0f2f15bd9 100644
  lwl-$(CONFIG_MACH_LENOVO_IX4_300D) += armada-xp-lenovo-ix4-300d-bb.dtb.o
 diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..57623dcffeeb
+index 000000000000..5458b322ee4a
 --- /dev/null
 +++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
 @@ -0,0 +1,136 @@
@@ -319,14 +319,14 @@ index 000000000000..57623dcffeeb
 +		#address-cells = <1>;
 +		#size-cells = <1>;
 +
-+		bareboxenvemmc: bareboxenv@0 {
++		bareboxenvemmc: bareboxenv@100000 {
 +			label = "bareboxenv";
-+			reg = <0x0 0x20000>;
++			reg = <0x100000 0x20000>;
 +		};
 +
-+		state_emmc: state@20000 {
++		state_emmc: state@120000 {
 +			label = "state";
-+			reg = <0x20000 0x20000>;
++			reg = <0x120000 0x20000>;
 +		};
 +	};
 +};
