@@ -27,4 +27,10 @@ rootfs_broken_links:
   present:
   - /etc/rauc-hawkbit-updater/config.conf -> ../../config/rauc-hawkbit-updater/config.conf  
 
+systemd_networkd_networkmanager:
+  description: |
+     NetworkManager is needed for ModemManager for the Quectel Modem.
+     The other networkinterfaces (eth0, can) are handled by systemd-networkd.
+  value: True
+
 # vim: filetype=yaml
