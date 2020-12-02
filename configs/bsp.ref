@@ -21,4 +21,10 @@ kernel_smp_on_up:
      doc/bsp-specific.rst, section "CPU Core Control" for details
   value: False
 
+rootfs_broken_links:
+  description: |
+   The config partition is mounted at runtime to /config.
+  present:
+  - /etc/rauc-hawkbit-updater/config.conf -> ../../config/rauc-hawkbit-updater/config.conf  
+
 # vim: filetype=yaml
