@@ -2,7 +2,9 @@ includes:
 - file: ptxdist.ref
 
 rootfs_unused_libraries:
-  description: ModemManager plugins and protocols are not yet fully specified. Same for CAN.
+  description: ModemManager plugins and protocols are not yet fully specified.
+  libsocketcant: CAN-usage is unspecified
+  libevent: is a dependency of ntp
   present:
   - /usr/lib/ModemManager/libmm-shared-icera.so
   - /usr/lib/ModemManager/libmm-shared-novatel.so
@@ -12,6 +14,7 @@ rootfs_unused_libraries:
   - /usr/lib/ModemManager/libmm-shared-xmm.so
   - /usr/lib/pppd/2.4.7/nm-pppd-plugin.so
   - /usr/lib/pppd/2.4.7/rp-pppoe.so
+  - /usr/lib/libevent-2.1.so.6
   - /usr/lib/libsocketcan.so.2
 
 kernel_smp_on_up:
