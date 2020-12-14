@@ -1,8 +1,10 @@
 IMPORT{builtin}="path_id"
 IMPORT{cmdline}="bootchooser.active"
+IMPORT{cmdline}="root"
 
 ENV{bootchooser.active}=="system0", GOTO="data_partitions_system_a"
 ENV{bootchooser.active}=="system1", GOTO="data_partitions_system_b"
+ENV{root}=="/dev/nfs", GOTO="data_partitions_system_a"
 GOTO="data_partitions_end"
 
 LABEL="data_partitions_system_a"
