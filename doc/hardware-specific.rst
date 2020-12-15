@@ -550,4 +550,4 @@ levels by default and can be changed to active/different use at run-time.
           an EEPROM device part of an attached expansion board
 
 .. important:: The expected EEPROM on the attached expansion board is of
-               type *26C64* at I²C address *0x50*.
+               type *24CS64* at I²C address *0x50*.
