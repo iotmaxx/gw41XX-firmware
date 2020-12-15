@@ -80,3 +80,14 @@ is provided by the bootloader and the Linux kernel depends on it. Else the
              is incomplete
 .. warning:: As of October 2020 the Linux kernel's *PSCI checker* should not
              be used
+
+.. _manual,networking:
+
+Networking
+----------
+
+When the BSP is started a systemd-networkd-based DHCP-server is started with address ``192.168.1.1``.
+The DNS is set to ``8.8.8.8``.
+
+.. hint:: When the board is booted with nfsroot, the DHCP-server is *not* enabled on boot. The board
+          will act as a normal DHCP-client instead. This is useful for development.
