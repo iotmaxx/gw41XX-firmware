@@ -1,0 +1,194 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 3 Dec 2020 09:41:23 +0100
+Subject: [PATCH] iotmaxx-gw4100: register overlays
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c       | 61 +++++++++++++++++++++
+ arch/arm/boards/iotmaxx-gw4100/eeprom_data.h | 80 ++++++++++++++++++++++++++++
+ 2 files changed, 141 insertions(+)
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/eeprom_data.h
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index f1da84f11148..28c9dc16cb2a 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -1,17 +1,22 @@
+ #include <bootsource.h>
+ #include <common.h>
++#include <fs.h>
+ #include <init.h>
+ #include <io.h>
++#include <globalvar.h>
+ #include <gpio.h>
++#include <libfile.h>
+ #include <linux/micrel_phy.h>
+ #include <linux/phy.h>
+ #include <mach/bbu.h>
+ #include <mach/generic.h>
+ #include <mach/imx7-regs.h>
+ #include <mach/iomux-mx7.h>
++#include <magicvar.h>
+ #include <mfd/imx7-iomuxc-gpr.h>
+ 
+ #include <phy-id-list.h>
++#include "eeprom_data.h"
+ 
+ static const struct gpio gw4100_expansion_gpio_list[] = {
+ 	/* PCM related signals, shared with the modem */
+@@ -100,6 +105,60 @@ static const iomux_v3_cfg_t gw4100_expansion_pad_list[] = {
+ 	MX7D_PAD_LCD_CLK__GPIO3_IO0 | DEF_PU, /* input, 100k PU */
+ };
+ 
++static int imx7d_iotmaxx_read_eeprom(const char *file, struct eepromData *data)
++{
++	int fd;
++	int ret;
++
++	fd = open(file, O_RDONLY);
++	if (fd < 0) {
++		ret = fd;
++		goto err;
++	}
++
++	ret = read_full(fd, data, sizeof(*data));
++	if (ret < 0)
++		goto err_open;
++
++	ret = 0;
++
++err_open:
++	close(fd);
++err:
++	return ret;
++}
++
++static int imx7d_iotmaxx_detect_expansion_board(void)
++{
++	static char *gw4100_overlays;
++	struct eepromData data;
++	char overlay_name[17];
++	int ret;
++
++	ret = imx7d_iotmaxx_read_eeprom("/dev/eeprom1", &data);
++	/* no eeprom found can simple mean that there is no expansion board */
++	if (ret == -ENOENT)
++		return 0;
++	else if (ret)
++		return ret;
++
++	if (!eeprom_data_valid(&data))
++		return -EINVAL;
++
++	/* be sure to have a real string with \0 termination */
++	strncpy(overlay_name, data.sectionA.commonData.caOverlayName, 16);
++	overlay_name[16] = '\0';
++
++	if (strlen(overlay_name) <= 0)
++		return -ENOENT;
++
++	gw4100_overlays = basprintf("/boot/%s.dto", overlay_name);
++
++	globalvar_add_simple_string("boot.overlays", &gw4100_overlays);
++
++	return 0;
++}
++
+ /**
+  * We need a safe pad setup for the expansion port if it isn't in use.
+  * - we cannot adapt the bootloader's DTS, because it should share it with the kernel
+@@ -126,6 +185,8 @@ static int  imx7d_iotmaxx_expansion_port_setup(void)
+ 	if (rc != 0)
+ 		pr_err("Failed to setup expansion port SoC pads. Trying to continue.\n");
+ 
++	imx7d_iotmaxx_detect_expansion_board();
++
+ 	return 0;
+ }
+ device_initcall(imx7d_iotmaxx_expansion_port_setup);
+diff --git a/arch/arm/boards/iotmaxx-gw4100/eeprom_data.h b/arch/arm/boards/iotmaxx-gw4100/eeprom_data.h
+new file mode 100644
+index 000000000000..be778a0ea45f
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/eeprom_data.h
+@@ -0,0 +1,80 @@
++#ifndef __EEPROM_DATA_H_
++#define __EEPROM_DATA_H_
++
++#define IOTMAXX_MAGIC      0xC4EC31B6
++
++struct sVersion {
++	uint8_t u8Major;
++	uint8_t u8Minor;
++	uint8_t u8Build;
++};
++
++union uVersion {
++	uint32_t u32Version;
++	struct sVersion sVersion;
++};
++
++struct eeCommonData {
++	uint32_t    u32Magic;                       // magic number
++	uint32_t    u32Checksum;                    // section checksum (not including u32Magic and u32Checksum)
++	char        caOverlayName[16];              // name of overlay (e.g. 'test' for test.dto)
++	uint32_t    u32Product;                     // product id
++	union       uVersion uVersion;            // product version
++	char        caProductName[16];              // name of product (human readable)
++	char        caSerialNumber[16];             // serial number of product (e.g. IMEI)
++	uint8_t     u8Manufacturer;                 // manufacturer of product (iotmaxx assigned id)
++	uint32_t    u32TimeOfProduction;            // time of production (unix timestamp)
++	uint8_t     u8Tester;                       // tested by (iotmaxx assigned id)
++	uint8_t     u8TestResult;                   // test result (tbd)
++	uint32_t    u32TimeOfTest;                  // time of test (unix timestamp)
++};
++
++struct eeSpecificData {
++	uint32_t    u32Magic;                       // magic number
++	uint32_t    u32Checksum;                    // section checksum (not including u32Magic and u32Checksum)
++	uint8_t     u8aMAC[6];                      // MAC address
++};
++
++struct eeSectionCData {
++	uint32_t    u32Magic;                       // magic number
++	uint32_t    u32Checksum;                    // section checksum (not including u32Magic and u32Checksum)
++};
++
++struct eeCertificates {
++	uint32_t    u32Magic;                       // magic number
++	uint32_t    u32Checksum;                    // section checksum (not including u32Magic and u32Checksum)
++};
++
++struct eeUserData {
++	uint32_t    u32Magic;                       // magic number
++	uint32_t    u32Checksum;                    // section checksum (not including u32Magic and u32Checksum)
++};
++
++struct eepromData {
++	union {
++		uint8_t u8aSectionA[256];
++		struct eeCommonData commonData;
++	} sectionA;		                            // data common for all boards
++	union {
++		uint8_t u8aSectionB[256];
++		struct eeSpecificData specificData;
++	} sectionB;                                         // board specifc data
++	union {
++		uint8_t u8aSectionC[512];
++		struct eeSectionCData sectionCData;
++	} sectionC;                                         // unused
++	union {
++		uint8_t u8aSectionD[3*1024];
++		struct eeCertificates certificates;
++	} sectionD;                                         // certificates
++	union {
++		uint8_t u8aSectionD[4*1024];
++		struct eeUserData userData;
++	} sectionE;                                         // user data, application/project specific
++};
++
++static inline int eeprom_data_valid(struct eepromData *data)
++{
++	return data->sectionA.commonData.u32Magic == IOTMAXX_MAGIC ? 1 : 0;
++}
++#endif // __EEPROM_DATA_H_

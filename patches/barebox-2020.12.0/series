@@ -1,0 +1,25 @@
+# umpf-base: v2020.12.0
+# umpf-name: 2020.12.0/customers/iotmaxx/gateway
+# umpf-version: 2020.12.0/customers/iotmaxx/gateway/20201215-1
+# umpf-topic: v2020.05.0/topic/boards/imx7d-sabresd
+# umpf-hashinfo: 9004fc2bc6a69032ec799903d5049427e2856b94
+# umpf-topic-range: eac993949c81a166f52d1d1b6857eefdb6c18948..1be57f6c5ee611d8e103a87ca663c5bf0d770247
+0001-ARM-imx7-sdb-add-bareboxenv-partition.patch
+0002-ARM-imx7-sdb-add-bootstate.patch
+# umpf-topic: v2020.12.0/customers/iotmaxx/board/gateway
+# umpf-hashinfo: a48323d49151ab8cbb38e41cff46a52ec2075dd2
+# umpf-topic-range: 1be57f6c5ee611d8e103a87ca663c5bf0d770247..04a6ba254e08e63599fe690554a4cc8245e20920
+0101-i.MX7-Add-CCM-definitions-for-UART3.patch
+0102-net-mdio-gpio-fix-typos-in-dev_dbg.patch
+0103-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
+0104-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
+0105-HACK-workaround-for-reset-issue.patch
+0106-GW4100-add-sane-pad-setup-for-the-expansion-board.patch
+0107-blspec-apply-overlays-from-global-environment.patch
+0108-eeprom-at24-add-support-for-24cs64.patch
+0109-iotmaxx-gw4100-register-overlays.patch
+0110-iotmaxx-gw4100-register-mac-addr.patch
+# umpf-release: 2020.12.0/customers/iotmaxx/gateway/20201215-1
+# umpf-topic-range: 04a6ba254e08e63599fe690554a4cc8245e20920..d0524ab973789530182676c7d3e0080dcb990e9b
+0201-Release-2020.12.0-customers-iotmaxx-gateway-20201215.patch
+# umpf-end

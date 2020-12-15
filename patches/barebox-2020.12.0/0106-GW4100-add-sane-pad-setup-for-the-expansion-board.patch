@@ -1,0 +1,179 @@
+From: Juergen Borleis <jbe@pengutronix.de>
+Date: Wed, 23 Sep 2020 15:23:36 +0200
+Subject: [PATCH] GW4100: add sane pad setup for the expansion board
+
+All pads used at the expansion connector should have a sane default. Only
+if really used (e.g. an expansion board is plugged in), the OS will change
+these definitions via "DTS Overlay".
+
+Signed-off-by: Juergen Borleis <jbe@pengutronix.de>
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c | 120 +++++++++++++++++++++++++++++++++
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts   |   5 +-
+ 2 files changed, 123 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index 6ac2ed95efd2..f1da84f11148 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -2,14 +2,134 @@
+ #include <common.h>
+ #include <init.h>
+ #include <io.h>
++#include <gpio.h>
+ #include <linux/micrel_phy.h>
+ #include <linux/phy.h>
+ #include <mach/bbu.h>
++#include <mach/generic.h>
+ #include <mach/imx7-regs.h>
++#include <mach/iomux-mx7.h>
+ #include <mfd/imx7-iomuxc-gpr.h>
+ 
+ #include <phy-id-list.h>
+ 
++static const struct gpio gw4100_expansion_gpio_list[] = {
++	/* PCM related signals, shared with the modem */
++	{ .gpio = IMX_GPIO_NR(5, 5), .label = "pcm-dout", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(5, 6), .label = "pcm-clk", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(5, 7), .label = "pcm-sync", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(5, 8), .label = "pcm-din", .flags = GPIOF_IN, },
++
++	/* SPI related signals */
++	{ .gpio = IMX_GPIO_NR(6, 19), .label = "spi-miso", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 20), .label = "spi-mosi", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 21), .label = "spi-clk", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 22), .label = "spi-cs", .flags = GPIOF_IN, },
++
++	/* SAI related signals */
++	{ .gpio = IMX_GPIO_NR(6, 12), .label = "sai-rxd", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 13), .label = "sai-txc", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 14), .label = "sai-txf", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 15), .label = "sai-txd", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 16), .label = "sai-rxf", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 17), .label = "sai-rxc", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(6, 18), .label = "sai-mclk", .flags = GPIOF_IN, },
++
++	/* GPIO related signals */
++	{ .gpio = IMX_GPIO_NR(7, 11), .label = "io00", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 10), .label = "io01", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 12), .label = "io02", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 2), .label = "io03", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 3), .label = "io04", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 5), .label = "io05", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 4), .label = "io06", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 13), .label = "io07", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 7), .label = "io08", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 14), .label = "io09", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(7, 6), .label = "io10", .flags = GPIOF_IN, },
++
++	/* UART related signals */
++	{ .gpio = IMX_GPIO_NR(3, 3), .label = "exp-cts", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(3, 2), .label = "exp-rts", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(3, 1), .label = "exp-txd", .flags = GPIOF_IN, },
++	{ .gpio = IMX_GPIO_NR(3, 0), .label = "exp-rxd", .flags = GPIOF_IN, },
++};
++
++/* PAD setup: 100 k PullUp + Slow Slew Rate */
++#define DEF_PU (0x74)
++
++static const iomux_v3_cfg_t gw4100_expansion_pad_list[] = {
++	/* PCM related signals, shared with the modem */
++	MX7D_PAD_SD1_DATA0__GPIO5_IO5, /* input, passive */
++	MX7D_PAD_SD1_DATA1__GPIO5_IO6, /* input, passive */
++	MX7D_PAD_SD1_DATA2__GPIO5_IO7, /* input, passive */
++	MX7D_PAD_SD1_DATA3__GPIO5_IO8, /* input, passive */
++
++	/* SPI related signals */
++	MX7D_PAD_SAI2_TX_DATA__GPIO6_IO22 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI2_TX_BCLK__GPIO6_IO20 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI2_TX_SYNC__GPIO6_IO19 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI2_RX_DATA__GPIO6_IO21 | DEF_PU, /* input, 100k PU */
++
++	/* SAI related signals */
++	MX7D_PAD_SAI1_RX_DATA__GPIO6_IO12 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_TX_DATA__GPIO6_IO15 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_MCLK__GPIO6_IO18 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_TX_BCLK__GPIO6_IO13 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_RX_BCLK__GPIO6_IO17 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_RX_SYNC__GPIO6_IO16 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_SAI1_TX_SYNC__GPIO6_IO14 | DEF_PU, /* input, 100k PU */
++
++	/* GPIO related signals */
++	MX7D_PAD_ENET1_RGMII_TXC__GPIO7_IO11 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_TX_CTL__GPIO7_IO10 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_TX_CLK__GPIO7_IO12 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_RD2__GPIO7_IO2 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_RD3__GPIO7_IO3 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_RXC__GPIO7_IO5 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_RX_CTL__GPIO7_IO4 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RX_CLK__GPIO7_IO13 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_TD1__GPIO7_IO7 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_CRS__GPIO7_IO14 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_ENET1_RGMII_TD0__GPIO7_IO6 | DEF_PU, /* input, 100k PU */
++
++	/* UART related signals */
++	MX7D_PAD_LCD_VSYNC__GPIO3_IO3 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_LCD_HSYNC__GPIO3_IO2 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_LCD_ENABLE__GPIO3_IO1 | DEF_PU, /* input, 100k PU */
++	MX7D_PAD_LCD_CLK__GPIO3_IO0 | DEF_PU, /* input, 100k PU */
++};
++
++/**
++ * We need a safe pad setup for the expansion port if it isn't in use.
++ * - we cannot adapt the bootloader's DTS, because it should share it with the kernel
++ * - we cannot adapt the Kernel DTS, since it must be adaptable via DTS overlay
++ *
++ * So we must do this pad setup in C code here.
++ *
++ * Refer BSPs documentation in section "Expansion Board Connector" about the
++ * required/intended pad setup.
++ *
++ * If an expansion board is connected, the bootloader will detect its presence
++ * and discovers the required device tree overlay. The final pad setup in order
++ * to make use of the attached expansion board is done in the Linux kernel.
++ */
++static int  imx7d_iotmaxx_expansion_port_setup(void)
++{
++	int rc;
++
++	rc = mxc_iomux_v3_setup_multiple_pads(gw4100_expansion_pad_list, ARRAY_SIZE(gw4100_expansion_pad_list));
++	if (rc != 0)
++		pr_err("Failed to setup expansion port SoC pad features. Trying to continue.\n");
++
++	rc = gpio_request_array(gw4100_expansion_gpio_list, ARRAY_SIZE(gw4100_expansion_gpio_list));
++	if (rc != 0)
++		pr_err("Failed to setup expansion port SoC pads. Trying to continue.\n");
++
++	return 0;
++}
++device_initcall(imx7d_iotmaxx_expansion_port_setup);
++
+ static int ksz8081_phy_fixup(struct phy_device *dev)
+ {
+ 	/* Set 50MHz-Clock mode */
+diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+index 6702529ea188..a26a398f2457 100644
+--- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
++++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+@@ -176,10 +176,11 @@
+ 
+ /* Expansion slot */
+ &ecspi3 {
++	/* disabled by default, changed by a DTS overlay */
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ecspi3>;
+ 	num-chipselects = <1>;
+-	status = "okay";
++	cs-gpios = <&gpio6 22 GPIO_ACTIVE_LOW>;
+ };
+ 
+ &fec2 {
+@@ -421,7 +422,7 @@
+ 		fsl,pins = <
+ 			MX7D_PAD_SAI2_TX_SYNC__ECSPI3_MISO		0x7c	/* EXP_SPI_MISO */
+ 			MX7D_PAD_SAI2_TX_BCLK__ECSPI3_MOSI		0x74	/* EXP_SPI_MOSI */
+-			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x00	/* EXP_SPI_CLK */
++			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x74	/* EXP_SPI_CLK */
+ 			MX7D_PAD_SAI2_TX_DATA__GPIO6_IO22		0x00	/* EXP_SPI_CS, fast slew rate */
+ 		>;
+ 	};
