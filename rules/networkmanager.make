@@ -15,11 +15,11 @@ PACKAGES-$(PTXCONF_NETWORKMANAGER) += networkmanager
 #
 # Paths and names
 #
-NETWORKMANAGER_VERSION	:= 1.22.10
-NETWORKMANAGER_MD5	:= b7b8875c3ef1db0989f78351ba3e8ad8
+NETWORKMANAGER_VERSION	:= 1.26.2
+NETWORKMANAGER_MD5	:= ad5332a7fe5d00db7c75b722337be62b
 NETWORKMANAGER		:= NetworkManager-$(NETWORKMANAGER_VERSION)
 NETWORKMANAGER_SUFFIX	:= tar.xz
-NETWORKMANAGER_URL	:= https://ftp.gnome.org/pub/GNOME/sources/NetworkManager/$(basename $(NETWORKMANAGER_VERSION))/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
+NETWORKMANAGER_URL	:= $(call ptx/mirror, GNOME, NetworkManager/$(basename $(NETWORKMANAGER_VERSION))/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX))
 NETWORKMANAGER_SOURCE	:= $(SRCDIR)/$(NETWORKMANAGER).$(NETWORKMANAGER_SUFFIX)
 NETWORKMANAGER_DIR	:= $(BUILDDIR)/$(NETWORKMANAGER)
 NETWORKMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.0-or-later
@@ -50,6 +50,7 @@ NETWORKMANAGER_CONF_OPT = \
 	-Ddnssec_trigger=/bin/true \
 	-Ddocs=false \
 	-Debpf=false \
+	-Dfirewalld_zone=false \
 	-Dhostname_persist=default \
 	-Difcfg_rh=false \
 	-Difupdown=true \
@@ -111,10 +112,6 @@ ifdef PTXCONF_NETWORKMANAGER_EXAMPLES
 		&& for FILE in `find -type f -executable -printf '%f\n'`; do \
 		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
 	done
-	@cd $(NETWORKMANAGER_DIR)/examples/python/dbus \
-		&& for FILE in `find -name "*.py" -printf '%f\n'`; do \
-		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
-	done
 	@cd $(NETWORKMANAGER_DIR)/examples/shell/ \
 		&& for FILE in `find -name "*.sh" -printf '%f\n'`; do \
 		install -vD -m 755 "$${FILE}" "$(NETWORKMANAGER_PKGDIR)/usr/bin/nm-$${FILE}"; \
@@ -146,7 +143,6 @@ $(STATEDIR)/networkmanager.targetinstall:
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager)
 
-ifdef PTXCONF_INITMETHOD_BBINIT
 ifdef PTXCONF_NETWORKMANAGER_STARTSCRIPT
 	@$(call install_alternative, networkmanager, 0, 0, 0755, /etc/init.d/NetworkManager)
 
@@ -154,7 +150,6 @@ ifneq ($(call remove_quotes, $(PTXCONF_NETWORKMANAGER_BBINIT_LINK)),)
 	@$(call install_link, networkmanager, \
 		../init.d/NetworkManager, \
 		/etc/rc.d/$(PTXCONF_NETWORKMANAGER_BBINIT_LINK))
-endif
 endif
 endif
 ifdef PTXCONF_NETWORKMANAGER_SYSTEMD_UNIT
