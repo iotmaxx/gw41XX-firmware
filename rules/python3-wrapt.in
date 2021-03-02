@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_WRAPT
+	tristate
+	select PYTHON3
+	prompt "python3-wrapt"
+	help
+	  The aim of the wrapt module is to provide a transparent object proxy for Python, which can be used as the basis for the construction of function wrappers and decorator functions.

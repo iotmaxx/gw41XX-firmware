@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_SPIDEV
+	tristate
+	select PYTHON3
+	prompt "python3-spidev"
+	help
+	  This project contains a python module for interfacing with SPI devices from user space via the spidev linux kernel driver.

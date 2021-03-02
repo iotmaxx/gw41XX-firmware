@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_PYTHON_CAN
+	tristate
+	select PYTHON3
+	select PYTHON3_AENUM
+	select PYTHON3_WRAPT
+	prompt "python3-python-can"
+	help
+	  The Controller Area Network is a bus standard designed to allow microcontrollers and devices to communicate with each other. It has priority based bus arbitration and reliable deterministic communication. It is used in cars, trucks, boats, wheelchairs and more.
