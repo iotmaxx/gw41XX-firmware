@@ -1,0 +1,55 @@
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-04 12:26:44.000000000 +0200
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-10-16 11:09:07.289751020 +0200
+@@ -203,7 +203,7 @@
+ 
+ &gpio1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_gpio1>;
++	pinctrl-0 = <&pinctrl_gpio1_lpsr>, <&pinctrl_gpio1>;
+ 
+ 	gpio-line-names = "gpio1_highside",
+ 			  "gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
+@@ -363,6 +363,19 @@
+ 		>;
+ 	};
+ 
++	pinctrl_gpio1: gpio1grp {
++		fsl,pins = <
++			MX7D_PAD_GPIO1_IO08__GPIO1_IO8          0x14
++            MX7D_PAD_GPIO1_IO09__GPIO1_IO9          0x54
++            MX7D_PAD_GPIO1_IO10__GPIO1_IO10         0x14
++            MX7D_PAD_GPIO1_IO11__GPIO1_IO11         0x14
++            MX7D_PAD_GPIO1_IO14__GPIO1_IO14         0x14
++            MX7D_PAD_GPIO1_IO15__GPIO1_IO15         0x14
++            MX7D_PAD_SD2_RESET_B__GPIO5_IO11        0x14
++            MX7D_PAD_SD2_WP__GPIO5_IO10       		0x14
++		>;
++	};
++
+ 	pinctrl_gpio2: gpio2grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x14		/* 5V_PERIPH_EN */
+@@ -523,15 +536,15 @@
+ };
+ 
+ &iomuxc_lpsr {
+-	pinctrl_gpio1: gpio1grp {
++	pinctrl_gpio1_lpsr: gpio1grp_lpsr {
+ 		fsl,pins = <
+-			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x00	/* GPIO1_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x00	/* GPIO1_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x00	/* GPIO1_PULLUP */
+-			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x00	/* GPIO1_IN */
+-			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x00	/* GPIO2_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x00	/* GPIO2_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x00	/* !USB_EXT_OC */
++			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x14	/* GPIO1_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x14	/* GPIO1_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x14	/* GPIO1_PULLUP */
++			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x54	/* GPIO1_IN */
++			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x14	/* GPIO2_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x14	/* GPIO2_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14	/* !USB_EXT_OC */			
+ 		>;
+ 	};
+ 
