@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_JWT_EXTENDED
+	tristate
+	select PYTHON3
+	select PYTHON3_FLASK
+	prompt "python3-jwt-extended"
+	help
+	  Flask-JWT-Extended not only adds support for using JSON Web Tokens (JWT) to Flask for protecting views, but also many helpful (and optional) features built in to make working with JSON Web Tokens easier. 
