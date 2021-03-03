@@ -2,7 +2,8 @@
 
 config PYTHON3_IMPORTLIB_METADATA
 	tristate
-	select PYTHON3	
+	select PYTHON3
+	select PYTHON3_ZIPP	
 	prompt "python3-importlib-metadata"
 	help
 	  importlib_metadata is a library to access the metadata for a Python package. It is intended to be ported to Python 3.8. 
