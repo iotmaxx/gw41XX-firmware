@@ -3,6 +3,9 @@
 config PYTHON3_PYTEST
 	tristate
 	select PYTHON3	
+	select PYTHON3_TOML
+	select PYTHON3_PLUGGY
+	select PYTHON3_MORE_ITERTOOLS
 	prompt "python3-pytest"
 	help
 	  pytest: simple powerful testing with Python
