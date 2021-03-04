@@ -1,0 +1,8 @@
+--- a/src/importlib_metadata-1.7.0/importlib_metadata/__init__.py
++++ b/src/importlib_metadata-1.7.0/importlib_metadata/__init__.py
+@@ -620,4 +620,4 @@
+     return distribution(distribution_name).requires
+ 
+ 
+-__version__ = version(__name__)
++__version__ = '1.7.0'
