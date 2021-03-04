@@ -14,11 +14,11 @@ PACKAGES-$(PTXCONF_PYTHON3_IMPORTLIB_METADATA) += python3-importlib-metadata
 #
 # Paths and names
 #
-PYTHON3_IMPORTLIB_METADATA_VERSION	:= 1.7.0
-PYTHON3_IMPORTLIB_METADATA_MD5	:= 4505ea85600cca1e693a4f8f5dd27ba8
+PYTHON3_IMPORTLIB_METADATA_VERSION	:= 2.0.0
+PYTHON3_IMPORTLIB_METADATA_MD5	:= 3dd91821c930a3c3633e99a7025aa9c2
 PYTHON3_IMPORTLIB_METADATA		:= importlib_metadata-$(PYTHON3_IMPORTLIB_METADATA_VERSION)
 PYTHON3_IMPORTLIB_METADATA_SUFFIX	:= tar.gz
-PYTHON3_IMPORTLIB_METADATA_URL	:= https://files.pythonhosted.org/packages/e2/ae/0b037584024c1557e537d25482c306cf6327b5a09b6c4b893579292c1c38/$(PYTHON3_IMPORTLIB_METADATA).$(PYTHON3_IMPORTLIB_METADATA_SUFFIX)
+PYTHON3_IMPORTLIB_METADATA_URL	:= https://files.pythonhosted.org/packages/56/1f/74c3e29389d34feea2d62ba3de1169efea2566eb22e9546d379756860525/$(PYTHON3_IMPORTLIB_METADATA).$(PYTHON3_IMPORTLIB_METADATA_SUFFIX)
 PYTHON3_IMPORTLIB_METADATA_SOURCE	:= $(SRCDIR)/$(PYTHON3_IMPORTLIB_METADATA).$(PYTHON3_IMPORTLIB_METADATA_SUFFIX)
 PYTHON3_IMPORTLIB_METADATA_DIR	:= $(BUILDDIR)/$(PYTHON3_IMPORTLIB_METADATA)
 PYTHON3_IMPORTLIB_METADATA_LICENSE	:= Apache
@@ -55,10 +55,9 @@ $(STATEDIR)/python3-importlib-metadata.targetinstall:
 	@$(call install_fixup, python3-importlib-metadata, AUTHOR, "Niklas Sill <sill@iotmaxx.de>")
 	@$(call install_fixup, python3-importlib-metadata, DESCRIPTION, missing)
 
-		@$(call install_copy, python3-importlib-metadata, 0, 0, 0655, \
-		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/importlib_metadata,,  *.py)		
 		@$(call install_glob, python3-importlib-metadata, 0, 0, -, \
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/importlib_metadata,,  *.py)
+		
 
 		
 
