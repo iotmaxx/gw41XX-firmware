@@ -55,8 +55,12 @@ $(STATEDIR)/python3-importlib-metadata.targetinstall:
 	@$(call install_fixup, python3-importlib-metadata, AUTHOR, "Niklas Sill <sill@iotmaxx.de>")
 	@$(call install_fixup, python3-importlib-metadata, DESCRIPTION, missing)
 
+		@$(call install_copy, python3-importlib-metadata, 0, 0, 0655, \
+		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/importlib_metadata,,  *.py)		
 		@$(call install_glob, python3-importlib-metadata, 0, 0, -, \
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/importlib_metadata,,  *.py)
+
+		
 
 	@$(call install_finish, python3-importlib-metadata)
 
