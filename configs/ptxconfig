@@ -2433,7 +2433,7 @@ PTXCONF_RAUC_BAREBOX=y
 # PTXCONF_HEXEDIT is not set
 # PTXCONF_JED is not set
 # PTXCONF_JOE is not set
-# PTXCONF_NANO is not set
+PTXCONF_NANO=y
 # PTXCONF_VIM is not set
 
 #
