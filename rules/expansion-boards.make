@@ -30,7 +30,7 @@ EXPANSION_BOARDS_CONF_TOOL	:= NO
 # Compile
 # ----------------------------------------------------------------------------
 
-EXPANSION_BOARDS_OVERLAYS := test test2
+EXPANSION_BOARDS_OVERLAYS := test test2 sensexp testexp
 
 $(STATEDIR)/expansion-boards.compile:
 	@$(call targetinfo)
@@ -40,9 +40,9 @@ $(STATEDIR)/expansion-boards.compile:
 	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/test2.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test2.dts"
 	@dtc -o $(EXPANSION_BOARDS_DIR)/sensexp01.dto \
-		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/sensexp01.dts"
+		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/sensexp.dts"
 	@dtc -o $(EXPANSION_BOARDS_DIR)/testexp01.dto \
-		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/testexp01.dts"
+		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/testexp.dts"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -55,10 +55,10 @@ $(STATEDIR)/expansion-boards.install:
 			$(EXPANSION_BOARDS_PKGDIR)/boot/test.dto
 	@install -D -m644 $(EXPANSION_BOARDS_DIR)/test2.dto \
 			$(EXPANSION_BOARDS_PKGDIR)/boot/test2.dto
-	@install -D -m644 $(EXPANSION_BOARDS_DIR)/sensexp01.dto \
-			$(EXPANSION_BOARDS_PKGDIR)/boot/sensexp01.dto
-	@install -D -m644 $(EXPANSION_BOARDS_DIR)/testexp01.dto \
-			$(EXPANSION_BOARDS_PKGDIR)/boot/testexp01.dto
+	@install -D -m644 $(EXPANSION_BOARDS_DIR)/sensexp.dto \
+			$(EXPANSION_BOARDS_PKGDIR)/boot/sensexp.dto
+	@install -D -m644 $(EXPANSION_BOARDS_DIR)/testexp.dto \
+			$(EXPANSION_BOARDS_PKGDIR)/boot/testexp.dto
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
