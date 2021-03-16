@@ -1,17 +1,5 @@
-From 1f59235d1801bef0559344651ee98f5b58d5039c Mon Sep 17 00:00:00 2001
-From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
-Date: Tue, 14 Jul 2020 16:55:19 +0200
-Subject: [PATCH 1/2] external reset for Watchdog
-
-Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
----
- dts/src/arm/imx7d-iotmaxx-gw4100.dts | 11 +++++++++++
- 1 file changed, 11 insertions(+)
-
-diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-index 91befd2607..3b03099b37 100644
---- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-+++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-04 12:26:44.000000000 +0200
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-11-24 14:37:37.802491574 +0100
 @@ -454,6 +454,11 @@
  		MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
  		>;
