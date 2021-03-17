@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_PYTHON3_GW_CLI) += python3-gw-cli
 #
 # Paths and names
 #
-PYTHON3_GW_CLI_VERSION	:= 0.2.1
-PYTHON3_GW_CLI_MD5	:= 4c0c712714449f6dabf05fda9876ffce
+PYTHON3_GW_CLI_VERSION	:= 0.2.2
+PYTHON3_GW_CLI_MD5	:= 38a2d6c80cb5186c17cae8c2468d3f51
 PYTHON3_GW_CLI		:= gw-cli
 PYTHON3_GW_CLI_SUFFIX	:= zip
 PYTHON3_GW_CLI_URL	:= https://github.com/iotmaxx/gw-cli/releases/download/$(PYTHON3_GW_CLI_VERSION)/$(PYTHON3_GW_CLI).$(PYTHON3_GW_CLI_SUFFIX)
@@ -57,6 +57,8 @@ $(STATEDIR)/python3-gw-cli.targetinstall:
 
 		@$(call install_glob, python3-gw-cli, 0, 0, -, \
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
+		@$(call install_alternative, python3-gw-cli, 0, 0, 0644, \
+		/etc/systemd/system/gsm-connect.service)
 
 	@$(call install_finish, python3-gw-cli)
 
