@@ -34,11 +34,11 @@ PYTHON3_GW_WEBINTERFACE_CONF_TOOL	:= python3
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/python3-gw-webinterface.prepare:
-	@$(call targetinfo)
-	@$(call world/prepare, PYTHON3_GW_WEBINTERFACE)
-	@echo -e '[DEFAULT]\nlibrary_dirs =\ninclude_dirs =' > $(PYTHON3_GW_WEBINTERFACE_DIR)/site.cfg
-	@$(call touch)
+#$(STATEDIR)/python3-gw-webinterface.prepare:
+#	@$(call targetinfo)
+#	@$(call world/prepare, PYTHON3_GW_WEBINTERFACE)
+#	@echo -e '[DEFAULT]\nlibrary_dirs =\ninclude_dirs =' > $(PYTHON3_GW_WEBINTERFACE_DIR)/site.cfg
+#	@$(call touch)
 
 
 
@@ -46,7 +46,9 @@ $(STATEDIR)/python3-gw-webinterface.prepare:
 # Target-Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/python3-gw-webinterface.targetinstall:
+#$(STATEDIR)/python3-gw-webinterface.targetinstall: $(STATEDIR)/python3-gw-webinterface.targetinstall2
+
+$(STATEDIR)/python3-gw-webinterface.targetinstall:	
 	@$(call targetinfo)
 
 	@$(call install_init, python3-gw-webinterface)
@@ -55,8 +57,7 @@ $(STATEDIR)/python3-gw-webinterface.targetinstall:
 	@$(call install_fixup, python3-gw-webinterface, AUTHOR, "Niklas Sill <sill@iotmaxx.de>")
 	@$(call install_fixup, python3-gw-webinterface, DESCRIPTION, missing)
 
-		@$(call install_glob, python3-gw-webinterface, 0, 0, -, \
-		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
+
 		@$(call install_alternative, python3-gw-webinterface, 0, 0, 0644, \
 		/etc/systemd/system/webinterface.service)
 		@$(call install_link, python3-gw-webinterface, webinterface.service, \

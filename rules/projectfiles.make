@@ -14,6 +14,8 @@
 PACKAGES-$(PTXCONF_PROJECTFILES) += projectfiles
 PROJECTFILES_VERSION := 20200525
 
+WEBINTERFACE = /usr/lib/python3.7/site-packages/gw-backend/
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -29,6 +31,18 @@ $(STATEDIR)/projectfiles.targetinstall:
 	# modem
 	@$(call install_alternative, projectfiles, 0, 0, 0755, \
 		/usr/bin/sim_setup.sh)
+
+	@$(call install_copy, projectfiles, 0, 0, 0755, \
+		/usr/bin/webextract.py)
+
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/etc/systemd/system/webextract.service)
+		@$(call install_link, projectfiles, webextract.service, \
+		/etc/systemd/system/multi-user.target.wants/webextract.service)
+
+	
+	@$(call install_copy, projectfiles, 0, 0, 0755, \
+		/root/gw-backend.zip)
 
 #	udev rules
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
