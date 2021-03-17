@@ -12,8 +12,7 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_PROJECTFILES) += projectfiles
-#PACKAGES-$(PTXCONF_PROJECTFILES) += /usr/bin/webextract.py
-#PACKAGES-$(PTXCONF_PROJECTFILES) += gw-backend.zip
+
 PROJECTFILES_VERSION := 20200525
 
 
@@ -32,21 +31,6 @@ $(STATEDIR)/projectfiles.targetinstall:
 	# modem
 	@$(call install_alternative, projectfiles, 0, 0, 0755, \
 		/usr/bin/sim_setup.sh)
-
-	#@$(call install_alternative, PACKAGES-$(PTXCONF_PROJECTFILES), 0, 0, 0755, \
-	#	/usr/bin/webextract.py)
-
-	#@$(call install_glob, projectfiles, 0, 0, -, \
-	#	/usr/bin/webextract.py,, )
-
-	#@$(call install_alternative, projectfiles, 0, 0, 0644, \
-	#	/etc/systemd/system/webextract.service)
-	#	@$(call install_link, projectfiles, webextract.service, \
-	#	/etc/systemd/system/multi-user.target.wants/webextract.service)
-
-	
-	#@$(call install_copy, projectfiles, 0, 0, 0755, \
-	#	/root/)
 
 #	udev rules
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
