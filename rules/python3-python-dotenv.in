@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_PYTHON_DOTENV
+	tristate
+	select PYTHON3	
+	prompt "python3-python-dotenv"
+	help
+	  Add .env support to your django/flask apps in development and deployments
+

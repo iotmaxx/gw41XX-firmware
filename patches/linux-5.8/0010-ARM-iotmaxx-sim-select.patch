@@ -1,0 +1,16 @@
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-04 12:26:44.000000000 +0200
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-11-24 14:37:37.802491574 +0100
+@@ -266,6 +266,13 @@
+ 		output-high;
+ 		line-name = "gsm_power_on_off";
+ 	};
++
++	gsm-sim-sel {
++		gpio-hog;
++		gpios = <16 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "gsm_sim_sel";
++	};
+ };
+ 
+ &i2c1 {
