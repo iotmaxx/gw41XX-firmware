@@ -1,30 +1,26 @@
 # umpf-base: v2020.12.0
 # umpf-name: 2020.07.0/customers/iotmaxx/gateway
-# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20210111-1
-# umpf-topic: v2020.12.0/topic/image-sparse
-# umpf-hashinfo: 9b4b96caf139fde17ca1ca9f7abfc1d9ae495511
-# umpf-topic-range: eac993949c81a166f52d1d1b6857eefdb6c18948..5711d8b6a50aeacab4234469883e80da0990279b
-0001-image-sparse-change-retlen-to-size_t.patch
-0002-image-sparse-change-chunk_data_sz-to-u64.patch
+# umpf-version: 2020.07.0/customers/iotmaxx/gateway/20210317-1
 # umpf-topic: v2020.05.0/topic/boards/imx7d-sabresd
 # umpf-hashinfo: 9004fc2bc6a69032ec799903d5049427e2856b94
-# umpf-topic-range: 5711d8b6a50aeacab4234469883e80da0990279b..b0e54c4bec41de6acefb68e620d029ae8731a6af
-0101-ARM-imx7-sdb-add-bareboxenv-partition.patch
-0102-ARM-imx7-sdb-add-bootstate.patch
-# umpf-topic: v2020.07.0/customers/iotmaxx/board/gateway
-# umpf-hashinfo: 2af26a5b57b81e0c88cdf7e0aaaea000d0429760
-# umpf-topic-range: b0e54c4bec41de6acefb68e620d029ae8731a6af..dd4e633087fea8196ed5b976c17e0d1b1ebea21e
-0201-i.MX7-Add-CCM-definitions-for-UART3.patch
-0202-net-mdio-gpio-fix-typos-in-dev_dbg.patch
-0203-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
-0204-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
-0205-HACK-workaround-for-reset-issue.patch
-0206-GW4100-add-sane-pad-setup-for-the-expansion-board.patch
-0207-blspec-apply-overlays-from-global-environment.patch
-0208-eeprom-at24-add-support-for-24cs64.patch
-0209-iotmaxx-gw4100-register-overlays.patch
-0210-iotmaxx-gw4100-register-mac-addr.patch
-# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20210111-1
-# umpf-topic-range: dd4e633087fea8196ed5b976c17e0d1b1ebea21e..17e15b669e0b1ae57684b12bc7b85d2115b23649
-0301-Release-2020.07.0-customers-iotmaxx-gateway-20210111.patch
+# umpf-topic-range: eac993949c81a166f52d1d1b6857eefdb6c18948..1be57f6c5ee611d8e103a87ca663c5bf0d770247
+0001-ARM-imx7-sdb-add-bareboxenv-partition.patch
+0002-ARM-imx7-sdb-add-bootstate.patch
+# umpf-topic: v2020.12.0/customers/iotmaxx/board/gateway
+# umpf-hashinfo: 0e846336fcc9c3e2cfe4b98b1511bd2a031adc95
+# umpf-topic-range: 1be57f6c5ee611d8e103a87ca663c5bf0d770247..c3201ac07d5832df6430b0a8171c733d0fb46afa
+0101-i.MX7-Add-CCM-definitions-for-UART3.patch
+0102-net-mdio-gpio-fix-typos-in-dev_dbg.patch
+0103-eeprom-at24-add-support-for-24cs64.patch
+0104-blspec-apply-overlays-from-global-environment.patch
+0105-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
+0106-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
+0107-HACK-workaround-for-reset-issue.patch
+0108-GW4100-add-sane-pad-setup-for-the-expansion-board.patch
+0109-iotmaxx-gw4100-register-overlays.patch
+0110-iotmaxx-gw4100-register-mac-addr.patch
+0111-external-reset-for-Watchdog.patch
+# umpf-release: 2020.07.0/customers/iotmaxx/gateway/20210317-1
+# umpf-topic-range: c3201ac07d5832df6430b0a8171c733d0fb46afa..7bd32e07d3466da2f2819ddd078571d9895460da
+0201-Release-2020.07.0-customers-iotmaxx-gateway-20210317.patch
 # umpf-end

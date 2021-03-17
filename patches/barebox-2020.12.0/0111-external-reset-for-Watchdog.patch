@@ -1,0 +1,35 @@
+From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+Date: Tue, 14 Jul 2020 16:55:19 +0200
+Subject: [PATCH] external reset for Watchdog
+
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+---
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+index a26a398f2457..d20e79a760dc 100644
+--- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
++++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+@@ -638,6 +638,11 @@
+ 			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
++	pinctrl_wdog1: wdog1grp {
++		fsl,pins = <
++		MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY      0x51
++		>;
++	};
+ };
+ 
+ &iomuxc_lpsr {
+@@ -749,3 +754,9 @@
+ 	vqmmc-supply = <&reg_dcdc_1v8>;
+ 	status = "okay";
+ };
++
++&wdog1 {
++   pinctrl-names = "default";
++   pinctrl-0 = <&pinctrl_wdog1>;
++   fsl,ext-reset-output;
++};
