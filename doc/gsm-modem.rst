@@ -122,7 +122,7 @@ And then to enable the connection::
 ModemConfig
 ^^^^^^^^^^^^
 
-To use the device headless create this ModemConfig file under "/config/ModemConfig"
+To use the device headless create this ModemConfig file under "/config/ModemConfig"::
 
   [Modem]
   Apn=internet.eplus.de
