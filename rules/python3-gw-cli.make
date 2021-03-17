@@ -59,6 +59,8 @@ $(STATEDIR)/python3-gw-cli.targetinstall:
 		/usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
 		@$(call install_alternative, python3-gw-cli, 0, 0, 0644, \
 		/etc/systemd/system/gsm-connect.service)
+		@$(call install_link, python3-gw-cli, gsm-connect.service, \
+		/etc/systemd/system/multi-user.target.wants/gsm-connect.service)
 
 	@$(call install_finish, python3-gw-cli)
 
