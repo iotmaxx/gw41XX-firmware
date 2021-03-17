@@ -12,9 +12,10 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_PROJECTFILES) += projectfiles
+PACKAGES-$(PTXCONF_PROJECTFILES) += webextract.py
+PACKAGES-$(PTXCONF_PROJECTFILES) += gw-backend.zip
 PROJECTFILES_VERSION := 20200525
 
-WEBINTERFACE = /usr/lib/python3.7/site-packages/gw-backend/
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -34,6 +35,9 @@ $(STATEDIR)/projectfiles.targetinstall:
 
 	@$(call install_copy, projectfiles, 0, 0, 0755, \
 		/usr/bin/webextract.py)
+
+	#@$(call install_glob, projectfiles, 0, 0, -, \
+	#	/usr/bin/webextract.py,, )
 
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
 		/etc/systemd/system/webextract.service)
