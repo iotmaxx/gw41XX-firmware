@@ -1,13 +1,13 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Mon, 14 Dec 2020 09:01:57 +0100
-Subject: [PATCH] Release 5.8/customers/iotmaxx/gateway/20201214-1
+Date: Wed, 17 Mar 2021 12:06:44 +0100
+Subject: [PATCH] Release 5.8/customers/iotmaxx/gateway/20210317-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 24a4c1b97bb0..7d0f0cd4e55a 100644
+index 24a4c1b97bb0..1303cdbd3246 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
@@ -15,7 +15,7 @@ index 24a4c1b97bb0..7d0f0cd4e55a 100644
  PATCHLEVEL = 8
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20201214-1
++EXTRAVERSION =-20210317-1
  NAME = Kleptomaniac Octopus
  
  # *DOCUMENTATION*

@@ -10,8 +10,8 @@ once it is fixed in hardware.
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 747 +++++++++++++++++++++++++++++
- 2 files changed, 748 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 759 +++++++++++++++++++++++++++++
+ 2 files changed, 760 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -28,10 +28,10 @@ index e6a1cac0bfc7..819c3811e35b 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..ba5c0f4f94d4
+index 000000000000..305f8cf96d0b
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,747 @@
+@@ -0,0 +1,759 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -668,6 +668,12 @@ index 000000000000..ba5c0f4f94d4
 +			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
 +		>;
 +	};
++
++	pinctrl_wdog1: wdog1grp {
++		fsl,pins = <
++			MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY		0x51
++		>;
++	};
 +};
 +
 +&iomuxc_lpsr {
@@ -778,4 +784,10 @@ index 000000000000..ba5c0f4f94d4
 +	vmmc-supply = <&reg_ldo_emmc_3v3>;
 +	vqmmc-supply = <&reg_dcdc_1v8>;
 +	status = "okay";
++};
++
++&wdog1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdog1>;
++	fsl,ext-reset-output;
 +};
