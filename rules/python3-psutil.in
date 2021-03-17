@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PSUTIL
+	tristate
+	select PYTHON3
+	prompt "python3-psutil"
+	help
+	  psutil (process and system utilities) is a cross-platform library for retrieving information on running processes and system utilization.

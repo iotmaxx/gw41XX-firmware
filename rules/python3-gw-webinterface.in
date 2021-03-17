@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_GW_WEBINTERFACE
+	tristate
+	select PYTHON3	
+	prompt "python3-gw-webinterface"
+	help
+	  IoTmaxx gw webinterface

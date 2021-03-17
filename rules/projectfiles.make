@@ -12,7 +12,9 @@
 # We provide this package
 #
 PACKAGES-$(PTXCONF_PROJECTFILES) += projectfiles
+
 PROJECTFILES_VERSION := 20200525
+
 
 # ----------------------------------------------------------------------------
 # Target-Install

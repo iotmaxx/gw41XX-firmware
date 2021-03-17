@@ -1,0 +1,9 @@
+[Unit]
+Description=Python GW-Webinterface Autostart
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python /usr/lib/python3.7/site-packages/gw-backend/webinterface_run.py
+
+[Install]
+WantedBy=multi-user.target

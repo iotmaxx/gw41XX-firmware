@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PYJWT
+	tristate
+	select PYTHON3		
+	prompt "python3-pyjwt"
+	help
+	  JSON Web Token implementation in Python

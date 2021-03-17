@@ -1,0 +1,18 @@
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-04 12:26:44.000000000 +0200
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-15 14:00:50.496636510 +0200
+@@ -436,6 +436,15 @@
+ 		>;
+ 	};
+ 
++	pinctrl_uart2: uart2grp {
++		fsl,pins = <
++			MX7D_PAD_LCD_CLK__UART2_DCE_RX             	0x79		/* RS485_R */
++            MX7D_PAD_LCD_ENABLE__UART2_DCE_TX          0x79		/* RS458_D */
++            MX7D_PAD_LCD_HSYNC__GPIO3_IO2          	0x79 	/* RS485_DE */
++           /* MX7D_PAD_LCD_VSYNC__UART2_DCE_CTS          0x79		*/
++		>;
++	};
++
+ 	pinctrl_uart3: uart3grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_UART3_RX_DATA__UART3_DCE_RX		0x79

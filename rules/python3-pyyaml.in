@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PYYAML
+	tristate
+	select PYTHON3	
+	prompt "python3-pyyaml"
+	help
+	  YAML parser and emitter for Python

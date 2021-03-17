@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_PYDBUS
+	tristate
+	select PYTHON3	
+	select DBUS
+	select DBUS_GLIB
+	prompt "python3-pydbus"
+	help
+	  Pythonic DBus library

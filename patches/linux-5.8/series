@@ -9,6 +9,14 @@
 0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
 0004-ARM-imx7-add-support-for-iotmaxx-gateway.patch
 0005-ARM-iotmaxx-add-expansion-slot.patch
+#only to write the exp board eeprom
+#0006-ARM-iotmaxx-add-expansion-eeprom.patch
+#
+0007-ARM-iotmaxx-add-expansion-uart.patch
+0008-ARM-iotmaxx-add-expansion-gpios.patch
+0009-ARM-iotmaxx-add-gpios-pullup-and-downs.patch
+0010-ARM-iotmaxx-sim-select.patch
+#0011-ARM-iotmaxx-external-reset-for-Watchdog.patch
 # umpf-release: 5.8/customers/iotmaxx/gateway/20201214-1
 # umpf-topic-range: 4b27c7647276b10d115c35320b2d6afe0a0dc4ec..8e5d7621dfeb2976ccbfda5ad80c8a3d14a01ae4
 0101-Release-5.8-customers-iotmaxx-gateway-20201214-1.patch
