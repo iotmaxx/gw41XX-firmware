@@ -1,0 +1,38 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 11 Jan 2021 10:52:55 +0100
+Subject: [PATCH] image-sparse: change chunk_data_sz to u64
+
+chunk_data_sz is set to the result of a __le32 * __le32 multiplication:
+
+  chunk_data_sz = si->sparse.blk_sz * si->chunk.chunk_sz;
+
+This will overflow.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ lib/image-sparse.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/lib/image-sparse.c b/lib/image-sparse.c
+index 8e7a52fd71a7..c375c78d6361 100644
+--- a/lib/image-sparse.c
++++ b/lib/image-sparse.c
+@@ -62,7 +62,8 @@ struct sparse_image_ctx {
+ 
+ static int sparse_seek(struct sparse_image_ctx *si)
+ {
+-	unsigned int chunk_data_sz, payload;
++	uint64_t chunk_data_sz;
++	unsigned int payload;
+ 	loff_t offs;
+ 	int ret;
+ 
+@@ -94,7 +95,7 @@ again:
+ 			return -errno;
+ 	}
+ 
+-	chunk_data_sz = si->sparse.blk_sz * si->chunk.chunk_sz;
++	chunk_data_sz = (uint64_t) si->sparse.blk_sz * si->chunk.chunk_sz;
+ 	payload = si->chunk.total_sz - si->sparse.chunk_hdr_sz;
+ 
+ 	si->processed_chunks++;
