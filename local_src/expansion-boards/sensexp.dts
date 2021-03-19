@@ -1,0 +1,39 @@
+/dts-v1/;
+/plugin/;
+
+&i2c4 {
+	eeprom1: eeprom@50 {
+		compatible = "atmel,24c64";
+		reg = <0x50>;
+		pagesize = <32>;
+		vcc-supply = <&reg_ldo_misc_3v3>;
+	};
+};
+
+&iomuxc {
+	pinctrl_uart2: uart2grp {
+		fsl,pins = <
+			0x00b4 0x0324 0x06fc 0x4 0x0		0x79
+			0x00b8 0x0328 0x0000 0x4 0x0		0x79
+		>;
+	};
+};
+
+/* Maxlinear SP483 RS-485 transceiver */
+&uart2 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart2>;
+	rts-gpios = <&gpio3 3 0>;
+	linux,rs485-enabled-at-boot-time;
+	status = "okay";
+};
+
+&ecspi3 {
+	spidev0: spidev@0{
+		compatible = "spidev";
+		reg = <0>;      /* CE0 */
+		#address-cells = <1>;
+		#size-cells = <0>;
+		spi-max-frequency = <500000>;
+	};
+};

@@ -39,6 +39,8 @@ $(STATEDIR)/expansion-boards.compile:
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test.dts"
 	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/test2.dto \
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/test2.dts"
+	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/sensexp.dto \
+		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/sensexp.dts"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
