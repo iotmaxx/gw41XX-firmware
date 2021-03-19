@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config EEPROM_TOOLS
+	tristate
+	prompt "eeprom-tools"
+	help
+	  FIXME
