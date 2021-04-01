@@ -1,0 +1,65 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 1 Apr 2021 06:21:18 +0200
+Subject: [PATCH] [HACK] reset: mux wdog_any to 5K PU
+
+The wdog_any signal drives the nPBIN of the ACT8847 PMIC which in turn
+resets the SoC.
+Currently it looks like using it as intended results in a '0' on the
+nPBIN and therefore resets the board after 4s.
+
+Keep the signal unused in barebox for now.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c |  4 ++++
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts   | 11 -----------
+ 2 files changed, 4 insertions(+), 11 deletions(-)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index 6303e135ee02..ddf656aefc4f 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -59,6 +59,8 @@ static const struct gpio gw4100_expansion_gpio_list[] = {
+ 	{ .gpio = IMX_GPIO_NR(3, 2), .label = "exp-rts", .flags = GPIOF_IN, },
+ 	{ .gpio = IMX_GPIO_NR(3, 1), .label = "exp-txd", .flags = GPIOF_IN, },
+ 	{ .gpio = IMX_GPIO_NR(3, 0), .label = "exp-rxd", .flags = GPIOF_IN, },
++
++	{ .gpio = IMX_GPIO_NR(7, 15), .label = "wdog_any", .flags = GPIOF_IN, },
+ };
+ 
+ /* PAD setup: 100 k PullUp + Slow Slew Rate */
+@@ -104,6 +106,8 @@ static const iomux_v3_cfg_t gw4100_expansion_pad_list[] = {
+ 	MX7D_PAD_LCD_HSYNC__GPIO3_IO2 | DEF_PU, /* input, 100k PU */
+ 	MX7D_PAD_LCD_ENABLE__GPIO3_IO1 | DEF_PU, /* input, 100k PU */
+ 	MX7D_PAD_LCD_CLK__GPIO3_IO0 | DEF_PU, /* input, 100k PU */
++
++	MX7D_PAD_ENET1_COL__GPIO7_IO15 | 0x34, /* input, 5k PU */
+ };
+ 
+ static int imx7d_iotmaxx_read_eeprom(const char *file, struct eepromData *data)
+diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+index d20e79a760dc..a26a398f2457 100644
+--- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
++++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+@@ -638,11 +638,6 @@
+ 			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
+-	pinctrl_wdog1: wdog1grp {
+-		fsl,pins = <
+-		MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY      0x51
+-		>;
+-	};
+ };
+ 
+ &iomuxc_lpsr {
+@@ -754,9 +749,3 @@
+ 	vqmmc-supply = <&reg_dcdc_1v8>;
+ 	status = "okay";
+ };
+-
+-&wdog1 {
+-   pinctrl-names = "default";
+-   pinctrl-0 = <&pinctrl_wdog1>;
+-   fsl,ext-reset-output;
+-};
