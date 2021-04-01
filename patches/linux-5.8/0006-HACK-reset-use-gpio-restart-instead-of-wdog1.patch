@@ -1,0 +1,61 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 1 Apr 2021 12:14:18 +0200
+Subject: [PATCH] [HACK] reset: use gpio-restart instead of wdog1
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 78750dd66175..60d270d922f6 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -29,6 +29,15 @@ iio-hwmon {
+ 			      <&adc2 0>, <&adc2 1>, <&adc2 2>;
+ 	};
+ 
++	gpio-restart {
++		compatible = "gpio-restart";
++		gpios = <&gpio7 15 GPIO_ACTIVE_LOW>;
++		priority = <255>;
++		active-delay = <300>;
++		inactive-delay = <300>;
++		wait-delay = <3000>;
++	};
++
+ 	gpio-leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-0 = <&pinctrl_leds_usr>;
+@@ -400,6 +409,8 @@ MX7D_PAD_SD1_CMD__GPIO5_IO4			0x14 /* RI input, 100 k PD */
+ 			/* 3.3 V power domain */
+ 			MX7D_PAD_I2C1_SDA__GPIO4_IO9			0x04 /* DTR out, external PD and level shifter */
+ 			MX7D_PAD_I2C3_SDA__GPIO4_IO13			0x14 /* DCD in, 100 k PD, external level shifter */
++
++			MX7D_PAD_ENET1_COL__GPIO7_IO15			0x34
+ 		>;
+ 	};
+ 
+@@ -638,12 +649,6 @@ MX7D_PAD_SD3_DATA7__SD3_DATA7			0x5b
+ 			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
+-
+-	pinctrl_wdog1: wdog1grp {
+-		fsl,pins = <
+-			MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY		0x51
+-		>;
+-	};
+ };
+ 
+ &iomuxc_lpsr {
+@@ -755,9 +760,3 @@ &usdhc3 {
+ 	vqmmc-supply = <&reg_dcdc_1v8>;
+ 	status = "okay";
+ };
+-
+-&wdog1 {
+-	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_wdog1>;
+-	fsl,ext-reset-output;
+-};

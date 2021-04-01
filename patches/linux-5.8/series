@@ -1,15 +1,16 @@
 # umpf-base: v5.8
 # umpf-name: 5.8/customers/iotmaxx/gateway
-# umpf-version: 5.8/customers/iotmaxx/gateway/20210317-1
+# umpf-version: 5.8/customers/iotmaxx/gateway/20210401-1
 # umpf-topic: v5.8/customers/iotmaxx/boards/gateway
-# umpf-hashinfo: 789550419ede4690f4cc1f6c13b9e9e6b361e7fa
-# umpf-topic-range: bcf876870b95592b52519ed4aafcf9d95999bc9c..496bd527bf5b02cc21a8123365ec38278dd21cfd
+# umpf-hashinfo: 8f2fe981baadf8b01f85fc4b15f43fe16de1a558
+# umpf-topic-range: bcf876870b95592b52519ed4aafcf9d95999bc9c..cc0571711c44c6b5d2cfdde81c99d061b5dbcf96
 0001-ARM-imx7d-add-enet2-clk-sel.patch
 0002-dt-bindings-Add-DS2482-as-trivial-device.patch
 0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
 0004-ARM-imx7-add-support-for-iotmaxx-gateway.patch
 0005-ARM-iotmaxx-add-expansion-slot.patch
-# umpf-release: 5.8/customers/iotmaxx/gateway/20210317-1
-# umpf-topic-range: 496bd527bf5b02cc21a8123365ec38278dd21cfd..ff855b4be156566c7c7a0f7087cd7eeb3fb238cc
-0101-Release-5.8-customers-iotmaxx-gateway-20210317-1.patch
+0006-HACK-reset-use-gpio-restart-instead-of-wdog1.patch
+# umpf-release: 5.8/customers/iotmaxx/gateway/20210401-1
+# umpf-topic-range: cc0571711c44c6b5d2cfdde81c99d061b5dbcf96..642b2b7f1d64941be59398108f3f3c846dffc468
+0101-Release-5.8-customers-iotmaxx-gateway-20210401-1.patch
 # umpf-end
