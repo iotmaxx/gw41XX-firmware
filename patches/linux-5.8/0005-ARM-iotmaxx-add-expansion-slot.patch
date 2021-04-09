@@ -8,11 +8,11 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-index 305f8cf96d0b..78750dd66175 100644
+index d7617db4af88..47d45107665e 100644
 --- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -19,6 +19,10 @@ memory {
- 		reg = <0x80000000 0x40000000>;
+@@ -18,6 +18,10 @@ expansion: expansionslot {
+ 		/* for devicetree overlays */
  	};
  
 +	expansion: expansionslot {

@@ -10,8 +10,8 @@ once it is fixed in hardware.
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 759 +++++++++++++++++++++++++++++
- 2 files changed, 760 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 779 +++++++++++++++++++++++++++++
+ 2 files changed, 780 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -28,10 +28,10 @@ index e6a1cac0bfc7..819c3811e35b 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..305f8cf96d0b
+index 000000000000..d7617db4af88
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,759 @@
+@@ -0,0 +1,779 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
@@ -48,9 +48,8 @@ index 000000000000..305f8cf96d0b
 +		stdout-path = &uart3;
 +	};
 +
-+	memory {
-+		device_type = "memory";
-+		reg = <0x80000000 0x40000000>;
++	expansion: expansionslot {
++		/* for devicetree overlays */
 +	};
 +
 +	iio-hwmon {
@@ -187,11 +186,10 @@ index 000000000000..305f8cf96d0b
 +&ecspi2 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_ecspi2>;
-+	num-chipselects = <1>;
 +	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
 +	status = "okay";
 +
-+	flash: m25p80@0 {
++	flash: spi-flash@0 {
 +		compatible = "sst,sst25vf512", "m25p80", "jedec,spi-nor";
 +		spi-max-frequency = <20000000>;
 +		reg = <0>;
@@ -231,7 +229,6 @@ index 000000000000..305f8cf96d0b
 +		      "enet_clk_ref", "enet_out";
 +	phy-handle = <&ethphy1>;
 +	phy-mode = "rmii";
-+	phy-reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
 +	fsl,magic-packet;
 +	status = "okay";
 +
@@ -244,6 +241,8 @@ index 000000000000..305f8cf96d0b
 +			interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
 +			clocks = <&clks IMX7D_ENET2_REF_ROOT_DIV>;
 +			clock-names = "rmii-ref";
++			reset-names = "phy";
++			reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
 +			reg = <1>;
 +		};
 +	};
@@ -369,7 +368,7 @@ index 000000000000..305f8cf96d0b
 +		reg = <0x50>;
 +	};
 +
-+	pcf85363: pcf85363@51 {
++	pcf85363: rtc@51 {
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&pinctrl_pcf_irq>;
 +		compatible = "nxp,pcf85363";
@@ -377,7 +376,7 @@ index 000000000000..305f8cf96d0b
 +		reg = <0x51>;
 +	};
 +
-+	ACT8847: act8847@5a {
++	ACT8847: pmic@5a {
 +		/* PMIC */
 +		pinctrl-names = "default";
 +		pinctrl-0 = <&pinctrl_act_irg>;
@@ -790,4 +789,25 @@ index 000000000000..305f8cf96d0b
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&pinctrl_wdog1>;
 +	fsl,ext-reset-output;
++};
++
++/* These watchdogs are unused, *BUT* as the ext-reset-output on wdog1 is
++ * muxed to the WDOG_ANY pin, any watchdog that triggers also triggers the
++ * WDOG_ANY pin. The i.MX2 watchdog has an internal power-down counter of
++ * 16s. This counter is set after every POR and then runs and triggers if it
++ * is not disabled. When wdog2/3/4 are not probed on startup, they will therefore
++ * trigger the WDOG_ANY pin after 16s. Set the status to okay, so the driver will
++ * disable the power-down counter.
++ */
++
++&wdog2 {
++	status = "okay";
++};
++
++&wdog3 {
++	status = "okay";
++};
++
++&wdog4 {
++	status = "okay";
 +};
