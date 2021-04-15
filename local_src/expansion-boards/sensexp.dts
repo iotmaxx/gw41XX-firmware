@@ -2,6 +2,9 @@
 /plugin/;
 
 &i2c4 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
 	eeprom1: eeprom@50 {
 		compatible = "atmel,24c64";
 		reg = <0x50>;
@@ -29,6 +32,9 @@
 };
 
 &ecspi3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
 	spidev0: spidev@0{
 		compatible = "spidev";
 		reg = <0>;      /* CE0 */
