@@ -30,7 +30,7 @@ EXPANSION_BOARDS_CONF_TOOL	:= NO
 # Compile
 # ----------------------------------------------------------------------------
 
-EXPANSION_BOARDS_OVERLAYS := test test2
+EXPANSION_BOARDS_OVERLAYS := test test2 sensexp
 
 $(STATEDIR)/expansion-boards.compile:
 	@$(call targetinfo)
@@ -53,6 +53,8 @@ $(STATEDIR)/expansion-boards.install:
 			$(EXPANSION_BOARDS_PKGDIR)/boot/test.dto
 	@install -D -m644 $(EXPANSION_BOARDS_DIR)/test2.dto \
 			$(EXPANSION_BOARDS_PKGDIR)/boot/test2.dto
+	@install -D -m644 $(EXPANSION_BOARDS_DIR)/sensexp.dto \
+			$(EXPANSION_BOARDS_PKGDIR)/boot/sensexp.dto
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
