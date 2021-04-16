@@ -35,6 +35,8 @@
 	#address-cells = <1>;
 	#size-cells = <0>;
 
+	status = "okay";
+
 	spidev0: spidev@0{
 		compatible = "spidev";
 		reg = <0>;      /* CE0 */
