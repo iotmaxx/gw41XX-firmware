@@ -1,0 +1,32 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 3 Dec 2020 09:35:24 +0100
+Subject: [PATCH] blspec: apply overlays from global environment
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ common/blspec.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/common/blspec.c b/common/blspec.c
+index ad80d7a8cde4..5d0684bca3ad 100644
+--- a/common/blspec.c
++++ b/common/blspec.c
+@@ -121,6 +121,8 @@ static int blspec_boot(struct bootentry *be, int verbose, int dryrun)
+ 	const char *abspath, *devicetree, *options, *initrd, *linuximage;
+ 	const char *overlays;
+ 	const char *appendroot;
++	const char *env_overlays = getenv_nonempty("global.boot.overlays");
++
+ 	struct bootm_data data = {
+ 		.dryrun = dryrun,
+ 	};
+@@ -161,6 +163,9 @@ static int blspec_boot(struct bootentry *be, int verbose, int dryrun)
+ 	if (overlays)
+ 		blspec_apply_oftree_overlays(overlays, abspath, dryrun);
+ 
++	if (env_overlays)
++		blspec_apply_oftree_overlays(env_overlays, abspath, dryrun);
++
+ 	if (initrd)
+ 		data.initrd_file = basprintf("%s/%s", abspath, initrd);
+ 

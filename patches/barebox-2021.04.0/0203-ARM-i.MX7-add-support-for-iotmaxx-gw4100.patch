@@ -1,0 +1,441 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 16 Apr 2020 14:07:18 +0200
+Subject: [PATCH] ARM: i.MX7: add support for iotmaxx gw4100
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boards/Makefile                           |   2 +
+ arch/arm/boards/iotmaxx-gw4100/Makefile            |   2 +
+ arch/arm/boards/iotmaxx-gw4100/board.c             |  69 +++++++++++
+ .../flash-header-iotmaxx-imx7d-gw4100.imxcfg       |   5 +
+ arch/arm/boards/iotmaxx-gw4100/lowlevel.c          |  44 +++++++
+ arch/arm/dts/Makefile                              |   1 +
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dts              | 137 +++++++++++++++++++++
+ arch/arm/mach-imx/Kconfig                          |   5 +
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts               |  38 +++++-
+ images/Makefile.imx                                |   5 +
+ 10 files changed, 305 insertions(+), 3 deletions(-)
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/Makefile
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/board.c
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+ create mode 100644 arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+
+diff --git a/arch/arm/boards/Makefile b/arch/arm/boards/Makefile
+index 9ccb75e27bac..ef154d187094 100644
+--- a/arch/arm/boards/Makefile
++++ b/arch/arm/boards/Makefile
+@@ -60,6 +60,8 @@ obj-$(CONFIG_MACH_GUF_SANTARO)			+= guf-santaro/
+ obj-$(CONFIG_MACH_GUF_VINCELL)			+= guf-vincell/
+ obj-$(CONFIG_MACH_GW_VENTANA)			+= gateworks-ventana/
+ obj-$(CONFIG_MACH_HABA_KNX_LITE)		+= haba-knx/
++obj-$(CONFIG_MACH_HIGHBANK)			+= highbank/
++obj-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100)		+= iotmaxx-gw4100/
+ obj-$(CONFIG_MACH_IMX21ADS)			+= freescale-mx21-ads/
+ obj-$(CONFIG_MACH_IMX233_OLINUXINO)		+= imx233-olinuxino/
+ obj-$(CONFIG_MACH_IMX27ADS)			+= freescale-mx27-ads/
+diff --git a/arch/arm/boards/iotmaxx-gw4100/Makefile b/arch/arm/boards/iotmaxx-gw4100/Makefile
+new file mode 100644
+index 000000000000..01c7a259e9a5
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/Makefile
+@@ -0,0 +1,2 @@
++obj-y += board.o
++lwl-y += lowlevel.o
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+new file mode 100644
+index 000000000000..6ac2ed95efd2
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -0,0 +1,69 @@
++#include <bootsource.h>
++#include <common.h>
++#include <init.h>
++#include <io.h>
++#include <linux/micrel_phy.h>
++#include <linux/phy.h>
++#include <mach/bbu.h>
++#include <mach/imx7-regs.h>
++#include <mfd/imx7-iomuxc-gpr.h>
++
++#include <phy-id-list.h>
++
++static int ksz8081_phy_fixup(struct phy_device *dev)
++{
++	/* Set 50MHz-Clock mode */
++	phy_write(dev, 0x1f, BIT(7));
++
++	return 0;
++}
++
++static int imx7d_iotmaxx_gateway_dev_init(void)
++{
++	if (!of_machine_is_compatible("iotmaxx,imx7d-gw4100"))
++		return 0;
++
++	barebox_set_hostname("iotmaxx-gw4100");
++
++	switch (bootsource_get_instance()) {
++	case 1:
++		of_device_enable_path("/chosen/environment-sd");
++		break;
++	case 2:
++		of_device_enable_path("/chosen/environment-emmc");
++		break;
++	}
++
++	imx7_bbu_internal_mmcboot_register_handler("emmc", "/dev/mmc2", 1);
++
++	return 0;
++}
++device_initcall(imx7d_iotmaxx_gateway_dev_init);
++
++static void imx7d_iotmaxx_gateway_init_fec(void)
++{
++	void __iomem *gpr = IOMEM(MX7_IOMUXC_GPR_BASE_ADDR);
++	uint32_t gpr1;
++
++	/*
++	 * Make sure we drive ENETn_TX_CLK signal
++	 */
++	gpr1 = readl(gpr + IOMUXC_GPR1);
++	gpr1 |=  IMX7D_GPR1_ENET2_CLK_DIR_MASK;
++	gpr1 &= ~IMX7D_GPR1_ENET2_TX_CLK_SEL_MASK;
++	writel(gpr1, gpr + IOMUXC_GPR1);
++}
++
++static int imx7d_iotmaxx_gateway_coredevices_init(void)
++{
++	if (!of_machine_is_compatible("iotmaxx,imx7d-gw4100"))
++		return 0;
++
++	imx7d_iotmaxx_gateway_init_fec();
++
++	phy_register_fixup_for_uid(PHY_ID_KSZ8081, MICREL_PHY_ID_MASK,
++				   ksz8081_phy_fixup);
++
++	return 0;
++}
++coredevice_initcall(imx7d_iotmaxx_gateway_coredevices_init);
+diff --git a/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+new file mode 100644
+index 000000000000..c06b35f410ca
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+@@ -0,0 +1,5 @@
++soc imx7
++loadaddr 0x80000000
++ivtofs 0x400
++
++#include <mach/flash-header/imx7d-ddr-sabresd.imxcfg>
+diff --git a/arch/arm/boards/iotmaxx-gw4100/lowlevel.c b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+new file mode 100644
+index 000000000000..1d24256cda11
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+@@ -0,0 +1,44 @@
++// SPDX-License-Identifier: GPL-2.0+
++#include <debug_ll.h>
++#include <io.h>
++#include <common.h>
++#include <linux/sizes.h>
++#include <mach/generic.h>
++#include <asm/barebox-arm-head.h>
++#include <asm/barebox-arm.h>
++#include <mach/imx7-ccm-regs.h>
++#include <mach/iomux-mx7.h>
++#include <mach/debug_ll.h>
++#include <asm/cache.h>
++#include <mach/esdctl.h>
++
++extern char __dtb_z_imx7d_iotmaxx_gw4100_start[];
++
++static inline void setup_uart(void)
++{
++	void __iomem *ccm = IOMEM(MX7_CCM_BASE_ADDR);
++
++	writel(IMX7_CCM_CCGR_SETTINGn_NEEDED(0),
++	       ccm + IMX7_CCM_CCGRn_CLR(IMX7_CCM_CCGR_UART3));
++	writel(IMX7_CCM_TARGET_ROOTn_ENABLE | IMX7_UART2_CLK_ROOT__OSC_24M,
++	       ccm + IMX7_CCM_TARGET_ROOTn(IMX7_UART3_CLK_ROOT));
++	writel(IMX7_CCM_CCGR_SETTINGn_NEEDED(0),
++	       ccm + IMX7_CCM_CCGRn_SET(IMX7_CCM_CCGR_UART3));
++
++	imx7_setup_pad(MX7D_PAD_UART3_TX_DATA__UART3_DCE_TX);
++
++	imx7_uart_setup_ll();
++
++	putc_ll('>');
++}
++
++ENTRY_FUNCTION(start_imx7d_iotmaxx_gw4100, r0, r1, r2)
++{
++	imx7_cpu_lowlevel_init();
++
++	if (IS_ENABLED(CONFIG_DEBUG_LL))
++		setup_uart();
++
++	imx7d_barebox_entry(__dtb_z_imx7d_iotmaxx_gw4100_start +
++			    get_runtime_offset());
++}
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index d5f61768a5b5..c53d4991eed7 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -30,6 +30,7 @@ lwl-$(CONFIG_MACH_GRINN_LITEBOARD) += imx6ul-liteboard.dtb.o
+ lwl-$(CONFIG_MACH_GUF_SANTARO) += imx6q-guf-santaro.dtb.o
+ lwl-$(CONFIG_MACH_GUF_VINCELL) += imx53-guf-vincell.dtb.o imx53-guf-vincell-lt.dtb.o
+ lwl-$(CONFIG_MACH_GW_VENTANA) += imx6q-gw54xx.dtb.o
++lwl-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += imx7d-iotmaxx-gw4100.dtb.o
+ lwl-$(CONFIG_MACH_KONTRON_SAMX6I) += imx6q-samx6i.dtb.o \
+ 					imx6dl-samx6i.dtb.o
+ lwl-$(CONFIG_MACH_LENOVO_IX4_300D) += armada-xp-lenovo-ix4-300d-bb.dtb.o
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+new file mode 100644
+index 000000000000..54340a5ee263
+--- /dev/null
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+@@ -0,0 +1,137 @@
++#include <arm/imx7d-iotmaxx-gw4100.dts>
++
++/ {
++	aliases {
++		state = &state;
++		ethernet0 = &fec2;
++	};
++
++	chosen {
++		stdout-path = &uart3;
++
++		environment-emmc {
++			compatible = "barebox,environment";
++			device-path = &bareboxenvemmc;
++			status = "disabled";
++		};
++
++		environment-sd {
++			compatible = "barebox,environment";
++			device-path = &bareboxenvsd;
++			status = "disabled";
++		};
++	};
++
++	state: state {
++		magic = <0x496f546d>;
++		compatible = "barebox,state";
++		backend-type = "raw";
++		backend = <&state_emmc>;
++		backend-stridesize = <1024>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		bootstate {
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			system0 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x0 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x4 0x4>;
++					type = "uint32";
++					default = <21>;
++				};
++			};
++
++			system1 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x10 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x14 0x4>;
++					type = "uint32";
++					default = <20>;
++				};
++			};
++
++			last_chosen {
++				reg = <0x20 0x4>;
++				type = "uint32";
++			};
++		};
++	};
++};
++
++/* FIXME: unclear why barebox does not work with the linux settings */
++&fec2 {
++	assigned-clocks = <&clks IMX7D_ENET2_REF_ROOT_SRC>;
++	assigned-clock-parents = <&clks IMX7D_PLL_ENET_MAIN_50M_CLK>;
++	assigned-clock-rates = <50000000>;
++	clocks = <&clks IMX7D_ENET2_IPG_ROOT_CLK>,
++		 <&clks IMX7D_ENET_AXI_ROOT_CLK>,
++		 <&clks IMX7D_ENET2_TIME_ROOT_CLK>,
++		 <&clks IMX7D_PLL_ENET_MAIN_125M_CLK>,
++		 <&clks IMX7D_ENET_PHY_REF_ROOT_CLK>;
++	clock-names = "ipg", "ahb", "ptp",
++		      "enet_clk_ref", "enet_out";
++};
++
++/* FIXME: barebox serial is broken when barebox applies requested reparenting */
++&uart3 {
++	/delete-property/ assigned-clocks;
++	/delete-property/ assigned-clock-parents;
++};
++
++&uart4 {
++	/delete-property/ assigned-clocks;
++	/delete-property/ assigned-clock-parents;
++};
++
++&usdhc2 {
++	partitions {
++		compatible = "fixed-partitions";
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		barebox@0 {
++			label = "barebox";
++			reg = <0x0 0xe0000>;
++		};
++
++		bareboxenvsd: bareboxenv@e0000 {
++			label = "bareboxenv";
++			reg = <0xe0000 0x20000>;
++		};
++	};
++};
++
++&usdhc3 {
++	partitions {
++		compatible = "fixed-partitions";
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		bareboxenvemmc: bareboxenv@100000 {
++			label = "bareboxenv";
++			reg = <0x100000 0x20000>;
++		};
++
++		state_emmc: state@120000 {
++			label = "state";
++			reg = <0x120000 0x20000>;
++		};
++	};
++};
+diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
+index 3f8012c73211..64fde93fe9b2 100644
+--- a/arch/arm/mach-imx/Kconfig
++++ b/arch/arm/mach-imx/Kconfig
+@@ -514,6 +514,11 @@ config MACH_PHYTEC_PHYCORE_IMX7
+ 	bool "Phytec phyCORE i.MX7"
+ 	select ARCH_IMX7
+ 
++config MACH_IOTMAXX_IMX7D_GW4100
++	bool "IoTMaxx i.MX7D MAXX GW4100 Gateway"
++	select ARCH_IMX7
++	select ARM_USE_COMPRESSED_DTB
++
+ config MACH_FREESCALE_MX7_SABRESD
+ 	bool "NXP i.MX7 SabreSD Board"
+ 	select ARCH_IMX7
+diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+index 6702529ea188..257a00521f4b 100644
+--- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
++++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+@@ -161,7 +161,7 @@
+ 	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
+ 	status = "okay";
+ 
+-	flash: m25p80@0 {
++	flash: spi-flash@0 {
+ 		compatible = "sst,sst25vf512", "m25p80", "jedec,spi-nor";
+ 		spi-max-frequency = <20000000>;
+ 		reg = <0>;
+@@ -338,7 +338,7 @@
+ 		reg = <0x50>;
+ 	};
+ 
+-	pcf85363: pcf85363@51 {
++	pcf85363: rtc@51 {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_pcf_irq>;
+ 		compatible = "nxp,pcf85363";
+@@ -346,7 +346,7 @@
+ 		reg = <0x51>;
+ 	};
+ 
+-	ACT8847: act8847@5a {
++	ACT8847: pmic@5a {
+ 		/* PMIC */
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_act_irg>;
+@@ -637,6 +637,11 @@
+ 			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
++	pinctrl_wdog1: wdog1grp {
++		fsl,pins = <
++			MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY		0x51
++		>;
++	};
+ };
+ 
+ &iomuxc_lpsr {
+@@ -748,3 +753,30 @@
+ 	vqmmc-supply = <&reg_dcdc_1v8>;
+ 	status = "okay";
+ };
++
++&wdog1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_wdog1>;
++	fsl,ext-reset-output;
++};
++
++/* These watchdogs are unused, *BUT* as the ext-reset-output on wdog1 is
++ * muxed to the WDOG_ANY pin, any watchdog that triggers also triggers the
++ * WDOG_ANY pin. The i.MX2 watchdog has an internal power-down counter of
++ * 16s. This counter is set after every POR and then runs and triggers if it
++ * is not disabled. When wdog2/3/4 are not probed on startup, they will therefore
++ * trigger the WDOG_ANY pin after 16s. Set the status to okay, so the driver will
++ * disable the power-down counter.
++ */
++
++&wdog2 {
++	status = "okay";
++};
++
++&wdog3 {
++	status = "okay";
++};
++
++&wdog4 {
++	status = "okay";
++};
+diff --git a/images/Makefile.imx b/images/Makefile.imx
+index b892ec0196c4..8e4900047407 100644
+--- a/images/Makefile.imx
++++ b/images/Makefile.imx
+@@ -388,6 +388,11 @@ CFG_start_imx7d_sabresd.pblb.imximg = $(board)/freescale-mx7-sabresd/flash-heade
+ FILE_barebox-freescale-mx7-sabresd.img = start_imx7d_sabresd.pblb.imximg
+ image-$(CONFIG_MACH_FREESCALE_MX7_SABRESD) += barebox-freescale-mx7-sabresd.img
+ 
++pblb-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += start_imx7d_iotmaxx_gw4100
++CFG_start_imx7d_iotmaxx_gw4100.pblb.imximg = $(board)/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
++FILE_barebox-iotmaxx-imx7d-gw4100.img = start_imx7d_iotmaxx_gw4100.pblb.imximg
++image-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += barebox-iotmaxx-imx7d-gw4100.img
++
+ pblb-$(CONFIG_MACH_PHYTEC_PHYCORE_IMX7) += start_phytec_phycore_imx7
+ CFG_start_phytec_phycore_imx7.pblb.imximg = $(board)/phytec-phycore-imx7/flash-header-phytec-phycore-imx7.imxcfg
+ FILE_barebox-phytec-phycore-imx7.img = start_phytec_phycore_imx7.pblb.imximg

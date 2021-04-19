@@ -1,0 +1,76 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 11 Dec 2020 08:52:40 +0100
+Subject: [PATCH] iotmaxx-gw4100: register mac addr
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c | 38 ++++++++++++++++++++++++++++++++++
+ 1 file changed, 38 insertions(+)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index 28c9dc16cb2a..8e24aaeedcf3 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -14,6 +14,7 @@
+ #include <mach/iomux-mx7.h>
+ #include <magicvar.h>
+ #include <mfd/imx7-iomuxc-gpr.h>
++#include <net.h>
+ 
+ #include <phy-id-list.h>
+ #include "eeprom_data.h"
+@@ -135,6 +136,8 @@ static int imx7d_iotmaxx_detect_expansion_board(void)
+ 	char overlay_name[17];
+ 	int ret;
+ 
++	memset(&data, 0, sizeof(struct eepromData));
++
+ 	ret = imx7d_iotmaxx_read_eeprom("/dev/eeprom1", &data);
+ 	/* no eeprom found can simple mean that there is no expansion board */
+ 	if (ret == -ENOENT)
+@@ -177,6 +180,9 @@ static int  imx7d_iotmaxx_expansion_port_setup(void)
+ {
+ 	int rc;
+ 
++	if (!of_machine_is_compatible("iotmaxx,imx7d-gw4100"))
++		return 0;
++
+ 	rc = mxc_iomux_v3_setup_multiple_pads(gw4100_expansion_pad_list, ARRAY_SIZE(gw4100_expansion_pad_list));
+ 	if (rc != 0)
+ 		pr_err("Failed to setup expansion port SoC pad features. Trying to continue.\n");
+@@ -248,3 +254,35 @@ static int imx7d_iotmaxx_gateway_coredevices_init(void)
+ 	return 0;
+ }
+ coredevice_initcall(imx7d_iotmaxx_gateway_coredevices_init);
++
++static int imx7d_iotmaxx_gateway_ethernet_init(void)
++{
++	const char * const alias = "ethernet0";
++	struct device_node *np, *root;
++	struct eepromData data;
++	int ret;
++
++	memset(&data, 0, sizeof(struct eepromData));
++
++	ret = imx7d_iotmaxx_read_eeprom("/dev/eeprom0", &data);
++	if (ret) {
++		pr_err("can not read eeprom0 (%s)\n", strerror(ret));
++		return ret;
++	}
++
++	if (!eeprom_data_valid(&data))
++		return -EINVAL;
++
++	root = of_get_root_node();
++
++	np = of_find_node_by_alias(root, alias);
++	if (!np) {
++		pr_warn("Failed to find %s\n", alias);
++		return -ENOENT;
++	}
++
++	of_eth_register_ethaddr(np, data.sectionB.specificData.u8aMAC);
++
++	return 0;
++}
++late_initcall(imx7d_iotmaxx_gateway_ethernet_init);

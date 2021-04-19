@@ -1,0 +1,76 @@
+From: Marco Felsch <m.felsch@pengutronix.de>
+Date: Wed, 13 Jan 2021 12:09:19 +0100
+Subject: [PATCH] [HACK] firmware: stub of_firmware_load_overlay()
+
+Without this patch the boot process will print a lot of annoying and
+also false-positive error messages:
+
+Booting entry 'Full featured EVolution operating system image'
+ERROR: of_resolver: __symbols__ missing from base devicetree
+ERROR: of_overlay: fragment 30164b88: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 30164c84: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3012fb08: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3012fc34: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3012fd60: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3012fe8c: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3012ffb8: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 301300e4: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 30130210: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 3013033c: phandle 0xffffffff not found
+ERROR: of_resolver: __symbols__ missing from base devicetree
+ERROR: of_overlay: fragment 30130e94: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 30130fc4: phandle 0xffffffff not found
+ERROR: of_resolver: __symbols__ missing from base devicetree
+ERROR: of_overlay: fragment 30131a14: phandle 0xffffffff not found
+ERROR: of_overlay: fragment 301342d4: phandle 0xffffffff not found
+blspec: booting Full featured EVolution operating system image from none
+
+The systems boots correctly but the messages can confuse the users.
+Since we don't have an FPGA we don't need to load a bit stream and we
+don't need to enable CONFIG_OF_OVERLAY_LIVE which would increase the
+barebox binary size.
+
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ drivers/of/of_firmware.c | 2 ++
+ include/of.h             | 7 +++++++
+ 2 files changed, 9 insertions(+)
+
+diff --git a/drivers/of/of_firmware.c b/drivers/of/of_firmware.c
+index 096f84572e63..6a07302a04d9 100644
+--- a/drivers/of/of_firmware.c
++++ b/drivers/of/of_firmware.c
+@@ -61,6 +61,7 @@ static int load_firmware(struct device_node *target,
+ 	return err;
+ }
+ 
++#ifdef CONFIG_OF_OVERLAY_LIVE
+ int of_firmware_load_overlay(struct device_node *overlay, const char *path)
+ {
+ 	struct overlay_info info = {
+@@ -89,3 +90,4 @@ int of_firmware_load_overlay(struct device_node *overlay, const char *path)
+ 
+ 	return err;
+ }
++#endif
+diff --git a/include/of.h b/include/of.h
+index 645f429bdeed..a262f1d2109d 100644
+--- a/include/of.h
++++ b/include/of.h
+@@ -1032,8 +1032,15 @@ int of_process_overlay(struct device_node *root,
+ 				   struct device_node *overlay, void *data),
+ 		    void *data);
+ 
++#ifdef CONFIG_OF_OVERLAY_LIVE
+ int of_firmware_load_overlay(struct device_node *overlay, const char *path);
+ #else
++static inline int of_firmware_load_overlay(struct device_node *overlay, const char *path)
++{
++	return 0;
++}
++#endif /* CONFIG_OF_OVERLAY_LIVE */
++#else
+ static inline struct device_node *of_resolve_phandles(struct device_node *root,
+ 					const struct device_node *overlay)
+ {

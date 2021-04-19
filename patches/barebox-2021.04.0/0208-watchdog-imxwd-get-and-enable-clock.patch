@@ -1,0 +1,48 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 19 Apr 2021 10:52:16 +0200
+Subject: [PATCH] watchdog: imxwd: get and enable clock
+
+This it (at least) necessary for i.MX7s or otherwise barebox will hang
+when trying to access the registers of WDOG2/3/4.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ drivers/watchdog/imxwd.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/drivers/watchdog/imxwd.c b/drivers/watchdog/imxwd.c
+index b2cfd1cd3a31..26c62b7bcb31 100644
+--- a/drivers/watchdog/imxwd.c
++++ b/drivers/watchdog/imxwd.c
+@@ -21,6 +21,7 @@
+ #include <restart.h>
+ #include <watchdog.h>
+ #include <reset_source.h>
++#include <linux/clk.h>
+ 
+ struct imx_wd;
+ 
+@@ -224,6 +225,7 @@ static int imx_wd_probe(struct device_d *dev)
+ {
+ 	struct resource *iores;
+ 	struct imx_wd *priv;
++	struct clk *clk;
+ 	void *ops;
+ 	int ret;
+ 
+@@ -237,6 +239,15 @@ static int imx_wd_probe(struct device_d *dev)
+ 		dev_err(dev, "could not get memory region\n");
+ 		return PTR_ERR(iores);
+ 	}
++
++	clk = clk_get(dev, NULL);
++	if (IS_ERR(clk))
++		return PTR_ERR(clk);
++
++	ret = clk_enable(clk);
++	if (ret)
++		return ret;
++
+ 	priv->base = IOMEM(iores->start);
+ 	priv->ops = ops;
+ 	priv->wd.set_timeout = imx_watchdog_set_timeout;
