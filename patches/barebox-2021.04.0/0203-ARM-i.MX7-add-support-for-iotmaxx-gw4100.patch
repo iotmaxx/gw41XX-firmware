@@ -12,9 +12,9 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  arch/arm/dts/Makefile                              |   1 +
  arch/arm/dts/imx7d-iotmaxx-gw4100.dts              | 137 +++++++++++++++++++++
  arch/arm/mach-imx/Kconfig                          |   5 +
- dts/src/arm/imx7d-iotmaxx-gw4100.dts               |  38 +++++-
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts               |  40 +++++-
  images/Makefile.imx                                |   5 +
- 10 files changed, 305 insertions(+), 3 deletions(-)
+ 10 files changed, 306 insertions(+), 4 deletions(-)
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/Makefile
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/board.c
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
@@ -350,7 +350,7 @@ index 3f8012c73211..64fde93fe9b2 100644
  	bool "NXP i.MX7 SabreSD Board"
  	select ARCH_IMX7
 diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-index 6702529ea188..257a00521f4b 100644
+index 6702529ea188..7a2c174ac8ce 100644
 --- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 +++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 @@ -161,7 +161,7 @@
@@ -380,6 +380,15 @@ index 6702529ea188..257a00521f4b 100644
  		/* PMIC */
  		pinctrl-names = "default";
  		pinctrl-0 = <&pinctrl_act_irg>;
+@@ -371,7 +371,7 @@
+ 	 * or * 3.3 V (regulator-ldo-misc-3v3)
+ 	 */
+ 	exp_eeprom: eeprom@50 {
+-		compatible = "atmel,24cs64";
++		compatible = "atmel,24c64";
+ 		pagesize = <32>;
+ 		reg = <0x50>;
+ 	};
 @@ -637,6 +637,11 @@
  			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
  		>;

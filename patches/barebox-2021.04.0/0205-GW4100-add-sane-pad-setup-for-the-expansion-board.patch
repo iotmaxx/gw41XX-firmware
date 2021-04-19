@@ -152,7 +152,7 @@ index 6ac2ed95efd2..f1da84f11148 100644
  {
  	/* Set 50MHz-Clock mode */
 diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-index 257a00521f4b..8a46e81f2d82 100644
+index 7a2c174ac8ce..9f0da88d1b04 100644
 --- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 +++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 @@ -176,10 +176,11 @@
