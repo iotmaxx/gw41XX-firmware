@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_TOML
+	tristate
+	select PYTHON3	
+	prompt "python3-toml"
+	help
+	  Python Library for Tom's Obvious, Minimal Language

@@ -1,0 +1,27 @@
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-08-04 12:26:44.000000000 +0200
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts	2020-11-24 14:37:37.802491574 +0100
+@@ -454,6 +454,11 @@
+ 		MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
++	pinctrl_wdog1: wdog1grp {
++		fsl,pins = <
++		MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY      0x51
++		>;
++	};
+ };
+ 
+ &iomuxc_lpsr {
+@@ -535,3 +540,9 @@
+ 	vqmmc-supply = <&reg_dcdc_1v8>;
+ 	status = "okay";
+ };
++
++&wdog1 {
++   pinctrl-names = "default";
++   pinctrl-0 = <&pinctrl_wdog1>;
++   fsl,ext-reset-output;
++};
+-- 
+2.30.1
+

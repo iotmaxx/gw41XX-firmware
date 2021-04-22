@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_AENUM
+	tristate
+	select PYTHON3
+	prompt "python3-aenum"
+	help
+	  Advanced Enumerations (compatible with Python’s stdlib Enum), NamedTuples, and NamedConstants

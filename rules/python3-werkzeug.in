@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_WERKZEUG
+	tristate
+	select PYTHON3
+	prompt "python3-werkzeug"
+	help
+	werkzeug German noun: “tool”. Etymology: werk (“work”), zeug (“stuff”)
+	Werkzeug is a comprehensive WSGI web application library. It began as a simple collection of various utilities for WSGI applications and has become one of the most advanced WSGI utility libraries.

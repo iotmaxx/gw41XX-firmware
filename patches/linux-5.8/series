@@ -13,3 +13,11 @@
 # umpf-topic-range: f9288ca0adb335ccbe613d368338cf921d966cce..943b0edbd0716dc445ad510c15db418f9545e6fa
 0101-Release-5.8-customers-iotmaxx-gateway-20210409-1.patch
 # umpf-end
+
+#only to write the exp board eeprom
+#0006-ARM-iotmaxx-add-expansion-eeprom.patch
+#
+0007-ARM-iotmaxx-add-expansion-uart.patch
+0008-ARM-iotmaxx-add-expansion-gpios.patch
+0009-ARM-iotmaxx-add-gpios-pullup-and-downs.patch
+0010-ARM-iotmaxx-sim-select.patch

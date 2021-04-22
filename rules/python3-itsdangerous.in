@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_ITSDANGEROUS
+	tristate
+	select PYTHON3
+	prompt "python3-itsdangerous"
+	help
+	… so better sign this Various helpers to pass data to untrusted environments and to get it back safe and sound. Data is cryptographically signed to ensure that a token has not been tampered with.

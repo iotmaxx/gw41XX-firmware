@@ -1,0 +1,9 @@
+[Unit]
+Description=Python GW-Webinterface Autoextractor
+
+[Service]
+# Command to execute when the service is started
+ExecStart=/usr/bin/python /usr/bin/webextract.py
+
+[Install]
+WantedBy=multi-user.target

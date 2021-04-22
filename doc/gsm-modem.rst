@@ -118,3 +118,17 @@ And then to enable the connection::
   SIM      |            dbus path: /org/freedesktop/ModemManager1/SIM/0
   --------------------------------
   Bearer   |            dbus path: /org/freedesktop/ModemManager1/Bearer/0
+
+ModemConfig
+^^^^^^^^^^^^
+
+To use the device headless create this ModemConfig file under "/config/ModemConfig"::
+
+  [Modem]
+  Apn=internet.eplus.de
+  Pin=
+  User=user
+  Password=password
+  Autoreconnect=True
+
+

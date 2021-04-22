@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_INICONFIG
+	tristate
+	select PYTHON3	
+	prompt "python3-iniconfig"
+	help
+	  iniconfig is a small and simple INI-file parser module having a unique set of features
