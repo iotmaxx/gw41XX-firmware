@@ -1,0 +1,24 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Tue, 14 Jul 2020 06:45:39 +0200
+Subject: [PATCH] ARM: iotmaxx: add expansion slot
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index bc1ad9a78314..1ac9b661d61f 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -16,6 +16,10 @@ chosen {
+ 		stdout-path = &uart3;
+ 	};
+ 
++	expansion: expansionslot {
++		/* for devicetree overlays */
++	};
++
+ 	iio-hwmon {
+ 		compatible = "iio-hwmon";
+ 		io-channels = <&adc1 0>, <&adc1 1>, <&adc1 2>, <&adc1 3>,

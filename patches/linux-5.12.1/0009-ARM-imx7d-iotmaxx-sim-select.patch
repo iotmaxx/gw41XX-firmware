@@ -1,0 +1,27 @@
+From: Niklas Sill <sill@iotmaxx.de>
+Date: Mon, 10 May 2021 11:44:16 +0200
+Subject: [PATCH] ARM: imx7d: iotmaxx: sim select
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index baf3d0d29f79..d5bc080ff75b 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -287,6 +287,13 @@ gsm-pwr-on-off {
+ 		output-high;
+ 		line-name = "gsm_power_on_off";
+ 	};
++
++	gsm-sim-sel {
++		gpio-hog;
++		gpios = <16 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "gsm_sim_sel";
++	};
+ };
+ 
+ &gpio5 {

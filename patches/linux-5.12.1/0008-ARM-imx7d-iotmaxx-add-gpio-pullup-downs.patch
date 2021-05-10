@@ -1,0 +1,67 @@
+From: Niklas Sill <sill@iotmaxx.de>
+Date: Mon, 10 May 2021 11:43:09 +0200
+Subject: [PATCH] ARM: imx7d: iotmaxx: add gpio pullup/downs
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 33 +++++++++++++++++++++---------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 48dd6a031ab7..baf3d0d29f79 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -224,7 +224,7 @@ &flexcan1 {
+ 
+ &gpio1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_gpio1>;
++	pinctrl-0 = <&pinctrl_gpio1_lpsr>, <&pinctrl_gpio1>;
+ 
+ 	gpio-line-names = "gpio1_highside",
+ 			  "gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
+@@ -478,6 +478,19 @@ MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x04 /* 5V_PERIPH_EN */
+ 		>;
+ 	};
+ 
++	pinctrl_gpio1: gpio1grp {
++		fsl,pins = <
++			MX7D_PAD_GPIO1_IO08__GPIO1_IO8          0x14
++			MX7D_PAD_GPIO1_IO09__GPIO1_IO9          0x54
++			MX7D_PAD_GPIO1_IO10__GPIO1_IO10         0x14
++			MX7D_PAD_GPIO1_IO11__GPIO1_IO11         0x14
++			MX7D_PAD_GPIO1_IO14__GPIO1_IO14         0x14
++			MX7D_PAD_GPIO1_IO15__GPIO1_IO15         0x14
++			MX7D_PAD_SD2_RESET_B__GPIO5_IO11        0x14
++			MX7D_PAD_SD2_WP__GPIO5_IO10             0x14
++		>;
++	};
++
+ 	pinctrl_gpio2: gpio2grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14 /* GSM_PWR_EN_3V3 */
+@@ -692,15 +705,15 @@ MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY		0x51
+ };
+ 
+ &iomuxc_lpsr {
+-	pinctrl_gpio1: gpio1grp {
+-		fsl,pins = <
+-			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x00 /* GPIO1_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x00 /* GPIO1_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x00 /* GPIO1_PULLUP */
+-			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x00 /* GPIO1_IN */
+-			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x00 /* GPIO2_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x00 /* GPIO2_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x00 /* !USB_EXT_OC */
++	pinctrl_gpio1_lpsr: gpio1grp_lpsr {
++		fsl,pins = <
++			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x14 /* GPIO1_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x14 /* GPIO1_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x14 /* GPIO1_PULLUP */
++			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x14 /* GPIO1_IN */
++			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x14 /* GPIO2_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x14 /* GPIO2_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14 /* !USB_EXT_OC */
+ 		>;
+ 	};
+ 

@@ -1,0 +1,24 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 6 Jul 2020 14:58:37 +0200
+Subject: [PATCH] dt-bindings: Add DS2482 as trivial device
+
+The Maxim DS2482 is an I2C to 1-wire bridge.
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index a327130d1faa..a2ccf24d85f1 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -130,6 +130,8 @@ properties:
+           - maxim,ds1803-050
+             # 100 kOhm digital potentiometer with I2C interface
+           - maxim,ds1803-100
++            # 10-bit 8 channels 300ks/s SPI ADC with temperature sensor
++          - maxim,ds2482
+             # Low-Power, 4-/12-Channel, 2-Wire Serial, 12-Bit ADCs
+           - maxim,max1237
+             # 10-bit 10 kOhm linear programable voltage divider
