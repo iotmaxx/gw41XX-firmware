@@ -8,7 +8,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 39 insertions(+)
 
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-index 211a8e716696..48dd6a031ab7 100644
+index 665dfe134b08..65614b116f16 100644
 --- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 @@ -289,6 +289,21 @@ gsm-pwr-on-off {
@@ -33,7 +33,7 @@ index 211a8e716696..48dd6a031ab7 100644
  &i2c1 {
  	pinctrl-names = "default";
  	pinctrl-0 = <&pinctrl_i2c1>;
-@@ -493,6 +508,30 @@ MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73 /* GSM_POWER_ON_OFF */
+@@ -492,6 +507,30 @@ MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73 /* GSM_POWER_ON_OFF */
  		>;
  	};
  
