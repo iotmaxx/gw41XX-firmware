@@ -1,8 +1,0 @@
-## SECTION=python3
-
-config PYTHON3_ZIPP
-	tristate
-	select PYTHON3	
-	prompt "python3-zipp"
-	help
-	  Backport of pathlib-compatible object wrapper for zip files
