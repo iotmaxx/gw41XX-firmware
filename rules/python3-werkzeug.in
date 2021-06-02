@@ -3,6 +3,7 @@
 config PYTHON3_WERKZEUG
 	tristate
 	select PYTHON3
+	select HOST_PYTHON3_TOML
 	prompt "python3-werkzeug"
 	help
 	werkzeug German noun: “tool”. Etymology: werk (“work”), zeug (“stuff”)
