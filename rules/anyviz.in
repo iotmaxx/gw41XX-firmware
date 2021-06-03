@@ -4,4 +4,4 @@ config ANYVIZ
 	tristate
 	prompt "anyviz"
 	help
-	  FIXME
+	  anyviz cloud adapter
