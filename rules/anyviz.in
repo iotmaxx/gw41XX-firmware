@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config ANYVIZ
+	tristate
+	prompt "anyviz"
+	help
+	  FIXME
