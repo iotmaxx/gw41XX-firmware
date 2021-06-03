@@ -57,6 +57,7 @@ $(STATEDIR)/python3-gw-webinterface.targetinstall:
 	@$(call install_fixup, python3-gw-webinterface, AUTHOR, "Niklas Sill <sill@iotmaxx.de>")
 	@$(call install_fixup, python3-gw-webinterface, DESCRIPTION, missing)
 
+	@$(call install_tree, python3-gw-webinterface, 0, 0, $(PYTHON3_GW_WEBINTERFACE_DIR), /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gw-backend)
 		#@$(call install_copy, python3-gw-webinterface, 0, 0, 0755, $(PYTHON3_GW_WEBINTERFACE_DIR)/, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/gw-backend)
 		
 #		@for i in $(PYTHON3_GW_WEBINTERFACE_DIR); do \
@@ -65,7 +66,7 @@ $(STATEDIR)/python3-gw-webinterface.targetinstall:
 
 		@$(call install_alternative, python3-gw-webinterface, 0, 0, 0644, \
 		/etc/systemd/system/webinterface.service)
-		@$(call install_link, python3-gw-webinterface, webinterface.service, \
+		@$(call install_link, python3-gw-webinterface, /etc/systemd/system/webinterface.service, \
 		/etc/systemd/system/multi-user.target.wants/webinterface.service)
 
 	@$(call install_finish, python3-gw-webinterface)
