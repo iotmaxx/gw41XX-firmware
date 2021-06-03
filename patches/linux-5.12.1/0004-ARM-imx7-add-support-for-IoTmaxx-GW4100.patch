@@ -8,8 +8,8 @@ The support is almost complete apart from the pmic setup.
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/boot/dts/Makefile                 |   1 +
- arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 777 +++++++++++++++++++++++++++++
- 2 files changed, 778 insertions(+)
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 776 +++++++++++++++++++++++++++++
+ 2 files changed, 777 insertions(+)
  create mode 100644 arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 
 diff --git a/arch/arm/boot/dts/Makefile b/arch/arm/boot/dts/Makefile
@@ -26,10 +26,10 @@ index 8e5d4ab4e75e..3bc142407004 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..bc1ad9a78314
+index 000000000000..7b3bbbcdefe3
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-@@ -0,0 +1,777 @@
+@@ -0,0 +1,776 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 +* Copyright (C) 2020 Steffen Trumtrar, Pengutronix
@@ -397,7 +397,6 @@ index 000000000000..bc1ad9a78314
 +	 */
 +	exp_eeprom: eeprom@50 {
 +		compatible = "atmel,24cs64";
-+		vcc-supply = <&reg_ldo_misc_3v3>;
 +		pagesize = <32>;
 +		reg = <0x50>;
 +	};

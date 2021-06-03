@@ -1,0 +1,417 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 27 May 2021 08:54:04 +0200
+Subject: [PATCH] ARM: imx7d: iotmaxx: sync devictree with kernel
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dts |  12 ++-
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts  | 185 ++++++++++++++++++++++++----------
+ 2 files changed, 142 insertions(+), 55 deletions(-)
+
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+index 54340a5ee263..0b1c019881c5 100644
+--- a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+@@ -6,8 +6,13 @@
+ 		ethernet0 = &fec2;
+ 	};
+ 
++	memory {
++		device_type = "memory";
++		reg = <0x80000000 0x40000000>;
++        };
++
+ 	chosen {
+-		stdout-path = &uart3;
++		stdout-path = &uart7;
+ 
+ 		environment-emmc {
+ 			compatible = "barebox,environment";
+@@ -100,6 +105,11 @@
+ 	/delete-property/ assigned-clock-parents;
+ };
+ 
++&uart7 {
++	/delete-property/ assigned-clocks;
++	/delete-property/ assigned-clock-parents;
++};
++
+ &usdhc2 {
+ 	partitions {
+ 		compatible = "fixed-partitions";
+diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+index 9f0da88d1b04..40753798f8da 100644
+--- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
++++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
+@@ -1,22 +1,19 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ /*
+-* Copyright (C) 2020 Steffen Trumtrar <s.trumtrar@pengutronix.de>
++* Copyright (C) 2020 Steffen Trumtrar, Pengutronix
++* Copyright (C) 2020 Jürgen Borleis, Pengutronix
++* Copyright (C) 2020 Niklas Sill <sill@iotmaxx.de>
+ */
+ 
+ /dts-v1/;
+ #include "imx7d.dtsi"
+ 
+ / {
+-	model = "IoTMAXX i.MX7D GW4100 Gateway";
++	model = "IoTmaxx i.MX7D GW4100 Gateway";
+ 	compatible = "iotmaxx,imx7d-gw4100", "fsl,imx7d";
+ 
+ 	chosen {
+-		stdout-path = &uart3;
+-	};
+-
+-	memory {
+-		device_type = "memory";
+-		reg = <0x80000000 0x40000000>;
++		stdout-path = &uart7;
+ 	};
+ 
+ 	expansion: expansionslot {
+@@ -37,7 +34,6 @@
+ 		usr1 {
+ 			label = "iotmaxx:green:usr1";
+ 			gpios = <&gpio4 15 GPIO_ACTIVE_HIGH>;
+-			linux,default-trigger = "heartbeat";
+ 		};
+ 
+ 		usr2 {
+@@ -157,7 +153,6 @@
+ &ecspi2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ecspi2>;
+-	num-chipselects = <1>;
+ 	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
+ 	status = "okay";
+ 
+@@ -201,7 +196,6 @@
+ 		      "enet_clk_ref", "enet_out";
+ 	phy-handle = <&ethphy1>;
+ 	phy-mode = "rmii";
+-	phy-reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
+ 	fsl,magic-packet;
+ 	status = "okay";
+ 
+@@ -214,6 +208,8 @@
+ 			interrupts = <25 IRQ_TYPE_LEVEL_LOW>;
+ 			clocks = <&clks IMX7D_ENET2_REF_ROOT_DIV>;
+ 			clock-names = "rmii-ref";
++			reset-names = "phy";
++			reset-gpios = <&gpio2 27 GPIO_ACTIVE_LOW>;
+ 			reg = <1>;
+ 		};
+ 	};
+@@ -228,7 +224,7 @@
+ 
+ &gpio1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_gpio1>;
++	pinctrl-0 = <&pinctrl_gpio1_lpsr>, <&pinctrl_gpio1>;
+ 
+ 	gpio-line-names = "gpio1_highside",
+ 			  "gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
+@@ -291,6 +287,28 @@
+ 		output-high;
+ 		line-name = "gsm_power_on_off";
+ 	};
++
++	gsm-sim-sel {
++		gpio-hog;
++		gpios = <16 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "gsm_sim_sel";
++	};
++};
++
++&gpio5 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_gpio_exp>;
++	status = "okay";
++
++	gpio-line-names = "output_0",
++			  "", "", "", "", "",
++			  "", "", "", "", "",
++			  "", "", "", "", "",
++			  "", "", "", "", "",
++			  "", "", "", "", "",
++			  "", "", "", "", "",
++			  "";
+ };
+ 
+ &i2c1 {
+@@ -332,7 +350,7 @@
+ 		reg = <0x20>;
+ 	};
+ 
+-	eeprom: eeprom@50 {
++	eeprom1: eeprom@50 {
+ 		compatible = "atmel,24c64";
+ 		vcc-supply = <&reg_ldo_misc_3v3>;
+ 		pagesize = <32>;
+@@ -372,7 +390,7 @@
+ 	 * or * 3.3 V (regulator-ldo-misc-3v3)
+ 	 */
+ 	exp_eeprom: eeprom@50 {
+-		compatible = "atmel,24c64";
++		compatible = "atmel,24cs64";
+ 		pagesize = <32>;
+ 		reg = <0x50>;
+ 	};
+@@ -405,7 +423,7 @@
+ 
+ 	pinctrl_act_irg: act1grp {
+ 		fsl,pins = <
+-			MX7D_PAD_LCD_DATA21__GPIO3_IO26			0x58		/* 47 k PU + Hys */
++			MX7D_PAD_LCD_DATA21__GPIO3_IO26			0x58 /* 47 k PU + Hys */
+ 		>;
+ 	};
+ 
+@@ -420,16 +438,16 @@
+ 
+ 	pinctrl_ecspi3: ecspi3grp {
+ 		fsl,pins = <
+-			MX7D_PAD_SAI2_TX_SYNC__ECSPI3_MISO		0x7c	/* EXP_SPI_MISO */
+-			MX7D_PAD_SAI2_TX_BCLK__ECSPI3_MOSI		0x74	/* EXP_SPI_MOSI */
+-			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x74	/* EXP_SPI_CLK */
+-			MX7D_PAD_SAI2_TX_DATA__GPIO6_IO22		0x00	/* EXP_SPI_CS, fast slew rate */
++			MX7D_PAD_SAI2_TX_SYNC__ECSPI3_MISO		0x7c /* EXP_SPI_MISO */
++			MX7D_PAD_SAI2_TX_BCLK__ECSPI3_MOSI		0x74 /* EXP_SPI_MOSI */
++			MX7D_PAD_SAI2_RX_DATA__ECSPI3_SCLK		0x00 /* EXP_SPI_CLK */
++			MX7D_PAD_SAI2_TX_DATA__GPIO6_IO22		0x00 /* EXP_SPI_CS, fast slew rate */
+ 		>;
+ 	};
+ 
+ 	pinctrl_pcf_irq: pcf1grp{
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_BDR1__GPIO2_IO29			0x58		/* 47 k PU + Hys */
++			MX7D_PAD_EPDC_BDR1__GPIO2_IO29			0x58 /* 47 k PU + Hys */
+ 		>;
+ 	};
+ 
+@@ -449,7 +467,7 @@
+ 
+ 	pinctrl_tpm_irq: tpm1grp  {
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_DATA00__GPIO2_IO0			0x58		/* 47 k PU + Hys */
++			MX7D_PAD_EPDC_DATA00__GPIO2_IO0			0x58 /* 47 k PU + Hys */
+ 		>;
+ 	};
+ 
+@@ -462,40 +480,77 @@
+ 
+ 	pinctrl_5v_reg: reg5v1grp {
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x04		/* 5V_PERIPH_EN */
++			MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x04 /* 5V_PERIPH_EN */
++		>;
++	};
++
++	pinctrl_gpio1: gpio1grp {
++		fsl,pins = <
++			MX7D_PAD_GPIO1_IO08__GPIO1_IO8          0x14
++			MX7D_PAD_GPIO1_IO09__GPIO1_IO9          0x54
++			MX7D_PAD_GPIO1_IO10__GPIO1_IO10         0x14
++			MX7D_PAD_GPIO1_IO11__GPIO1_IO11         0x14
++			MX7D_PAD_GPIO1_IO14__GPIO1_IO14         0x14
++			MX7D_PAD_GPIO1_IO15__GPIO1_IO15         0x14
++			MX7D_PAD_SD2_RESET_B__GPIO5_IO11        0x14
++			MX7D_PAD_SD2_WP__GPIO5_IO10             0x14
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio2: gpio2grp {
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14		/* GSM_PWR_EN_3V3 */
+-			MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14		/* SIM_CD1 */
+-			MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14		/* SIM_CD2 */
++			MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14 /* GSM_PWR_EN_3V3 */
++			MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14 /* SIM_CD1 */
++			MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14 /* SIM_CD2 */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio3: gpio3grp {
+ 		fsl,pins = <
+-			MX7D_PAD_LCD_RESET__GPIO3_IO4			0x79		/* VUSB_GSM_EN */
+-			MX7D_PAD_LCD_DATA20__GPIO3_IO25			0x14		/* SIM_ENABLE */
++			MX7D_PAD_LCD_RESET__GPIO3_IO4			0x79 /* VUSB_GSM_EN */
++			MX7D_PAD_LCD_DATA20__GPIO3_IO25			0x14 /* SIM_ENABLE */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio4: gpio4grp {
+ 		fsl,pins = <
+-			MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x59		/* !GSM_PWR_IND */
+-			MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59		/* SIM_SEL */
+-			MX7D_PAD_I2C3_SCL__GPIO4_IO12			0x59		/* !CAN_TERM_EN */
+-			MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x03		/* GSM_RST */
++			MX7D_PAD_ECSPI1_SS0__GPIO4_IO19			0x59 /* !GSM_PWR_IND */
++			MX7D_PAD_ECSPI1_SCLK__GPIO4_IO16		0x59 /* SIM_SEL */
++			MX7D_PAD_I2C3_SCL__GPIO4_IO12			0x59 /* !CAN_TERM_EN */
++			MX7D_PAD_ECSPI1_MOSI__GPIO4_IO17		0x03 /* GSM_RST */
+ 		>;
+ 	};
+ 
+ 	pinctrl_gpio4_hog: gpio4hoggrp {
+ 		fsl,pins = <
+-			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73		/* GSM_POWER_ON_OFF */
++			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73 /* GSM_POWER_ON_OFF */
+ 		>;
+ 	};
+ 
++	pinctrl_gpio_exp: gpio_exp_grp {
++		fsl,pins = <
++			MX7D_PAD_SAI1_MCLK__GPIO6_IO18          	0x14
++            MX7D_PAD_SAI1_RX_BCLK__GPIO6_IO17       	0x14
++            MX7D_PAD_SAI1_RX_DATA__GPIO6_IO12       	0x14
++            MX7D_PAD_SAI1_RX_SYNC__GPIO6_IO16       	0x14
++            MX7D_PAD_SAI1_TX_BCLK__GPIO6_IO13       	0x14
++            MX7D_PAD_SAI1_TX_DATA__GPIO6_IO15       	0x14
++            MX7D_PAD_SAI1_TX_SYNC__GPIO6_IO14       	0x14
++            MX7D_PAD_ENET1_CRS__GPIO7_IO14             	0x14
++            MX7D_PAD_ENET1_RGMII_RD2__GPIO7_IO2        	0x14
++            MX7D_PAD_ENET1_RGMII_RD3__GPIO7_IO3        	0x14
++            MX7D_PAD_ENET1_RGMII_RXC__GPIO7_IO5        	0x14
++            MX7D_PAD_ENET1_RGMII_RX_CTL__GPIO7_IO4     	0x14
++			MX7D_PAD_ENET1_RGMII_TD0__GPIO7_IO6        	0x14
++            MX7D_PAD_ENET1_RGMII_TD1__GPIO7_IO7        	0x14
++            MX7D_PAD_ENET1_RGMII_TXC__GPIO7_IO11       	0x14
++            MX7D_PAD_ENET1_RGMII_TX_CTL__GPIO7_IO10    	0x14
++            MX7D_PAD_ENET1_RX_CLK__GPIO7_IO13         	0x14
++            MX7D_PAD_ENET1_TX_CLK__GPIO7_IO12			0x14
++		>;
++	};
++
++
+ 	pinctrl_i2c1: i2c1grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_UART1_RX_DATA__I2C1_SCL		0x40000078
+@@ -521,22 +576,31 @@
+ 
+ 	pinctrl_leds_usr: ledsusrgrp {
+ 		fsl,pins = <
+-			MX7D_PAD_I2C4_SDA__GPIO4_IO15			0x51		/* LED USR1 */
+-			MX7D_PAD_I2C4_SCL__GPIO4_IO14			0x51		/* LED USR2 */
++			MX7D_PAD_I2C4_SDA__GPIO4_IO15			0x51 /* LED USR1 */
++			MX7D_PAD_I2C4_SCL__GPIO4_IO14			0x51 /* LED USR2 */
+ 		>;
+ 	};
+ 
+ 	pinctrl_mdio: mdiogrp {
+ 		fsl,pins = <
+-			MX7D_PAD_UART2_RX_DATA__ENET2_MDIO		0x3		/* ENET_MDIO */
+-			MX7D_PAD_UART2_TX_DATA__ENET2_MDC		0x3		/* ENET_MDC */
++			MX7D_PAD_UART2_RX_DATA__ENET2_MDIO		0x3 /* ENET_MDIO */
++			MX7D_PAD_UART2_TX_DATA__ENET2_MDC		0x3 /* ENET_MDC */
+ 		>;
+ 	};
+ 
+ 	pinctrl_rmii_phy: phygrp {
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_GDSP__GPIO2_IO27			0x59		/* !ENET2_RST */
+-			MX7D_PAD_EPDC_GDOE__GPIO2_IO25			0x59		/* !ENET2_INT */
++			MX7D_PAD_EPDC_GDSP__GPIO2_IO27			0x59 /* !ENET2_RST */
++			MX7D_PAD_EPDC_GDOE__GPIO2_IO25			0x59 /* !ENET2_INT */
++		>;
++	};
++
++	pinctrl_uart2: uart2grp {
++		fsl,pins = <
++			MX7D_PAD_LCD_CLK__UART2_DCE_RX             	0x79		/* RS485_R */
++            MX7D_PAD_LCD_ENABLE__UART2_DCE_TX          0x79		/* RS458_D */
++            MX7D_PAD_LCD_HSYNC__GPIO3_IO2          	0x79 	/* RS485_DE */
++           /* MX7D_PAD_LCD_VSYNC__UART2_DCE_CTS          0x79		*/
+ 		>;
+ 	};
+ 
+@@ -551,9 +615,9 @@
+ 
+ 	pinctrl_uart4: uart4grp {
+ 		fsl,pins = <
+-			MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79		/* RS485_DE */
+-			MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79		/* RS485_R */
+-			MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79		/* RS458_D */
++			MX7D_PAD_I2C1_SCL__GPIO4_IO8			0x79 /* RS485_DE */
++			MX7D_PAD_I2C2_SCL__UART4_DCE_RX			0x79 /* RS485_R */
++			MX7D_PAD_I2C2_SDA__UART4_DCE_TX			0x79 /* RS458_D */
+ 		>;
+ 	};
+ 
+@@ -571,11 +635,19 @@
+ 		>;
+ 	};
+ 
++	pinctrl_uart7: uart7grp {
++		fsl,pins = <
++			MX7D_PAD_EPDC_DATA12__UART7_DCE_RX	0x7e
++			MX7D_PAD_EPDC_DATA13__UART7_DCE_TX	0x76
++		>;
++	};
++
++
+ 	pinctrl_usbhub: usbhubgrp {
+ 		fsl,pins = <
+-			MX7D_PAD_EPDC_PWR_COM__GPIO2_IO30		0x59		/* !USBHUB_RST */
+-			MX7D_PAD_EPDC_SDOE__GPIO2_IO18			0x59		/* !USBHUB_INT */
+-			MX7D_PAD_EPDC_SDSHR__GPIO2_IO19			0x59		/* USBHUB_CONNECT */
++			MX7D_PAD_EPDC_PWR_COM__GPIO2_IO30		0x59 /* !USBHUB_RST */
++			MX7D_PAD_EPDC_SDOE__GPIO2_IO18			0x59 /* !USBHUB_INT */
++			MX7D_PAD_EPDC_SDSHR__GPIO2_IO19			0x59 /* USBHUB_CONNECT */
+ 		>;
+ 	};
+ 
+@@ -638,6 +710,7 @@
+ 			MX7D_PAD_SD3_STROBE__SD3_STROBE			0x1b
+ 		>;
+ 	};
++
+ 	pinctrl_wdog1: wdog1grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_ENET1_COL__WDOG1_WDOG_ANY		0x51
+@@ -646,21 +719,21 @@
+ };
+ 
+ &iomuxc_lpsr {
+-	pinctrl_gpio1: gpio1grp {
++	pinctrl_gpio1_lpsr: gpio1grp_lpsr {
+ 		fsl,pins = <
+-			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x00	/* GPIO1_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x00	/* GPIO1_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x00	/* GPIO1_PULLUP */
+-			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x00	/* GPIO1_IN */
+-			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x00	/* GPIO2_HIGHSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x00	/* GPIO2_LOWSIDE */
+-			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x00	/* !USB_EXT_OC */
++			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x14 /* GPIO1_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x14 /* GPIO1_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x14 /* GPIO1_PULLUP */
++			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x14 /* GPIO1_IN */
++			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x14 /* GPIO2_HIGHSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x14 /* GPIO2_LOWSIDE */
++			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14 /* !USB_EXT_OC */
+ 		>;
+ 	};
+ 
+ 	pinctrl_usb_otg2_vbus_reg: usbotg2vbusreggrp {
+ 		fsl,pins = <
+-			MX7D_PAD_LPSR_GPIO1_IO07__GPIO1_IO7		0x14	/* USB_EXT_PWR */
++			MX7D_PAD_LPSR_GPIO1_IO07__GPIO1_IO7		0x14 /* USB_EXT_PWR */
+ 		>;
+ 	};
+ };
+@@ -697,7 +770,11 @@
+ };
+ 
+ &uart7 {
+-	/* spare serial at J500 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart7>;
++	assigned-clocks = <&clks IMX7D_UART7_ROOT_SRC>;
++	assigned-clock-parents = <&clks IMX7D_OSC_24M_CLK>;
++	status = "okay";
+ };
+ 
+ &usbphynop3 {

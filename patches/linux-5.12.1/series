@@ -1,9 +1,9 @@
 # umpf-base: v5.12.1
 # umpf-name: 5.12/customers/iotmaxx/gateway
-# umpf-version: 5.12/customers/iotmaxx/gateway/20210510-2
+# umpf-version: 5.12/customers/iotmaxx/gateway/20210527-1
 # umpf-topic: v5.12/customers/iotmaxx/boards/gateway
-# umpf-hashinfo: 8a023c406669c2b96093e7f3eb9db84db07b14a5
-# umpf-topic-range: 9f29b08688ca35efcffe01b80f55fd2a4edf5796..f86e399982cc4a00659988603dcb35c909915164
+# umpf-hashinfo: c6901c8a36bca95c31859793e91ab657fcd061c1
+# umpf-topic-range: 9f29b08688ca35efcffe01b80f55fd2a4edf5796..f6656a22ee182c8d9d655a02130ec104e20291ed
 0001-ARM-imx7d-add-enet2-clk-sel.patch
 0002-dt-bindings-Add-DS2482-as-trivial-device.patch
 0003-dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH.patch
@@ -13,7 +13,8 @@
 0007-ARM-imx7d-iotmaxx-add-expansion-gpios.patch
 0008-ARM-imx7d-iotmaxx-add-gpio-pullup-downs.patch
 0009-ARM-imx7d-iotmaxx-sim-select.patch
-# umpf-release: 5.12/customers/iotmaxx/gateway/20210510-2
-# umpf-topic-range: f86e399982cc4a00659988603dcb35c909915164..01f9fdb8c8e88fd4ff74a5e053841065e64aee9c
-0101-Release-5.12-customers-iotmaxx-gateway-20210510-2.patch
+0010-ARM-imx7d-iotmaxx-move-default-console-to-uart7.patch
+# umpf-release: 5.12/customers/iotmaxx/gateway/20210527-1
+# umpf-topic-range: f6656a22ee182c8d9d655a02130ec104e20291ed..2803b2966e08298e8100907e1b32bc8e904bdaf3
+0101-Release-5.12-customers-iotmaxx-gateway-20210527-1.patch
 # umpf-end
