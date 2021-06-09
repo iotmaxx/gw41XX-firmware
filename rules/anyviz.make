@@ -131,6 +131,7 @@ $(STATEDIR)/anyviz.targetinstall:
 	@$(call install_link, anyviz, $(ANYVIZ_SERVICE), /etc/systemd/system/multi-user.target.wants/$(ANYVIZ_SERVICE))
 	@$(call install_link, anyviz, ttymxc2, /dev/RS232)
 	@$(call install_link, anyviz, ttymxc3, /dev/RS485)
+	@$(call install_copy, anyviz, 0, 0, 0755, /config/anyviz)
 	@$(call install_link, anyviz, /config/anyviz, /etc/anyviz)
 	@$(call install_copy, anyviz, 0, 0, 0755, /var/log/anyviz)
 
