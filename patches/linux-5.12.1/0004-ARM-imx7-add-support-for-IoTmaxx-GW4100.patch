@@ -26,7 +26,7 @@ index 8e5d4ab4e75e..3bc142407004 100644
  	imx7d-nitrogen7.dtb \
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 new file mode 100644
-index 000000000000..7b3bbbcdefe3
+index 000000000000..8d2b6d5236af
 --- /dev/null
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 @@ -0,0 +1,776 @@
@@ -396,7 +396,7 @@ index 000000000000..7b3bbbcdefe3
 +	 * or * 3.3 V (regulator-ldo-misc-3v3)
 +	 */
 +	exp_eeprom: eeprom@50 {
-+		compatible = "atmel,24cs64";
++		compatible = "atmel,24c64";
 +		pagesize = <32>;
 +		reg = <0x50>;
 +	};

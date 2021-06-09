@@ -8,7 +8,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
-index e77a0101fe34..40753798f8da 100644
+index 8068694ca2eb..098c27060521 100644
 --- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 +++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
 @@ -13,7 +13,7 @@ / {
