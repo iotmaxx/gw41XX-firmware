@@ -1,6 +1,6 @@
 # umpf-base: v2021.04.0
 # umpf-name: 2021.04.0/customers/iotmaxx/gateway
-# umpf-version: 2021.04.0/customers/iotmaxx/gateway/20210527-1
+# umpf-version: 2021.04.0/customers/iotmaxx/gateway/20210609-1
 # umpf-topic: v2021.04.0/topic/of-overlay
 # umpf-hashinfo: 6f8af820821cddec088a58069118d480ca5429ef
 # umpf-topic-range: 648bbfb107f4df7c7a8486d6228fbc6bef63b546..c34086dfefdefffda4b5a51c70155a6a9950e412
@@ -11,8 +11,8 @@
 0101-ARM-imx7-sdb-add-bareboxenv-partition.patch
 0102-ARM-imx7-sdb-add-bootstate.patch
 # umpf-topic: v2021.04.0/customers/iotmaxx/board/gateway
-# umpf-hashinfo: 51a87ce815a04017a56c143eaee280786082abd4
-# umpf-topic-range: df6bebcd9a86fa740ee892e1e9c56dc96e5c9423..bbcde5791a777493353c63fe62d268e6f96d98b2
+# umpf-hashinfo: 186b8639d3c5083a324c90187eae9da3a50c9f6e
+# umpf-topic-range: df6bebcd9a86fa740ee892e1e9c56dc96e5c9423..e506eacdd61b506d598f85c62d2c8cc88a67a7f9
 0201-blspec-apply-overlays-from-global-environment.patch
 0202-dts-src-arm-add-iotmaxx-gw4100-devicetree.patch
 0203-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
@@ -22,7 +22,7 @@
 0207-iotmaxx-gw4100-register-mac-addr.patch
 0208-watchdog-imxwd-get-and-enable-clock.patch
 0209-ARM-imx7d-iotmaxx-sync-devictree-with-kernel.patch
-# umpf-release: 2021.04.0/customers/iotmaxx/gateway/20210527-1
-# umpf-topic-range: bbcde5791a777493353c63fe62d268e6f96d98b2..c16943b497df40e3b1ae7c91f0f828e7797840a6
-0301-Release-2021.04.0-customers-iotmaxx-gateway-20210527.patch
+# umpf-release: 2021.04.0/customers/iotmaxx/gateway/20210609-1
+# umpf-topic-range: e506eacdd61b506d598f85c62d2c8cc88a67a7f9..f598d4e18ff30b655bf27eef16bd6518e739e956
+0301-Release-2021.04.0-customers-iotmaxx-gateway-20210609.patch
 # umpf-end

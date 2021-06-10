@@ -5,8 +5,8 @@ Subject: [PATCH] ARM: imx7d: iotmaxx: sync devictree with kernel
 Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
 ---
  arch/arm/dts/imx7d-iotmaxx-gw4100.dts |  12 ++-
- dts/src/arm/imx7d-iotmaxx-gw4100.dts  | 185 ++++++++++++++++++++++++----------
- 2 files changed, 142 insertions(+), 55 deletions(-)
+ dts/src/arm/imx7d-iotmaxx-gw4100.dts  | 183 ++++++++++++++++++++++++----------
+ 2 files changed, 141 insertions(+), 54 deletions(-)
 
 diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
 index 54340a5ee263..0b1c019881c5 100644
@@ -40,7 +40,7 @@ index 54340a5ee263..0b1c019881c5 100644
  	partitions {
  		compatible = "fixed-partitions";
 diff --git a/dts/src/arm/imx7d-iotmaxx-gw4100.dts b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
-index 9f0da88d1b04..40753798f8da 100644
+index 9f0da88d1b04..098c27060521 100644
 --- a/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 +++ b/dts/src/arm/imx7d-iotmaxx-gw4100.dts
 @@ -1,22 +1,19 @@
@@ -151,15 +151,6 @@ index 9f0da88d1b04..40753798f8da 100644
  		compatible = "atmel,24c64";
  		vcc-supply = <&reg_ldo_misc_3v3>;
  		pagesize = <32>;
-@@ -372,7 +390,7 @@
- 	 * or * 3.3 V (regulator-ldo-misc-3v3)
- 	 */
- 	exp_eeprom: eeprom@50 {
--		compatible = "atmel,24c64";
-+		compatible = "atmel,24cs64";
- 		pagesize = <32>;
- 		reg = <0x50>;
- 	};
 @@ -405,7 +423,7 @@
  
  	pinctrl_act_irg: act1grp {
@@ -259,9 +250,9 @@ index 9f0da88d1b04..40753798f8da 100644
  		fsl,pins = <
 -			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73		/* GSM_POWER_ON_OFF */
 +			MX7D_PAD_ECSPI1_MISO__GPIO4_IO18		0x73 /* GSM_POWER_ON_OFF */
- 		>;
- 	};
- 
++		>;
++	};
++
 +	pinctrl_gpio_exp: gpio_exp_grp {
 +		fsl,pins = <
 +			MX7D_PAD_SAI1_MCLK__GPIO6_IO18          	0x14
@@ -282,9 +273,9 @@ index 9f0da88d1b04..40753798f8da 100644
 +            MX7D_PAD_ENET1_RGMII_TX_CTL__GPIO7_IO10    	0x14
 +            MX7D_PAD_ENET1_RX_CLK__GPIO7_IO13         	0x14
 +            MX7D_PAD_ENET1_TX_CLK__GPIO7_IO12			0x14
-+		>;
-+	};
-+
+ 		>;
+ 	};
+ 
 +
  	pinctrl_i2c1: i2c1grp {
  		fsl,pins = <
