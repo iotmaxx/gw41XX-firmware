@@ -1,13 +1,13 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Thu, 27 May 2021 13:53:46 +0200
-Subject: [PATCH] Release 5.12/customers/iotmaxx/gateway/20210527-1
+Date: Wed, 9 Jun 2021 13:16:07 +0200
+Subject: [PATCH] Release 5.12/customers/iotmaxx/gateway/20210609-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 78b0941f0de4..f63e90ba2283 100644
+index 78b0941f0de4..27933c3673b5 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
@@ -15,7 +15,7 @@ index 78b0941f0de4..f63e90ba2283 100644
  PATCHLEVEL = 12
  SUBLEVEL = 1
 -EXTRAVERSION =
-+EXTRAVERSION =-20210527-1
++EXTRAVERSION =-20210609-1
  NAME = Frozen Wasteland
  
  # *DOCUMENTATION*
