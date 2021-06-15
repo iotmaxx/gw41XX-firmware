@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_GATEWAY_ROOT_CONFIG
+	tristate
+	select HOST_GENIMAGE
+        select HOST_GENEXT2FS
+        select HOST_E2FSPROGS
+        select IMAGE_GATEWAY_ROOT_CONFIG_TGZ
+	prompt "Generate images/gateway-root-config.ext4"
+	help
+	  FIXME
