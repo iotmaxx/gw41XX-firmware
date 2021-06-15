@@ -4,7 +4,7 @@ config IMAGE_GATEWAY_DEVELOP
 	tristate
 	select HOST_GENIMAGE
 	select IMAGE_ROOT_EXT
-	select ROOT_CONFIG
+	select IMAGE_GATEWAY_ROOT_CONFIG
 	select ROOT_DATA1
 	select ROOT_DATA2
 	select BAREBOX
