@@ -21,5 +21,4 @@
 0101-Release-5.12-customers-iotmaxx-gateway-20210609-1.patch
 # umpf-end
 #tag:base --start-number 1000
-1000-add-GPIO1_IN-pullup.patch
 # 38297fa1d3c2072a456bd37d5caf7889  - git-ptx-patches magic

@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 18 Jun 2021 12:08:56 +0000
+Subject: [PATCH] add GPIO1_IN pullup
+
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 098c27060521..4e1f78383476 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -724,7 +724,7 @@ pinctrl_gpio1_lpsr: gpio1grp_lpsr {
+ 			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x14 /* GPIO1_HIGHSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x14 /* GPIO1_LOWSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x14 /* GPIO1_PULLUP */
+-			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x14 /* GPIO1_IN */
++			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x54 /* GPIO1_IN */
+ 			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x14 /* GPIO2_HIGHSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x14 /* GPIO2_LOWSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14 /* !USB_EXT_OC */
