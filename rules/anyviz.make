@@ -126,9 +126,9 @@ $(STATEDIR)/anyviz.targetinstall:
 #	@$(call install_finish,anyviz)
 
 	@$(call install_copy, anyviz, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ), /usr/bin/$(ANYVIZ))
-	@$(call install_copy, anyviz, 0, 0, 0644, \
-		$(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ_SERVICE), /etc/systemd/system/$(ANYVIZ_SERVICE))
-	@$(call install_link, anyviz, /etc/systemd/system/$(ANYVIZ_SERVICE), /etc/systemd/system/multi-user.target.wants/$(ANYVIZ_SERVICE))
+#	@$(call install_copy, anyviz, 0, 0, 0644, \
+#		$(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ_SERVICE), /etc/systemd/system/$(ANYVIZ_SERVICE))
+#	@$(call install_link, anyviz, /etc/systemd/system/$(ANYVIZ_SERVICE), /etc/systemd/system/multi-user.target.wants/$(ANYVIZ_SERVICE))
 	@$(call install_link, anyviz, ttymxc2, /dev/RS232)
 	@$(call install_link, anyviz, ttymxc3, /dev/RS485)
 	@$(call install_copy, anyviz, 0, 0, 0755, /config/anyviz)
