@@ -11,23 +11,25 @@
 #
 PACKAGES-$(PTXCONF_ANYVIZ) += anyviz
 
-ANYVIZ_VERSION		:= 0.9.0
-ANYVIZ			:= anyvizcloudadapter
-ANYVIZ_SERVICE  	:= anyviz.service
-ANYVIZ_SERVICE_URL	:= http://download.anyviz.io/anyviz/$(ANYVIZ_SERVICE)
-ANYVIZ_URL		:= http://download.anyviz.io/anyviz/ARM/$(ANYVIZ)
-ANYVIZ_DIR	:= $(BUILDDIR)/$(ANYVIZ)
-ANYVIZ_SOURCE	:= $(SRCDIR)/$(ANYVIZ)
+ANYVIZ_VERSION		:= 0.9.0.4
+ANYVIZ_MD5		:= 
+ANYVIZ			:= anyviz-$(ANYVIZ_VERSION)
+ANYVIZ_SUFFIX		:= tgz
+#ANYVIZ_SERVICE  	:= anyviz.service
+#ANYVIZ_SERVICE_URL	:= http://download.anyviz.io/anyviz/$(ANYVIZ_SERVICE)
+ANYVIZ_URL		:= http://172.17.0.1:8080/anyviz/$(ANYVIZ).$(ANYVIZ_SUFFIX) # http://download.anyviz.io/anyviz/ARM/$(ANYVIZ)
+#ANYVIZ_DIR	:= $(BUILDDIR)/$(ANYVIZ)
+ANYVIZ_SOURCE	:= $(SRCDIR)/$(ANYVIZ).$(ANYVIZ_SUFFIX)
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/anyviz.get:
 	@$(call targetinfo)
-#	@$(call get, ANYVIZ)
+	@$(call get, ANYVIZ)
 #	mkdir -p $(PTXDIST_WORKSPACE)/bin/$(ANYVIZ)
-	wget -q $(ANYVIZ_URL) -O $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ)
-	wget -q $(ANYVIZ_SERVICE_URL) -O $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ_SERVICE)
+#	wget -q $(ANYVIZ_URL) -O $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ)
+#	wget -q $(ANYVIZ_SERVICE_URL) -O $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ_SERVICE)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -125,10 +127,12 @@ $(STATEDIR)/anyviz.targetinstall:
 #
 #	@$(call install_finish,anyviz)
 
-	@$(call install_copy, anyviz, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ), /usr/bin/$(ANYVIZ))
+#	@$(call install_copy, anyviz, 0, 0, 0755, $(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ), /usr/bin/$(ANYVIZ))
 #	@$(call install_copy, anyviz, 0, 0, 0644, \
 #		$(PTXDIST_SYSROOT_TARGET)/bin/$(ANYVIZ_SERVICE), /etc/systemd/system/$(ANYVIZ_SERVICE))
 #	@$(call install_link, anyviz, /etc/systemd/system/$(ANYVIZ_SERVICE), /etc/systemd/system/multi-user.target.wants/$(ANYVIZ_SERVICE))
+	@$(call install_archive, anyviz, 0, 0, $(ANYVIZ_SOURCE), /)
+
 	@$(call install_link, anyviz, ttymxc2, /dev/RS232)
 	@$(call install_link, anyviz, ttymxc3, /dev/RS485)
 	@$(call install_copy, anyviz, 0, 0, 0755, /config/anyviz)
