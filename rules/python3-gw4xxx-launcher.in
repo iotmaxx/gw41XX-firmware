@@ -1,8 +1,44 @@
 ## SECTION=project_specific
 
 config PYTHON3_GW4XXX_LAUNCHER
-	tristate
+	bool
 	select PYTHON3
 	prompt "python3-gw4xxx-launcher"
 	help
 	  FIXME
+
+# Selectable menu granting access to multiple potentially independent config vars
+#menuconfig MULTICHOICE
+#        bool "Multichoice"
+
+# Choose exactly one item
+choice LAUNCH_CLOUD_ADAPTER
+        bool "launch cloud adapter"
+	optional
+	depends on PYTHON3_GW4XXX_LAUNCHER
+	default LAUNCH_NOTHING
+
+config LAUNCH_NOTHING
+	bool "None"
+
+config LAUNCH_ANYVIZ
+        bool "AnyViz"
+	depends on ANYVIZ
+
+config LAUNCH_TEMPCONN
+        bool "Tempconn"
+	depends on TEMPCONN
+
+config LAUNCH_HEATCONN
+        bool "Heatconn"
+	depends on HEATCONN
+
+endchoice
+
+config LAUNCH_ADAPTER
+	string
+	default "None" if LAUNCH_NOTHING
+	default "Anyviz" if LAUNCH_ANYVIZ
+	default "Tempconn" if LAUNCH_TEMPCONN
+	default "Heatconn" if LAUNCH_HEATCONN
+

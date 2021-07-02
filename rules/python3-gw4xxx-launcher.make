@@ -83,11 +83,13 @@ $(STATEDIR)/python3-gw4xxx-launcher.targetinstall:
 	@$(call install_glob, python3-gw4xxx-launcher, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
 	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.service, /etc/systemd/system/iot_launcher.service)
 
-#	@$(call install_alternative, python3-gw4xxx-launcher, 0, 0, 0644, /etc/systemd/system/iot_launcher.service)
 	@$(call install_link, python3-gw4xxx-launcher, /etc/systemd/system/iot_launcher.service, \
                 /etc/systemd/system/multi-user.target.wants/iot_launcher.service)
-#	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/foobar, /dev/null)
 
+	$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, /config/iot_launcher.d)
+	python3 -c 'import json; launchMe = {"launch": $(PTXCONF_LAUNCH_ADAPTER)};jfile=open("$(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json", "w"); json.dump(launchMe,jfile);jfile.close()'
+	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json, /config/iot_launcher.json)
+	 
 	@$(call install_finish, python3-gw4xxx-launcher)
 
 	@$(call touch)
