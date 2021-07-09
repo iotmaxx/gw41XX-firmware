@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config WEBCONFIG
+	bool
+	prompt "webconfig"
+	help
+	  FIXME
