@@ -3,5 +3,6 @@
 config WEBCONFIG
 	bool
 	prompt "webconfig"
+	select HOST_CMAKE
 	help
 	  FIXME

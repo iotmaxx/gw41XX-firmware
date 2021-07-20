@@ -11,14 +11,14 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.0.7a
-WEBCONFIG_MD5              := 7a81a5d7584fb40920833fbcbeedabe3
-WEBCONFIG                  := webconfigd_$(WEBCONFIG_VERSION)
-WEBCONFIG_SUFFIX           := tar.bz2
-WEBCONFIG_URL              := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX) # http://download.anyviz.io/anyviz/ARM/$(ANYVIZ)
+WEBCONFIG_VERSION	:= 1.0.8
+WEBCONFIG_MD5          	:= 209cfb5fa4c89de7d14fdfbb8bc5c171
+WEBCONFIG               := webconfigd_$(WEBCONFIG_VERSION)
+WEBCONFIG_SUFFIX        := tar.bz2
+WEBCONFIG_URL           := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX) # http://download.anyviz.io/anyviz/ARM/$(ANYVIZ)
 WEBCONFIG_LICENSE	:= unknown
-WEBCONFIG_DIR      := $(BUILDDIR)/$(WEBCONFIG)
-WEBCONFIG_SOURCE   := $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
+WEBCONFIG_DIR      	:= $(BUILDDIR)/$(WEBCONFIG)
+WEBCONFIG_SOURCE   	:= $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -40,9 +40,10 @@ WEBCONFIG_SOURCE   := $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 # Prepare
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/webconfig.prepare:
-#	@$(call targetinfo)
-#	@$(call touch)
+$(STATEDIR)/webconfig.prepare:
+	@$(call targetinfo)
+#	@cd $(WEBCONFIG_DIR) && tools/configure.sh cross
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
