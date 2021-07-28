@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config TEMPCONN
+	bool
+	select PYTHON3
+	prompt "tempconn"
+	help
+	  IoTmaxx internal, do not select
