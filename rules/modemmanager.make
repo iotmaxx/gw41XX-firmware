@@ -14,14 +14,17 @@ PACKAGES-$(PTXCONF_MODEMMANAGER) += modemmanager
 #
 # Paths and names
 #
-MODEMMANAGER_VERSION	:= 1.12.10
-MODEMMANAGER_MD5	:= 35cf22849d243cd2a026caf9851959d3
+MODEMMANAGER_VERSION	:= 1.16.8
+MODEMMANAGER_MD5	:= 99bb53cd4875c0c0efe83285b2442d21
 MODEMMANAGER		:= ModemManager-$(MODEMMANAGER_VERSION)
 MODEMMANAGER_SUFFIX	:= tar.xz
 MODEMMANAGER_URL	:= https://www.freedesktop.org/software/ModemManager/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_SOURCE	:= $(SRCDIR)/$(MODEMMANAGER).$(MODEMMANAGER_SUFFIX)
 MODEMMANAGER_DIR	:= $(BUILDDIR)/$(MODEMMANAGER)
-MODEMMANAGER_LICENSE	:= GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
+MODEMMANAGER_LICENSE	:= GPL-2.0-or-later AND LGPL-2.1-or-later
+MODEMMANAGER_LICENSE_FILES := \
+	file://COPYING;md5=b234ee4d69f5fce4486a80fdaf4a4263 \
+	file://COPYING.LIB;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -35,21 +38,27 @@ MODEMMANAGER_LICENSE	:= GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-la
 MODEMMANAGER_CONF_TOOL	:= autoconf
 MODEMMANAGER_CONF_OPT	:= \
 	$(CROSS_AUTOCONF_USR) \
+	--disable-compile-warnings \
+	--disable-Werror \
 	--disable-gtk-doc \
 	--disable-gtk-doc-html \
 	--disable-gtk-doc-pdf \
 	--disable-nls \
 	--disable-rpath \
+	--disable-code-coverage \
 	--disable-introspection \
 	--disable-vala \
+	--enable-all-plugins \
 	--with-gnu-ld \
+	--without-gcov \
 	--with-dbus-sys-dir=/usr/share/dbus-1/system.d \
 	--with-udev-base-dir=/usr/lib/udev \
 	--with-systemdsystemunitdir=/usr/lib/systemd/system \
+	--with-udev \
 	--$(call ptx/wwo, PTXCONF_INITMETHOD_SYSTEMD)-systemd-suspend-resume \
 	--$(call ptx/wwo, PTXCONF_INITMETHOD_SYSTEMD)-systemd-journal \
 	--without-polkit \
-	--without-at-command-via-dbus \
+	--$(call ptx/wwo, PTXCONF_MODEMMANAGER_ALLOW_DBUS_AT_CMDS)-at-command-via-dbus \
 	--with-mbim \
 	--with-qmi
 
