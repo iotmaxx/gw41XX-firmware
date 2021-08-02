@@ -1,0 +1,13 @@
+## SECTION=image
+
+config IMAGE_GATEWAY_SPARSE
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select ROOT_DATA1
+	select ROOT_DATA2
+	select BAREBOX
+	select IMAGE_GATEWAY
+	prompt "Generate images/gateway-sparse.hdimg"
+	help
+	  FIXME
