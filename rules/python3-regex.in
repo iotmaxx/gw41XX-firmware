@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_REGEX
+	bool
+	select PYTHON3
+	prompt "python3-regex"
+	help
+	  Alternative regular expression module, to replace re.
