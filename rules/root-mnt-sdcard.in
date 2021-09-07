@@ -1,0 +1,7 @@
+## SECTION=image
+
+config ROOT_MNT_SDCARD
+	bool
+	prompt "root-mnt-sdcard"
+	help
+	  FIXME
