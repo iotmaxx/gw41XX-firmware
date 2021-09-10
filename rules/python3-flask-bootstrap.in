@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_FLASK_BOOTSTRAP
+	bool
+	select PYTHON3
+	prompt "python3-flask-bootstrap"
+	help
+	  FIXME
