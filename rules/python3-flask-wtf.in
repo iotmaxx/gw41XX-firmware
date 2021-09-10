@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_FLASK_WTF
+	bool
+	select PYTHON3
+	select PYTHON3_FLASK
+	select PYTHON3_WTFORMS
+	prompt "python3-flask-wtf"
+	help
+	  Simple integration of Flask and WTForms, including CSRF, file upload, and reCAPTCHA.
