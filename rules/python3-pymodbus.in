@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_PYMODBUS
+	bool
+	select PYTHON3
+	select CROSS_PYTHON3_SIX
+	prompt "python3-pymodbus"
+	help
+	  Pymodbus aims to be a fully implemented modbus protocol stack implemented using twisted/asyncio/tornado. Its orignal goal was to allow simulation of thousands of modbus devices on a single machine for monitoring software testing.
+
