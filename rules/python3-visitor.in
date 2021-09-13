@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_VISITOR
+	bool
+	select PYTHON3
+	prompt "python3-visitor"
+	help
+	  A tiny library to facilitate visitor implementation in Python.
