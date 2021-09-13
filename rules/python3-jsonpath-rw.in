@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_JSONPATH_RW
+	bool
+	select PYTHON3
+	prompt "python3-jsonpath-rw"
+	help
+	  This library provides a robust and significantly extended implementation of JSONPath for Python.
