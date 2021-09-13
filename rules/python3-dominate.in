@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_DOMINATE
+	bool
+	select PYTHON3
+	prompt "python3-dominate"
+	help
+	  Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API.
