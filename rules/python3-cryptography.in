@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_CRYPTOGRAPHY
+	bool
+	select PYTHON3
+	select HOST_PYTHON3_CFFI
+	prompt "python3-cryptography"
+	help
+	  cryptography is a package which provides cryptographic recipes and primitives to Python developers.
