@@ -1,4 +1,3 @@
-From 5ddd262c1042ef2cd748b3b2a724d2e15f89b9fb Mon Sep 17 00:00:00 2001
 From: Robert Schwebel <r.schwebel@pengutronix.de>
 Date: Sat, 25 Jul 2020 18:14:35 +0200
 Subject: [PATCH] clients/cli: build generate_docs_nm_settings_nmcli only if
@@ -10,7 +9,7 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 5 insertions(+)
 
 diff --git a/clients/cli/meson.build b/clients/cli/meson.build
-index 517deffa6..2dada71f5 100644
+index 517deffa6931..2dada71f5e5b 100644
 --- a/clients/cli/meson.build
 +++ b/clients/cli/meson.build
 @@ -35,6 +35,9 @@ executable(
@@ -29,6 +28,3 @@ index 517deffa6..2dada71f5 100644
  )
 +
 +endif
--- 
-2.27.0
-

@@ -1,0 +1,34 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 22 Oct 2021 12:45:04 +0000
+Subject: [PATCH] add keyfiles.conf
+
+---
+ data/keyfiles.conf | 2 ++
+ data/meson.build   | 6 ++++++
+ 2 files changed, 8 insertions(+)
+ create mode 100644 data/keyfiles.conf
+
+diff --git a/data/keyfiles.conf b/data/keyfiles.conf
+new file mode 100644
+index 000000000000..94fa1d5a0712
+--- /dev/null
++++ b/data/keyfiles.conf
+@@ -0,0 +1,2 @@
++[keyfile]
++path=/var/lib/NetworkManager/system-connections
+diff --git a/data/meson.build b/data/meson.build
+index b713a03c5afe..ae9d8f5b02e8 100644
+--- a/data/meson.build
++++ b/data/meson.build
+@@ -1,5 +1,11 @@
+ # SPDX-License-Identifier: LGPL-2.1+
+ 
++install_data(
++  'keyfiles.conf',
++  install_dir: join_paths(nm_sysconfdir, nm_name, 'conf.d'),
++)
++
++
+ configure_file(
+   input: 'server.conf.in',
+   output: '@BASENAME@',
