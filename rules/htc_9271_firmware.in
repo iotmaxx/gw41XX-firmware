@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config HTC_9271_FIRMWARE
+	bool
+	prompt "htc_9271_firmware"
+	help
+	  FIXME
