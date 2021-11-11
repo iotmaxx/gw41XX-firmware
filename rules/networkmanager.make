@@ -134,7 +134,7 @@ $(STATEDIR)/networkmanager.targetinstall:
 	@$(call install_fixup, networkmanager,DESCRIPTION, "networkmanager")
 
 	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/NetworkManager.conf)
-	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/unmanaged.conf)
+#	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/unmanaged.conf)
 	@$(call install_copy, networkmanager, 0, 0, 0755, /etc/NetworkManager/dispatcher.d/)
 #	@$(call install_copy, networkmanager, 0, 0, 0755, /etc/NetworkManager/system-connections/)
 
