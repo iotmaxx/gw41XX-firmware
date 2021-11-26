@@ -4,5 +4,6 @@ config WEBCONFIG
 	bool
 	prompt "webconfig"
 	select HOST_CMAKE
+	select DNSMASQ
 	help
 	  FIXME

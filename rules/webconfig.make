@@ -11,11 +11,11 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.0.11
-WEBCONFIG_MD5          	:= 6107d9086d7321cd86293888f88c5ee6
+WEBCONFIG_VERSION	:= 1.1.3
+WEBCONFIG_MD5          	:= 9b05fa7655fb55f7fc8f9be2da27a4c6
 WEBCONFIG               := webconfigd_$(WEBCONFIG_VERSION)
 WEBCONFIG_SUFFIX        := tar.bz2
-WEBCONFIG_URL           := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX) # http://download.anyviz.io/anyviz/ARM/$(ANYVIZ)
+WEBCONFIG_URL           := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 WEBCONFIG_LICENSE	:= unknown
 WEBCONFIG_DIR      	:= $(BUILDDIR)/$(WEBCONFIG)
 WEBCONFIG_SOURCE   	:= $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
@@ -77,8 +77,9 @@ $(STATEDIR)/webconfig.targetinstall:
 # TODO: Add here all files that should be copied to the target
 # Note: Add everything before(!) call to macro install_finish
 #
-	@$(call install_archive, webconfig, -, -, $(WEBCONFIG_SOURCE), /)
+	@$(call install_archive, webconfig, 0, 0, $(WEBCONFIG_SOURCE), /)
 	@$(call install_link, webconfig, /etc/systemd/system/webconfig.service, /etc/systemd/system/multi-user.target.wants/webconfig.service)
+	@$(call install_copy, webconfig, 0, 0, 755, /var/lib/dnsmasq)
 
 	@$(call install_finish,webconfig)
 
