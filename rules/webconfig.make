@@ -11,9 +11,9 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.1.3
-WEBCONFIG_MD5          	:= 9b05fa7655fb55f7fc8f9be2da27a4c6
-WEBCONFIG               := webconfigd_$(WEBCONFIG_VERSION)
+WEBCONFIG_VERSION	:= 1.1.9
+WEBCONFIG_MD5          	:= eefcecdc35effdfdac2ae4cd2081f301
+WEBCONFIG               := webconfig_$(WEBCONFIG_VERSION)
 WEBCONFIG_SUFFIX        := tar.bz2
 WEBCONFIG_URL           := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 WEBCONFIG_LICENSE	:= unknown

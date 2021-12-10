@@ -1,9 +1,8 @@
 ## SECTION=project_specific
 
 config WEBCONFIG
-	bool
-	prompt "webconfig"
+	tristate
 	select HOST_CMAKE
-	select DNSMASQ
+	prompt "webconfig"
 	help
 	  FIXME
