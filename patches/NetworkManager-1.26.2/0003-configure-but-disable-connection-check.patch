@@ -1,0 +1,19 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 17 Dec 2021 11:28:40 +0000
+Subject: [PATCH] configure but disable connection check
+
+---
+ data/20-connectivity.conf | 4 ++++
+ 1 file changed, 4 insertions(+)
+ create mode 100644 data/20-connectivity.conf
+
+diff --git a/data/20-connectivity.conf b/data/20-connectivity.conf
+new file mode 100644
+index 000000000000..1455eaa123fc
+--- /dev/null
++++ b/data/20-connectivity.conf
+@@ -0,0 +1,4 @@
++[connectivity]
++uri=http://nmcheck.gnome.org/check_network_status.txt
++interval=0
++

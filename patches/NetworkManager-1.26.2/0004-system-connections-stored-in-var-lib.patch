@@ -1,0 +1,18 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 17 Dec 2021 11:29:49 +0000
+Subject: [PATCH] system-connections stored in /var/lib
+
+---
+ data/30-keyfiles.conf | 3 +++
+ 1 file changed, 3 insertions(+)
+ create mode 100644 data/30-keyfiles.conf
+
+diff --git a/data/30-keyfiles.conf b/data/30-keyfiles.conf
+new file mode 100644
+index 000000000000..aa0c311b0eba
+--- /dev/null
++++ b/data/30-keyfiles.conf
+@@ -0,0 +1,3 @@
++[keyfile]
++path=/var/lib/NetworkManager/system-connections
++

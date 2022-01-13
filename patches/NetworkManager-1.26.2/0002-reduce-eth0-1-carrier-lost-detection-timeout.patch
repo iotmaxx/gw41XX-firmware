@@ -1,0 +1,29 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 17 Dec 2021 11:26:33 +0000
+Subject: [PATCH] reduce eth0/1 carrier lost detection timeout
+
+---
+ data/10-eth0-carrier-wait-timeout.conf | 3 +++
+ data/11-eth1-carrier-wait-timeout.conf | 3 +++
+ 2 files changed, 6 insertions(+)
+ create mode 100644 data/10-eth0-carrier-wait-timeout.conf
+ create mode 100644 data/11-eth1-carrier-wait-timeout.conf
+
+diff --git a/data/10-eth0-carrier-wait-timeout.conf b/data/10-eth0-carrier-wait-timeout.conf
+new file mode 100644
+index 000000000000..383a4b74c3a7
+--- /dev/null
++++ b/data/10-eth0-carrier-wait-timeout.conf
+@@ -0,0 +1,3 @@
++[device]
++match-device=interface-name:eth0
++carrier-wait-timeout=500
+diff --git a/data/11-eth1-carrier-wait-timeout.conf b/data/11-eth1-carrier-wait-timeout.conf
+new file mode 100644
+index 000000000000..1a5d8c029fd8
+--- /dev/null
++++ b/data/11-eth1-carrier-wait-timeout.conf
+@@ -0,0 +1,3 @@
++[device]
++match-device=interface-name:eth1
++carrier-wait-timeout=500
