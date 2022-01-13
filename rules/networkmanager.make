@@ -143,7 +143,17 @@ $(STATEDIR)/networkmanager.targetinstall:
 
 	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager)
 	@$(call install_copy, networkmanager, 0, 0, 0755, /var/lib/NetworkManager/system-connections/)
-	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/keyfiles.conf)
+	#@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/10-eth0-carrier-wait-timeout.conf)
+
+	@$(call install_copy, networkmanager, 0, 0, 0644, $(NETWORKMANAGER_DIR)/data/10-eth0-carrier-wait-timeout.conf, /etc/NetworkManager/conf.d/10-eth0-carrier-wait-timeout.conf)
+	@$(call install_copy, networkmanager, 0, 0, 0644, $(NETWORKMANAGER_DIR)/data/11-eth1-carrier-wait-timeout.conf, /etc/NetworkManager/conf.d/11-eth1-carrier-wait-timeout.conf)
+	@$(call install_copy, networkmanager, 0, 0, 0644, $(NETWORKMANAGER_DIR)/data/20-connectivity.conf, /etc/NetworkManager/conf.d/20-connectivity.conf)
+	@$(call install_copy, networkmanager, 0, 0, 0644, $(NETWORKMANAGER_DIR)/data/30-keyfiles.conf, /etc/NetworkManager/conf.d/30-keyfiles.conf)
+
+
+#	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/11-eth0-carrier-wait-timeout.conf)
+#	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/20-connectivity.conf)
+#	@$(call install_alternative, networkmanager, 0, 0, 0644, /etc/NetworkManager/conf.d/30-keyfiles.conf)
 
 ifdef PTXCONF_NETWORKMANAGER_STARTSCRIPT
 	@$(call install_alternative, networkmanager, 0, 0, 0755, /etc/init.d/NetworkManager)
