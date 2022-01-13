@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_ANISO8601
+	bool
+	select PYTHON3
+	prompt "python3-aniso8601"
+	help
+	  Another ISO 8601 parser for Python
+
