@@ -1,0 +1,8 @@
+## SECTION=networking
+
+config RP_PPPOE
+	bool
+	select PPP
+	prompt "rp-pppoe"
+	help
+	  RP-PPPoE is a PPPoE client, relay and server for Linux.
