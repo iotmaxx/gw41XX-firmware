@@ -1,0 +1,8 @@
+#! /bin/sh
+DIR="/config/NetworkManager/system-connections"
+if [ ! -d "$DIR" ]; then
+	echo "creating ${DIR}"
+	mkdir -p "$DIR"
+fi
+
+
