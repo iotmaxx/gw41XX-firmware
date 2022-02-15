@@ -1,6 +1,6 @@
 # -*-makefile-*-
 #
-# Copyright (C) 2021 by Ralf Glaser <glaser@iotmaxx.de>
+# Copyright (C) 2022 by Ralf Glaser <glaser@iotmaxx.de>
 #
 # For further information about the PTXdist project and license conditions
 # see the README file.
@@ -11,14 +11,10 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.1.11
-WEBCONFIG_MD5          	:= 561c283a5a233d8386db207035de18aa
-WEBCONFIG               := webconfig_$(WEBCONFIG_VERSION)
-WEBCONFIG_SUFFIX        := tar.bz2
-WEBCONFIG_URL           := http://172.17.0.1:8080/avantys/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
+WEBCONFIG_VERSION	:= 1.2.2
+WEBCONFIG_SUFFIX	:= tar.bz2
+WEBCONFIG		:= webconfig_$(WEBCONFIG_VERSION).$(WEBCONFIG_SUFFIX)
 WEBCONFIG_LICENSE	:= unknown
-WEBCONFIG_DIR      	:= $(BUILDDIR)/$(WEBCONFIG)
-WEBCONFIG_SOURCE   	:= $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 
 # ----------------------------------------------------------------------------
 # Get
@@ -40,26 +36,25 @@ WEBCONFIG_SOURCE   	:= $(SRCDIR)/$(WEBCONFIG).$(WEBCONFIG_SUFFIX)
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/webconfig.prepare:
-	@$(call targetinfo)
-#	@cd $(WEBCONFIG_DIR) && tools/configure.sh cross
-	@$(call touch)
+#$(STATEDIR)/webconfig.prepare:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Compile
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/webconfig.compile:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/webconfig.compile:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/webconfig.install:
-	@$(call targetinfo)
-	@$(call touch)
+#$(STATEDIR)/webconfig.install:
+#	@$(call targetinfo)
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -77,7 +72,9 @@ $(STATEDIR)/webconfig.targetinstall:
 # TODO: Add here all files that should be copied to the target
 # Note: Add everything before(!) call to macro install_finish
 #
-	@$(call install_archive, webconfig, 0, 0, $(WEBCONFIG_SOURCE), /)
+#	@$(call install_alternative, webconfig, 0, 0, 0644, /etc/foobar)
+#	@$(call install_archive, webconfig, 0, 0, $(PTXDIST_WORKSPACE)/local_src/webconfig/$(WEBCONFIG), /)
+	@$(call install_archive, webconfig, 0, 0, local_src/webconfig/$(WEBCONFIG), /)
 	@$(call install_link, webconfig, /etc/systemd/system/webconfig.service, /etc/systemd/system/multi-user.target.wants/webconfig.service)
 	@$(call install_copy, webconfig, 0, 0, 755, /var/lib/dnsmasq)
 
