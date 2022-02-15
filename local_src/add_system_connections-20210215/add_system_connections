@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ -d /config/NetworkManager/system-connections ]; then
+        for f in /config/NetworkManager/system-connections/*.nmconnection; do
+
+            ## Check if the glob gets expanded to existing files.
+            ## If not, f here will be exactly the pattern above
+            ## and the exists test will evaluate to false.
+            [ -e "$f" ] && cp $f /var/lib/NetworkManager/system-connections/
+        done
+fi

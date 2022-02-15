@@ -1,0 +1,11 @@
+[Unit]
+Description=Add NetworkManager system connections after boot
+Before=NetworkManager.service
+
+[Service]
+Type=oneshot
+# Command to execute when the service is started
+ExecStart=/bin/add_system_connections
+
+[Install]
+WantedBy=multi-user.target
