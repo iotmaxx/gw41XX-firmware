@@ -1,0 +1,9 @@
+## SECTION=project_specific
+
+config PYTHON3_IMMOCONN
+	bool
+	select PYTHON3
+	select PYTHON3_GW4XXX_HAL
+	prompt "python3-immoconn"
+	help
+	  IoTmaxx generic MQTT Cloud Adapter
