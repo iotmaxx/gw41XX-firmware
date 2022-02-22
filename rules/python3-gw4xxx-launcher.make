@@ -14,14 +14,14 @@ PACKAGES-$(PTXCONF_PYTHON3_GW4XXX_LAUNCHER) += python3-gw4xxx-launcher
 #
 # Paths and names
 #
-PYTHON3_GW4XXX_LAUNCHER_VERSION	:= 0.15dev
-PYTHON3_GW4XXX_LAUNCHER_MD5	:= e079ab813171fe9b2653d32fcc8c1ade
+PYTHON3_GW4XXX_LAUNCHER_VERSION	:= 0.2.1
+PYTHON3_GW4XXX_LAUNCHER_MD5	:= b84ecbdbdf658b0040a03e1a7224315e
 PYTHON3_GW4XXX_LAUNCHER		:= python3-gw4xxx-launcher-$(PYTHON3_GW4XXX_LAUNCHER_VERSION)
 PYTHON3_GW4XXX_LAUNCHER_SUFFIX	:= zip
 PYTHON3_GW4XXX_LAUNCHER_URL	:= https://github.com/iotmaxx/gw4xxx-launcher/archive/refs/tags/$(PYTHON3_GW4XXX_LAUNCHER_VERSION).$(PYTHON3_GW4XXX_LAUNCHER_SUFFIX)
 PYTHON3_GW4XXX_LAUNCHER_SOURCE	:= $(SRCDIR)/$(PYTHON3_GW4XXX_LAUNCHER).$(PYTHON3_GW4XXX_LAUNCHER_SUFFIX)
 PYTHON3_GW4XXX_LAUNCHER_DIR	:= $(BUILDDIR)/$(PYTHON3_GW4XXX_LAUNCHER)
-PYTHON3_GW4XXX_LAUNCHER_LICENSE	:= unknown
+PYTHON3_GW4XXX_LAUNCHER_LICENSE	:= GPL-3.0-or-later
 PYTHON3_GW4XXX_LAUNCHER_LICENSE_FILES	:=
 
 # ----------------------------------------------------------------------------
@@ -87,8 +87,9 @@ $(STATEDIR)/python3-gw4xxx-launcher.targetinstall:
                 /etc/systemd/system/multi-user.target.wants/iot_launcher.service)
 
 	$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, /config/iot_launcher.d)
-	python3 -c 'import json; launchMe = {"launch": $(PTXCONF_LAUNCH_ADAPTER)};jfile=open("$(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json", "w"); json.dump(launchMe,jfile);jfile.close()'
-	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json, /config/iot_launcher.json)
+#	python3 -c 'import json; launchMe = {"launch": $(PTXCONF_LAUNCH_ADAPTER)};jfile=open("$(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json", "w"); json.dump(launchMe,jfile);jfile.close()'
+#	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json, /config/iot_launcher.json)
+	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher_create_config, /etc/rc.once.d/iot_launcher_create_config)
 	 
 	@$(call install_finish, python3-gw4xxx-launcher)
 
