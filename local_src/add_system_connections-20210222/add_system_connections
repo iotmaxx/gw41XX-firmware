@@ -1,0 +1,17 @@
+#!/bin/python
+from pathlib import Path
+import os.path
+import shutil
+
+sys_con_src_dir = '/config/Networkmanager/system-connections'
+sys_con_dst_dir = '/var/lib/NetworkManager/system-connections'
+
+if os.path.isdir(sys_con_src_dir):
+    nmFiles = Path(sys_con_src_dir).glob("*.nmconnection")
+    for file in nmFiles:
+ #       print(f"File: {file}")
+        shutil.copy2(file, sys_con_dst_dir)
+else:
+	Path(sys_con_src_dir).mkdir(parents=True, exist_ok=True)
+
+
