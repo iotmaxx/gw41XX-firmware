@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_PYTHON3_GW4XXX_HAL) += python3-gw4xxx-hal
 #
 # Paths and names
 #
-PYTHON3_GW4XXX_HAL_VERSION	:= v0.2.4
-PYTHON3_GW4XXX_HAL_MD5		:= db2f0076d76c0621c300d141ebcfaef1
+PYTHON3_GW4XXX_HAL_VERSION	:= v0.2.8
+PYTHON3_GW4XXX_HAL_MD5		:= 9f3da7016d1849c421f03852bde0bf7b
 PYTHON3_GW4XXX_HAL		:= python3-gw4xxx-hal-$(PYTHON3_GW4XXX_HAL_VERSION)
 PYTHON3_GW4XXX_HAL_SUFFIX	:= tar.gz
 PYTHON3_GW4XXX_HAL_URL		:= https://github.com/iotmaxx/gw4xxx-hal/archive/$(PYTHON3_GW4XXX_HAL_VERSION)/$(PYTHON3_GW4XXX_HAL).$(PYTHON3_GW4XXX_HAL_SUFFIX)
@@ -81,7 +81,7 @@ $(STATEDIR)/python3-gw4xxx-hal.targetinstall:
 	@$(call install_fixup, python3-gw4xxx-hal,DESCRIPTION,missing)
 
 #	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, $(PYTHON3_SITEPACKAGES)/gw4xxx-hal,, *.pyc)
-	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
+	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py */tests)
 
 #	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0755, $(PYTHON3_GW4XXX_HAL_DIR)/foobar, /dev/null)
 
