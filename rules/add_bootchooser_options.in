@@ -1,7 +1,0 @@
-## SECTION=project_specific
-
-config ADD_BOOTCHOOSER_OPTIONS
-	tristate
-	prompt "add_bootchooser_options"
-	help
-	  FIXME
