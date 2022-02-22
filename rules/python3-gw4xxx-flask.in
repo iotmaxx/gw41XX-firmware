@@ -1,0 +1,10 @@
+## SECTION=python3
+
+config PYTHON3_GW4XXX_FLASK
+	bool
+	select PYTHON3
+	select PYTHON3_GW4XXX_HAL
+	prompt "python3-gw4xxx-flask"
+	help
+		flask service on top of HAL layer
+	  
