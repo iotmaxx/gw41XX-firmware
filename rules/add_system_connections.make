@@ -91,7 +91,7 @@ $(STATEDIR)/add_system_connections.targetinstall:
 	@$(call install_copy, add_system_connections, 0, 0, 0644, $(ADD_SYSTEM_CONNECTION_DIR)/add_system_connections.service, \
                 /etc/systemd/system/add_system_connections.service)
 	@$(call install_link, add_system_connections, /etc/systemd/system/add_system_connections.service, /etc/systemd/system/multi-user.target.wants/add_system_connections.service)
-	@$(call install_copy, add_system_connections, 0, 0, 0644, $(ADD_SYSTEM_CONNECTION_DIR)/wlan_ap.nmconnection, \
+	@$(call install_copy, add_system_connections, 0, 0, 0600, $(ADD_SYSTEM_CONNECTION_DIR)/wlan_ap.nmconnection, \
                 /usr/share/doc/iotmaxx/examples/wlan_ap.nmconnection)
 
 	@$(call install_finish,add_system_connections)
