@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_CERTIFI
+	bool
+	select PYTHON3
+	prompt "python3-certifi"
+	help
+	  Python package for providing Mozilla's CA Bundle.
