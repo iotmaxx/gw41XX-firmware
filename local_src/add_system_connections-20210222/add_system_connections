@@ -3,7 +3,7 @@ from pathlib import Path
 import os.path
 import shutil
 
-sys_con_src_dir = '/config/Networkmanager/system-connections'
+sys_con_src_dir = '/config/NetworkManager/system-connections'
 sys_con_dst_dir = '/var/lib/NetworkManager/system-connections'
 
 if os.path.isdir(sys_con_src_dir):
