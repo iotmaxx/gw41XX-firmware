@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_JSON_CONFIG
+	bool
+	select PYTHON3
+	prompt "python3-json-config"
+	help
+	  JSON configuration file handler
