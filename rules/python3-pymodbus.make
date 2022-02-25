@@ -14,11 +14,11 @@ PACKAGES-$(PTXCONF_PYTHON3_PYMODBUS) += python3-pymodbus
 #
 # Paths and names
 #
-PYTHON3_PYMODBUS_VERSION	:= 2.5.2
-PYTHON3_PYMODBUS_MD5		:= 88f4eebf1b14023578c43ee2c79b41f5
+PYTHON3_PYMODBUS_VERSION	:= 2.5.3
+PYTHON3_PYMODBUS_MD5		:= 28e8ac7f84adace83319d3733e00dee8
 PYTHON3_PYMODBUS		:= pymodbus-$(PYTHON3_PYMODBUS_VERSION)
 PYTHON3_PYMODBUS_SUFFIX		:= tar.gz
-PYTHON3_PYMODBUS_URL		:= https://files.pythonhosted.org/packages/ce/9d/66623467a56f5929a76bcf8bdeac01237b3767c910c2eec8367d958b863e/$(PYTHON3_PYMODBUS).$(PYTHON3_PYMODBUS_SUFFIX)
+PYTHON3_PYMODBUS_URL		:= $(call ptx/mirror-pypi, pymodbus, $(PYTHON3_PYMODBUS).$(PYTHON3_PYMODBUS_SUFFIX))
 PYTHON3_PYMODBUS_SOURCE		:= $(SRCDIR)/$(PYTHON3_PYMODBUS).$(PYTHON3_PYMODBUS_SUFFIX)
 PYTHON3_PYMODBUS_DIR		:= $(BUILDDIR)/$(PYTHON3_PYMODBUS)
 PYTHON3_PYMODBUS_LICENSE	:= BSD-3-Clause
@@ -81,7 +81,7 @@ $(STATEDIR)/python3-pymodbus.targetinstall:
 	@$(call install_fixup, python3-pymodbus,DESCRIPTION,missing)
 
 #	@$(call install_copy, python3-pymodbus, 0, 0, 0755, $(PYTHON3_PYMODBUS_DIR)/foobar, /dev/null)
-	@$(call install_glob, python3-pymodbus, 0, 0, -, $(PYTHON3_SITEPACKAGES)/pymodbus,, *.pyc)
+	@$(call install_glob, python3-pymodbus, 0, 0, -, $(PYTHON3_SITEPACKAGES)/pymodbus,, *.py)
 
 	@$(call install_finish, python3-pymodbus)
 
