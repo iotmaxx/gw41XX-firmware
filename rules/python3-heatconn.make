@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_PYTHON3_HEATCONN) += python3-heatconn
 #
 # Paths and names
 #
-PYTHON3_HEATCONN_VERSION	:= 0.6.0
-PYTHON3_HEATCONN_MD5		:= a28ac867dd7a81b1047d4e602119c60c
+PYTHON3_HEATCONN_VERSION	:= 0.6.7
+PYTHON3_HEATCONN_MD5		:= e2d768bffed951ad0467a9ed6a538da2
 PYTHON3_HEATCONN		:= heatconn-$(PYTHON3_HEATCONN_VERSION)
 PYTHON3_HEATCONN_SUFFIX		:= tar.gz
 PYTHON3_HEATCONN_URL		:=  http://172.17.0.1:8080/iotmaxx/$(PYTHON3_HEATCONN).$(PYTHON3_HEATCONN_SUFFIX)
@@ -81,6 +81,8 @@ $(STATEDIR)/python3-heatconn.targetinstall:
 	@$(call install_fixup, python3-heatconn,DESCRIPTION,missing)
 
 #	@$(call install_copy, python3-heatconn, 0, 0, 0755, $(PYTHON3_HEATCONN_DIR)/foobar, /dev/null)
+#	@$(call install_copy, python3-heatconn, 0, 0, 0755, $(PYTHON3_HEATCONN_DIR)/root/etc/NetworkManager/dispatcher.d/10-restart-timesyncd, /etc/NetworkManager/dispatcher.d/10-restart-timesyncd)
+#	@$(call install_copy, python3-heatconn, 0, 0, 0644, $(PYTHON3_HEATCONN_DIR)/root/etc/systemd/timesyncd.conf.d/10_juconn.conf, /etc/systemd/timesyncd.conf.d/10_juconn.conf)
 	@$(call install_copy, python3-heatconn, 0, 0, 0755, $(PYTHON3_HEATCONN_DIR)/root/etc/rc.once.d/heatconn_create_service, /etc/rc.once.d/heatconn_create_service)
 	@$(call install_glob, python3-heatconn, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
 
