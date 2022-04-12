@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config QFLASH
+	tristate
+	prompt "qflash"
+	help
+	  FIXME
