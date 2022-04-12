@@ -1,0 +1,9 @@
+#!/bin/sh
+
+IF=$1
+ACTION=$2
+
+if [ "$ACTION" = "up" ]; then
+        systemctl restart systemd-timesyncd
+fi
+

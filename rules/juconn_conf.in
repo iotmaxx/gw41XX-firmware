@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config JUCONN_CONF
+	tristate
+	select PYTHON3
+	prompt "juconn_conf"
+	help
+	  FIXME
