@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config LIBICONV
+	tristate
+	prompt "libiconv"
+	help
+	  FIXME
