@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_GEVENT
+	bool
+	select PYTHON3
+	prompt "python3-gevent"
+	help
+	  gevent is a coroutine -based Python networking library that uses greenlet to provide a high-level synchronous API on top of the libev or libuv event loop.
