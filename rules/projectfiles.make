@@ -29,8 +29,8 @@ $(STATEDIR)/projectfiles.targetinstall:
 	@$(call install_fixup, projectfiles, DESCRIPTION, "Project specific files")
 
 	# modem
-	@$(call install_alternative, projectfiles, 0, 0, 0755, \
-		/usr/bin/sim_setup.sh)
+#	@$(call install_alternative, projectfiles, 0, 0, 0755, \
+#		/usr/bin/sim_setup.sh)
 
 #	udev rules
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
