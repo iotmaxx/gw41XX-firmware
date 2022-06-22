@@ -43,7 +43,7 @@ $(STATEDIR)/expansion-boards.compile:
 		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/sensexp01.dts"
 #	@dtc -o $(EXPANSION_BOARDS_DIR)/testexp.dto \
 #		"$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/testexp.dts"
-	@dtc -o $(EXPANSION_BOARDS_DIR)/gw4x04.dto \
+	@dtc -@ -o $(EXPANSION_BOARDS_DIR)/gw4x04.dto \
                 "$(shell ptxd_file_url_path "$(EXPANSION_BOARDS_URL)")/gw4x04.dts"
 	@$(call touch)
 
