@@ -1,0 +1,21 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 30 Jun 2022 07:56:22 +0200
+Subject: [PATCH] Release 5.18/customers/iotmaxx/gateway/20220630-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 6ac3335f65af..feac24feb547 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 5
+ PATCHLEVEL = 18
+ SUBLEVEL = 8
+-EXTRAVERSION =
++EXTRAVERSION =-20220630-1
+ NAME = Superb Owl
+ 
+ # *DOCUMENTATION*
