@@ -31,6 +31,8 @@ $(STATEDIR)/projectfiles.targetinstall:
 	# modem
 #	@$(call install_alternative, projectfiles, 0, 0, 0755, \
 #		/usr/bin/sim_setup.sh)
+#
+	@$(call install_alternative, projectfiles, 0, 0, 0644, /config/.empty)
 
 #	udev rules
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
