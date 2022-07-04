@@ -1,0 +1,30 @@
+From 1252239852f3377e47a15dec13738159e9faf695 Mon Sep 17 00:00:00 2001
+From: Enrico Jorns <ejo@pengutronix.de>
+Date: Mon, 4 Jul 2022 08:14:29 +0200
+Subject: [PATCH] rauc-hawkbit-updater: disable QA_BUILD option
+
+This is meant to be used for CI testing of rauc-hawkbit-updater.
+Here our focus lies on keeping it buildable, thus disable too
+restrictive checks.
+
+Signed-off-by: Enrico Jorns <ejo@pengutronix.de>
+---
+ rules/rauc-hawkbit-updater.make | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/rules/rauc-hawkbit-updater.make b/rules/rauc-hawkbit-updater.make
+index 97aae0ffa..f3ba8e7de 100644
+--- a/rules/rauc-hawkbit-updater.make
++++ b/rules/rauc-hawkbit-updater.make
+@@ -38,7 +38,7 @@ RAUC_HAWKBIT_UPDATER_CONF_OPT	:= \
+ 	$(CROSS_CMAKE_USR) \
+ 	-DWITH_SYSTEMD=$(call ptx/onoff,PTXCONF_RAUC_HAWKBIT_UPDATER_SYSTEMD_UNIT) \
+ 	-DBUILD_DOC=OFF \
+-	-DQA_BUILD=ON \
++	-DQA_BUILD=OFF \
+ 	-DSYSTEMD_SERVICES_INSTALL_DIR=/usr/lib/systemd/system
+ 
+ # ----------------------------------------------------------------------------
+-- 
+2.36.1
+
