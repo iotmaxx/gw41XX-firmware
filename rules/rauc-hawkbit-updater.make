@@ -14,17 +14,16 @@ PACKAGES-$(PTXCONF_RAUC_HAWKBIT_UPDATER) += rauc-hawkbit-updater
 #
 # Paths and names
 #
-RAUC_HAWKBIT_UPDATER_VERSION		:= 1.1a
-RAUC_HAWKBIT_UPDATER_MD5		:= 2a5c65876acdfb0645a2e6f17e5a4225
+RAUC_HAWKBIT_UPDATER_VERSION		:= 1.2
+RAUC_HAWKBIT_UPDATER_MD5		:= b28ec46961572dafca4afe7ac9992cf2
 RAUC_HAWKBIT_UPDATER			:= rauc-hawkbit-updater-$(RAUC_HAWKBIT_UPDATER_VERSION)
 RAUC_HAWKBIT_UPDATER_SUFFIX		:= tar.gz
-RAUC_HAWKBIT_UPDATER_URL		:= https://github.com/rglaserIoT/rauc-hawkbit-updater/archive/refs/tags/v$(RAUC_HAWKBIT_UPDATER_VERSION).$(RAUC_HAWKBIT_UPDATER_SUFFIX)
+RAUC_HAWKBIT_UPDATER_URL		:= https://github.com/rauc/rauc-hawkbit-updater/releases/download/v$(RAUC_HAWKBIT_UPDATER_VERSION)/$(RAUC_HAWKBIT_UPDATER).$(RAUC_HAWKBIT_UPDATER_SUFFIX)
 RAUC_HAWKBIT_UPDATER_SOURCE		:= $(SRCDIR)/$(RAUC_HAWKBIT_UPDATER).$(RAUC_HAWKBIT_UPDATER_SUFFIX)
 RAUC_HAWKBIT_UPDATER_DIR		:= $(BUILDDIR)/$(RAUC_HAWKBIT_UPDATER)
 RAUC_HAWKBIT_UPDATER_LICENSE		:= LGPL-2.1-only
 RAUC_HAWKBIT_UPDATER_LICENSE_FILES	:= \
-	file://LICENSE;md5=1a6d268fd218675ffea8be556788b780 \
-	file://src/rauc-hawkbit-updater.c;startline=2;endline=18;md5=773ec8891a77e9fa775a23f5363ddf14
+	file://LICENSE;md5=1a6d268fd218675ffea8be556788b780
 #https://github.com/rauc/rauc-hawkbit-updater/releases/download/v1.1/rauc-hawkbit-updater-1.1.tar.gz
 #https://github.com/rauc/rauc-hawkbit-updater/archive/refs/tags/v1.1.tar.gz
 # ----------------------------------------------------------------------------
@@ -39,7 +38,7 @@ RAUC_HAWKBIT_UPDATER_CONF_OPT	:= \
 	$(CROSS_CMAKE_USR) \
 	-DWITH_SYSTEMD=$(call ptx/onoff,PTXCONF_RAUC_HAWKBIT_UPDATER_SYSTEMD_UNIT) \
 	-DBUILD_DOC=OFF \
-	-DQA_BUILD=ON \
+	-DQA_BUILD=OFF \
 	-DSYSTEMD_SERVICES_INSTALL_DIR=/usr/lib/systemd/system
 
 # ----------------------------------------------------------------------------
