@@ -1,13 +1,13 @@
 From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Date: Wed, 9 Jun 2021 13:13:45 +0200
-Subject: [PATCH] Release 2021.04.0/customers/iotmaxx/gateway/20210609-1
+Date: Fri, 8 Jul 2022 12:04:14 +0200
+Subject: [PATCH] Release 2021.04.0/customers/iotmaxx/gateway/20220708-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 9a10bb5d0408..cc024792365a 100644
+index 9a10bb5d0408..8cd8c57b98ec 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
@@ -15,7 +15,7 @@ index 9a10bb5d0408..cc024792365a 100644
  PATCHLEVEL = 04
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20210609-1
++EXTRAVERSION =-20220708-1
  NAME = None
  
  # *DOCUMENTATION*
