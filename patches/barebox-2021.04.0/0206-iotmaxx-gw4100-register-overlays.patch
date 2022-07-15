@@ -10,7 +10,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  create mode 100644 arch/arm/boards/iotmaxx-gw4100/eeprom_data.h
 
 diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
-index f1da84f11148..28c9dc16cb2a 100644
+index f1da84f11148..4b260919a7c4 100644
 --- a/arch/arm/boards/iotmaxx-gw4100/board.c
 +++ b/arch/arm/boards/iotmaxx-gw4100/board.c
 @@ -1,17 +1,22 @@
@@ -87,7 +87,7 @@ index f1da84f11148..28c9dc16cb2a 100644
 +	if (strlen(overlay_name) <= 0)
 +		return -ENOENT;
 +
-+	gw4100_overlays = basprintf("/boot/%s.dto", overlay_name);
++	gw4100_overlays = basprintf("/boot/overlays/%s.dtbo", overlay_name);
 +
 +	globalvar_add_simple_string("boot.overlays", &gw4100_overlays);
 +

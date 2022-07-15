@@ -1,0 +1,50 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 27 May 2021 08:48:41 +0200
+Subject: [PATCH] ARM: imx7d: iotmaxx: move default console to uart7
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 8068694ca2eb..098c27060521 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -13,7 +13,7 @@ / {
+ 	compatible = "iotmaxx,imx7d-gw4100", "fsl,imx7d";
+ 
+ 	chosen {
+-		stdout-path = &uart3;
++		stdout-path = &uart7;
+ 	};
+ 
+ 	expansion: expansionslot {
+@@ -635,6 +635,14 @@ MX7D_PAD_I2C3_SDA__GPIO4_IO13			0x54 /* DCD in, 47 k PU, external level shifter
+ 		>;
+ 	};
+ 
++	pinctrl_uart7: uart7grp {
++		fsl,pins = <
++			MX7D_PAD_EPDC_DATA12__UART7_DCE_RX	0x7e
++			MX7D_PAD_EPDC_DATA13__UART7_DCE_TX	0x76
++		>;
++	};
++
++
+ 	pinctrl_usbhub: usbhubgrp {
+ 		fsl,pins = <
+ 			MX7D_PAD_EPDC_PWR_COM__GPIO2_IO30		0x59 /* !USBHUB_RST */
+@@ -762,7 +770,11 @@ &uart6 {
+ };
+ 
+ &uart7 {
+-	/* spare serial at J500 */
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart7>;
++	assigned-clocks = <&clks IMX7D_UART7_ROOT_SRC>;
++	assigned-clock-parents = <&clks IMX7D_OSC_24M_CLK>;
++	status = "okay";
+ };
+ 
+ &usbphynop3 {

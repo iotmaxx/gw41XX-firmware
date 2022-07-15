@@ -8,7 +8,7 @@ Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
  1 file changed, 38 insertions(+)
 
 diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
-index 28c9dc16cb2a..8e24aaeedcf3 100644
+index 4b260919a7c4..58ba3c0869c1 100644
 --- a/arch/arm/boards/iotmaxx-gw4100/board.c
 +++ b/arch/arm/boards/iotmaxx-gw4100/board.c
 @@ -14,6 +14,7 @@
