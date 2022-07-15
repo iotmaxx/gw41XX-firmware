@@ -39,7 +39,7 @@
 	status = "okay";
 
 	spidev0: spidev@0{
-		compatible = "linux,spidev";
+                compatible = "rohm,dh2228fv";
 		reg = <0>;      /* CE0 */
 		#address-cells = <1>;
 		#size-cells = <0>;
