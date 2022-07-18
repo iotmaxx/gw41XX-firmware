@@ -81,7 +81,8 @@ $(STATEDIR)/libiconv.targetinstall:
 	@$(call install_fixup, libiconv,AUTHOR,"Ralf Glaser <glaser@iotmaxx.de>")
 	@$(call install_fixup, libiconv,DESCRIPTION,missing)
 
-	@$(call install_copy, libiconv, 0, 0, 0755, $(LIBICONV_DIR)/foobar, /dev/null)
+	@$(call install_lib, libiconv, 0, 0, 0644, libiconv)
+#	@$(call install_copy, libiconv, 0, 0, 0755, $(LIBICONV_DIR)/foobar, /dev/null)
 
 	@$(call install_finish, libiconv)
 
