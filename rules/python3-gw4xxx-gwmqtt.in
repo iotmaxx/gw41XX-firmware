@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_GW4XXX_GWMQTT
+	tristate
+	select PYTHON3
+	prompt "python3-gw4xxx-gwmqtt"
+	help
+	  FIXME
