@@ -1,0 +1,63 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 19 Aug 2022 13:30:19 +0000
+Subject: [PATCH] enable GPIO1_IN pullup
+
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 23 ++++++++++++-----------
+ 1 file changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 098c27060521..970e175993ee 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -3,6 +3,7 @@
+ * Copyright (C) 2020 Steffen Trumtrar, Pengutronix
+ * Copyright (C) 2020 Jürgen Borleis, Pengutronix
+ * Copyright (C) 2020 Niklas Sill <sill@iotmaxx.de>
++* Copyright (C) 2022 Ralf Glaser, IoTmaxx
+ */
+ 
+ /dts-v1/;
+@@ -228,8 +229,8 @@ &gpio1 {
+ 
+ 	gpio-line-names = "gpio1_highside",
+ 			  "gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
+-			  "n_usb_ext_oc", "usb_ext_pwr", "", "", "",
+-			  "", "", "", "", "",
++			  "n_usb_ext_oc", "usb_ext_pwr", "gpio2_pullup", "n_gpio2_in", "gpin1",
++			  "gpin2", "can_rx", "can_tx", "gpin3", "gpin4",
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "",
+@@ -486,14 +487,14 @@ MX7D_PAD_EPDC_DATA02__GPIO2_IO2			0x04 /* 5V_PERIPH_EN */
+ 
+ 	pinctrl_gpio1: gpio1grp {
+ 		fsl,pins = <
+-			MX7D_PAD_GPIO1_IO08__GPIO1_IO8          0x14
+-			MX7D_PAD_GPIO1_IO09__GPIO1_IO9          0x54
+-			MX7D_PAD_GPIO1_IO10__GPIO1_IO10         0x14
+-			MX7D_PAD_GPIO1_IO11__GPIO1_IO11         0x14
+-			MX7D_PAD_GPIO1_IO14__GPIO1_IO14         0x14
+-			MX7D_PAD_GPIO1_IO15__GPIO1_IO15         0x14
+-			MX7D_PAD_SD2_RESET_B__GPIO5_IO11        0x14
+-			MX7D_PAD_SD2_WP__GPIO5_IO10             0x14
++			MX7D_PAD_GPIO1_IO08__GPIO1_IO8          0x14	/* GPIO2_PULLUP */
++			MX7D_PAD_GPIO1_IO09__GPIO1_IO9          0x54	/* GPIO2_IN */
++			MX7D_PAD_GPIO1_IO10__GPIO1_IO10         0x14	/* GPIN1 */
++			MX7D_PAD_GPIO1_IO11__GPIO1_IO11         0x14	/* GPIN2 */
++			MX7D_PAD_GPIO1_IO14__GPIO1_IO14         0x14	/* CAN_RX */
++			MX7D_PAD_GPIO1_IO15__GPIO1_IO15         0x14	/* CAN_TX */
++			MX7D_PAD_SD2_RESET_B__GPIO5_IO11        0x14	/* GPIN3 */
++			MX7D_PAD_SD2_WP__GPIO5_IO10             0x14	/* GPIN4 */
+ 		>;
+ 	};
+ 
+@@ -724,7 +725,7 @@ pinctrl_gpio1_lpsr: gpio1grp_lpsr {
+ 			MX7D_PAD_LPSR_GPIO1_IO00__GPIO1_IO0		0x14 /* GPIO1_HIGHSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO01__GPIO1_IO1		0x14 /* GPIO1_LOWSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO02__GPIO1_IO2		0x14 /* GPIO1_PULLUP */
+-			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x14 /* GPIO1_IN */
++			MX7D_PAD_LPSR_GPIO1_IO03__GPIO1_IO3		0x54 /* GPIO1_IN */
+ 			MX7D_PAD_LPSR_GPIO1_IO04__GPIO1_IO4		0x14 /* GPIO2_HIGHSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO05__GPIO1_IO5		0x14 /* GPIO2_LOWSIDE */
+ 			MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14 /* !USB_EXT_OC */

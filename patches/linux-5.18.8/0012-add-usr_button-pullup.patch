@@ -1,0 +1,57 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 19 Aug 2022 13:53:36 +0000
+Subject: [PATCH] add usr_button pullup
+
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 970e175993ee..6deb2ceffe4e 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -1,7 +1,7 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ /*
+ * Copyright (C) 2020 Steffen Trumtrar, Pengutronix
+-* Copyright (C) 2020 Jürgen Borleis, Pengutronix
++* Copyright (C) 2020 Juergen Borleis, Pengutronix
+ * Copyright (C) 2020 Niklas Sill <sill@iotmaxx.de>
+ * Copyright (C) 2022 Ralf Glaser, IoTmaxx
+ */
+@@ -248,7 +248,7 @@ &gpio2 {
+ 			  "", "", "", "", "gsm_pwr_en_3v3",
+ 			  "", "", "n_usbhub_int", "usbhub_connect", "",
+ 			  "", "", "", "", "",
+-			  "", "", "", "", "n_usbhub_rst",
++			  "", "", "", "n_rtc_int_a", "n_usbhub_rst",
+ 			  "";
+ };
+ 
+@@ -263,7 +263,7 @@ &gpio3 {
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "sim_enable",
+-			  "", "", "", "", "",
++			  "n_pmic_int", "n_usr_button", "", "", "",
+ 			  "";
+ };
+ 
+@@ -502,7 +502,7 @@ pinctrl_gpio2: gpio2grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_EPDC_DATA15__GPIO2_IO15		0x14 /* GSM_PWR_EN_3V3 */
+ 			MX7D_PAD_EPDC_DATA04__GPIO2_IO4			0x14 /* SIM_CD1 */
+-			MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14 /* SIM_CD2 */
++			MX7D_PAD_EPDC_DATA05__GPIO2_IO5			0x14 /* SIM_CC2 */
+ 		>;
+ 	};
+ 
+@@ -510,6 +510,8 @@ pinctrl_gpio3: gpio3grp {
+ 		fsl,pins = <
+ 			MX7D_PAD_LCD_RESET__GPIO3_IO4			0x79 /* VUSB_GSM_EN */
+ 			MX7D_PAD_LCD_DATA20__GPIO3_IO25			0x14 /* SIM_ENABLE */
++			MX7D_PAD_LCD_DATA21__GPIO3_IO26                 0x54 /* PMIC_INT */
++			MX7D_PAD_LCD_DATA22__GPIO3_IO27                 0x54 /* USR_BUTTON */
+ 		>;
+ 	};
+ 
