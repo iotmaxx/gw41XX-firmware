@@ -11,8 +11,8 @@
 #
 PACKAGES-$(PTXCONF_ANYVIZ) += anyviz
 
-ANYVIZ_VERSION		:= 0.9.3.1
-ANYVIZ_MD5		:= f6c69d0e5d5d1a6ae2d685942b478f65
+ANYVIZ_VERSION		:= 0.9.5.3
+ANYVIZ_MD5		:= 1daeac55d2fcf6c087810c7502ad0fcc
 ANYVIZ			:= anyviz-$(ANYVIZ_VERSION)
 ANYVIZ_SUFFIX		:= tgz
 #ANYVIZ_SERVICE  	:= anyviz.service
@@ -133,7 +133,7 @@ $(STATEDIR)/anyviz.targetinstall:
 #	@$(call install_link, anyviz, /etc/systemd/system/$(ANYVIZ_SERVICE), /etc/systemd/system/multi-user.target.wants/$(ANYVIZ_SERVICE))
 #	@$(call install_archive, anyviz, 0, 0, $(ANYVIZ_SOURCE), /)
 
-	@$(call install_copy, anyviz, 0, 0, 0755, $(ANYVIZ_DIR)/anyvizcloudadapter, /usr/bin//anyvizcloudadapter)
+	@$(call install_copy, anyviz, 0, 0, 0755, $(ANYVIZ_DIR)/anyvizcloudadapter, /usr/bin/anyvizcloudadapter)
 	@$(call install_copy, anyviz, 0, 0, 0444, $(ANYVIZ_DIR)/iot_launcher.d/anyviz.json, /config/iot_launcher.d/anyviz.json)
 
 	@$(call install_link, anyviz, ttymxc2, /dev/RS232)
