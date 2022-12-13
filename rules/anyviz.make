@@ -11,8 +11,8 @@
 #
 PACKAGES-$(PTXCONF_ANYVIZ) += anyviz
 
-ANYVIZ_VERSION		:= 0.9.5.3
-ANYVIZ_MD5		:= 1daeac55d2fcf6c087810c7502ad0fcc
+ANYVIZ_VERSION		:= 0.9.6.0
+ANYVIZ_MD5		:= 6c9f6ccada69fa7d55c90e4c2cf748cb
 ANYVIZ			:= anyviz-$(ANYVIZ_VERSION)
 ANYVIZ_SUFFIX		:= tgz
 #ANYVIZ_SERVICE  	:= anyviz.service
