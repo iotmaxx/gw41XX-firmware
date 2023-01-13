@@ -33,3 +33,5 @@ render:x:209:
 pulse:x:210:
 rauc-hawkbit:x:212:
 nogroup:x:65534:
+nm-openvpn:x:103:
+
