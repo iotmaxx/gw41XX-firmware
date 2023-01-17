@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config GW4XXX_VPN_STARTER
+	tristate
+	select PYTHON3
+	prompt "gw4xxx-vpn-starter"
+	help
+	  FIXME
