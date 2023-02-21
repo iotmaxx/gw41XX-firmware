@@ -15,10 +15,10 @@ PACKAGES-$(PTXCONF_PYTHON3_MODBUS_SERVER) += python3-modbus-server
 # Paths and names
 #
 PYTHON3_MODBUS_SERVER_VERSION	:= 0.2.0
-PYTHON3_MODBUS_SERVER_MD5	:= 97152d17a8409308e3969f9a0ea31a9d
+PYTHON3_MODBUS_SERVER_MD5	:= ef8b4173551c0a0ecb252b1cfda45a9c
 PYTHON3_MODBUS_SERVER		:= modbus-server-$(PYTHON3_MODBUS_SERVER_VERSION)
 PYTHON3_MODBUS_SERVER_SUFFIX	:= tar.gz
-PYTHON3_MODBUS_SERVER_URL	:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_MODBUS_SERVER).$(PYTHON3_MODBUS_SERVER_SUFFIX)
+PYTHON3_MODBUS_SERVER_URL	:= https://api.github.com/repos/iotmaxx/modbus-server/tarball/$(PYTHON3_MODBUS_SERVER_VERSION)
 PYTHON3_MODBUS_SERVER_SOURCE	:= $(SRCDIR)/$(PYTHON3_MODBUS_SERVER).$(PYTHON3_MODBUS_SERVER_SUFFIX)
 PYTHON3_MODBUS_SERVER_DIR	:= $(BUILDDIR)/$(PYTHON3_MODBUS_SERVER)
 PYTHON3_MODBUS_SERVER_LICENSE	:= unknown
@@ -28,9 +28,20 @@ PYTHON3_MODBUS_SERVER_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(PYTHON3_MODBUS_SERVER_SOURCE):
-#	@$(call targetinfo)
+$(PYTHON3_MODBUS_SERVER_SOURCE):
+	@$(call targetinfo)
 #	@$(call get, PYTHON3_MODBUS_SERVER)
+	@$(call gh_token_get, PYTHON3_MODBUS_SERVER)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-modbus-server.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_MODBUS_SERVER_DIR))
+	@$(call gh_token_extract, PYTHON3_MODBUS_SERVER)
+	@$(call patchin, $(PYTHON3_MODBUS_SERVER))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
