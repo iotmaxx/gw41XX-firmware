@@ -15,14 +15,32 @@ PACKAGES-$(PTXCONF_PYTHON3_JSONRPC) += python3-jsonrpc
 # Paths and names
 #
 PYTHON3_JSONRPC_VERSION	:= 0.1.0
-PYTHON3_JSONRPC_MD5	:= 7c446da571ceb60bc46eb30a33dfeeba
+PYTHON3_JSONRPC_MD5	:= 088baa733577b7eb59b6eb6fd108c26f
 PYTHON3_JSONRPC		:= jsonrpc-$(PYTHON3_JSONRPC_VERSION)
 PYTHON3_JSONRPC_SUFFIX	:= tar.gz
-PYTHON3_JSONRPC_URL	:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_JSONRPC).$(PYTHON3_JSONRPC_SUFFIX)
+PYTHON3_JSONRPC_URL	:= https://api.github.com/repos/iotmaxx/jsonrpc/tarball/$(PYTHON3_JSONRPC_VERSION)
 PYTHON3_JSONRPC_SOURCE	:= $(SRCDIR)/$(PYTHON3_JSONRPC).$(PYTHON3_JSONRPC_SUFFIX)
 PYTHON3_JSONRPC_DIR	:= $(BUILDDIR)/$(PYTHON3_JSONRPC)
 PYTHON3_JSONRPC_LICENSE	:= unknown
 PYTHON3_JSONRPC_LICENSE_FILES	:=
+
+# ----------------------------------------------------------------------------
+# Get
+# ----------------------------------------------------------------------------
+
+$(PYTHON3_JSONRPC_SOURCE):
+	@$(call targetinfo)
+	@$(call gh_token_get, PYTHON3_JSONRPC)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-jsonrpc.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_JSONRPC_DIR))
+	@$(call gh_token_extract, PYTHON3_JSONRPC)
+	@$(call patchin, $(PYTHON3_JSONRPC))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
