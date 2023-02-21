@@ -15,10 +15,10 @@ PACKAGES-$(PTXCONF_PYTHON3_GW4XXX_GPS_CTRL) += python3-gw4xxx-gps-ctrl
 # Paths and names
 #
 PYTHON3_GW4XXX_GPS_CTRL_VERSION		:= 0.1.2
-PYTHON3_GW4XXX_GPS_CTRL_MD5		:= cb03acc0868349df2b70a63bb4595ecb
+PYTHON3_GW4XXX_GPS_CTRL_MD5		:= 48de753bbf255cbf380034801a2e8dca
 PYTHON3_GW4XXX_GPS_CTRL			:= gw4xxx-gps-ctrl-$(PYTHON3_GW4XXX_GPS_CTRL_VERSION)
 PYTHON3_GW4XXX_GPS_CTRL_SUFFIX		:= tar.gz
-PYTHON3_GW4XXX_GPS_CTRL_URL		:=  http://172.17.0.1:8080/iotmaxx/$(PYTHON3_GW4XXX_GPS_CTRL).$(PYTHON3_GW4XXX_GPS_CTRL_SUFFIX)
+PYTHON3_GW4XXX_GPS_CTRL_URL		:= https://api.github.com/repos/iotmaxx/gw4xxx-gps-ctrl/tarball/$(PYTHON3_GW4XXX_GPS_CTRL_VERSION)
 PYTHON3_GW4XXX_GPS_CTRL_SOURCE		:= $(SRCDIR)/$(PYTHON3_GW4XXX_GPS_CTRL).$(PYTHON3_GW4XXX_GPS_CTRL_SUFFIX)
 PYTHON3_GW4XXX_GPS_CTRL_DIR		:= $(BUILDDIR)/$(PYTHON3_GW4XXX_GPS_CTRL)
 PYTHON3_GW4XXX_GPS_CTRL_LICENSE		:= unknown
@@ -28,9 +28,19 @@ PYTHON3_GW4XXX_GPS_CTRL_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(PYTHON3_GW4XXX_GPS_CTRL_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, PYTHON3_GW4XXX_GPS_CTRL)
+$(PYTHON3_GW4XXX_GPS_CTRL_SOURCE):
+	@$(call targetinfo)
+	@$(call gh_token_get, PYTHON3_GW4XXX_GPS_CTRL)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-gw4xxx-gps-ctrl.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_GW4XXX_GPS_CTRL_DIR))
+	@$(call gh_token_extract, PYTHON3_GW4XXX_GPS_CTRL)
+	@$(call patchin, $(PYTHON3_GW4XXX_GPS_CTRL))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
