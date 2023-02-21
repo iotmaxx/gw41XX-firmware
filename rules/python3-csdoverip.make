@@ -15,10 +15,10 @@ PACKAGES-$(PTXCONF_PYTHON3_CSDOVERIP) += python3-csdoverip
 # Paths and names
 #
 PYTHON3_CSDOVERIP_VERSION	:= 0.3.13
-PYTHON3_CSDOVERIP_MD5		:= 266ae20856c5cc4ea82b5f75b5c70385
+PYTHON3_CSDOVERIP_MD5		:= 1f38ba4e4ea727eff54e3bb25fdf144b
 PYTHON3_CSDOVERIP		:= CSDoverIP-$(PYTHON3_CSDOVERIP_VERSION)
 PYTHON3_CSDOVERIP_SUFFIX	:= tar.gz
-PYTHON3_CSDOVERIP_URL		:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_CSDOVERIP).$(PYTHON3_CSDOVERIP_SUFFIX)
+PYTHON3_CSDOVERIP_URL           := https://api.github.com/repos/iotmaxx/CSDoverIP/tarball/$(PYTHON3_CSDOVERIP_VERSION)
 PYTHON3_CSDOVERIP_SOURCE	:= $(SRCDIR)/$(PYTHON3_CSDOVERIP).$(PYTHON3_CSDOVERIP_SUFFIX)
 PYTHON3_CSDOVERIP_DIR		:= $(BUILDDIR)/$(PYTHON3_CSDOVERIP)
 PYTHON3_CSDOVERIP_LICENSE	:= unknown
@@ -28,10 +28,19 @@ PYTHON3_CSDOVERIP_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(PYTHON3_CSDOVERIP_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, PYTHON3_CSDOVERIP)
+$(PYTHON3_CSDOVERIP_SOURCE):
+	@$(call targetinfo)
+	$(call gh_token_get, PYTHON3_CSDOVERIP)
 
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-csdoverip.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_CSDOVERIP_DIR))
+	$(call gh_token_extract, PYTHON3_CSDOVERIP)
+	@$(call patchin, $(PYTHON3_CSDOVERIP))
+	@$(call touch)
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
