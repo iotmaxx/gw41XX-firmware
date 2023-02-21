@@ -15,10 +15,11 @@ PACKAGES-$(PTXCONF_GW4XXX_SCRIPTS) += gw4xxx-scripts
 # Paths and names
 #
 GW4XXX_SCRIPTS_VERSION	:= 0.6.0
-GW4XXX_SCRIPTS_MD5	:= c2fb449f7e28b9cc871720017bcae71e
+GW4XXX_SCRIPTS_MD5	:= d19a99ae2d037f12d5e0facd0bafcaa4
 GW4XXX_SCRIPTS		:= gw4xxx-scripts-$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SUFFIX	:= tar.gz
-GW4XXX_SCRIPTS_URL	:= http://172.17.0.1:8080/iotmaxx/$(GW4XXX_SCRIPTS).$(GW4XXX_SCRIPTS_SUFFIX)
+GW4XXX_SCRIPTS_URL	:= https://api.github.com/repos/iotmaxx/gw4xxx-scripts/tarball/$(GW4XXX_SCRIPTS_VERSION)
+#GW4XXX_SCRIPTS_URL	:= http://172.17.0.1:8080/iotmaxx/$(GW4XXX_SCRIPTS).$(GW4XXX_SCRIPTS_SUFFIX)
 GW4XXX_SCRIPTS_SOURCE	:= $(SRCDIR)/$(GW4XXX_SCRIPTS).$(GW4XXX_SCRIPTS_SUFFIX)
 GW4XXX_SCRIPTS_DIR	:= $(BUILDDIR)/$(GW4XXX_SCRIPTS)
 GW4XXX_SCRIPTS_LICENSE	:= GPL-3.0-or-later
@@ -28,9 +29,19 @@ GW4XXX_SCRIPTS_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(GW4XXX_SCRIPTS_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, GW4XXX_SCRIPTS)
+$(GW4XXX_SCRIPTS_SOURCE):
+	@$(call targetinfo)
+	@$(call gh_token_get, GW4XXX_SCRIPTS)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/gw4xxx-scripts.extract:
+	@$(call targetinfo)
+	@$(call clean, $(GW4XXX_SCRIPTS_DIR))
+	@$(call gh_token_extract, GW4XXX_SCRIPTS)
+	@$(call patchin, $(GW4XXX_SCRIPTS))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
