@@ -35,4 +35,5 @@ pulse:x:210:
 rauc-hawkbit:x:212:
 nogroup:x:65534:
 nm-openvpn:x:103:
+chrony:x:120:
 
