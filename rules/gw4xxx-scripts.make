@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_GW4XXX_SCRIPTS) += gw4xxx-scripts
 #
 # Paths and names
 #
-GW4XXX_SCRIPTS_VERSION	:= 0.6.0
-GW4XXX_SCRIPTS_MD5	:= c2fb449f7e28b9cc871720017bcae71e
+GW4XXX_SCRIPTS_VERSION	:= 0.7.2
+GW4XXX_SCRIPTS_MD5	:= 4049ea61e9e64f5985dc323073fbc19d
 GW4XXX_SCRIPTS		:= gw4xxx-scripts-$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SUFFIX	:= tar.gz
 GW4XXX_SCRIPTS_URL	:= http://172.17.0.1:8080/iotmaxx/$(GW4XXX_SCRIPTS).$(GW4XXX_SCRIPTS_SUFFIX)
@@ -83,6 +83,7 @@ $(STATEDIR)/gw4xxx-scripts.targetinstall:
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/trampoline, /etc/rc.once.d/trampoline)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/webconfig_userpass, /etc/rc.once.d/webconfig_userpass)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/vpn_starter, /etc/rc.once.d/vpn_starter)
+	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/chrony_conf, /etc/rc.once.d/chrony_conf)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/NetworkManager/dispatcher.d/startOpenVPN, /etc/NetworkManager/dispatcher.d/startOpenVPN)
 
 	@$(call install_finish, gw4xxx-scripts)
