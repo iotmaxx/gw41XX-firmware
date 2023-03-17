@@ -72,14 +72,7 @@ $(STATEDIR)/docker-bin.targetinstall:
 	@$(call install_fixup,docker-bin,SECTION,base)
 	@$(call install_fixup,docker-bin,AUTHOR,"Ralf Glaser <glaser@iotmaxx.de>")
 	@$(call install_fixup,docker-bin,DESCRIPTION,missing)
-#
-# TODO: Add here all files that should be copied to the target
-# Note: Add everything before(!) call to macro install_finish
-#
-#	@$(call install_archive, docker-bin, 0, 0, $(DOCKER_BIN_SOURCE), /usr/bin)
-#	$(foreach file, $(wildcard $(DOCKER_BIN_DIR)/*), $(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/$(file), /usr/bin/$(file)))
-#	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/dockerd, /usr/bin/dockerd)
-#	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/dockerd, /usr/bin/dockerd)
+
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/containerd, /usr/bin/containerd)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/containerd-shim-runc-v2, /usr/bin/containerd-shim-runc-v2)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/ctr, /usr/bin/ctr)
@@ -88,9 +81,15 @@ $(STATEDIR)/docker-bin.targetinstall:
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/docker-proxy, /usr/bin/docker-proxy)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/runc, /usr/bin/runc)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/dockerd, /usr/bin/dockerd)
-#	@$(call install_tree, docker-bin, 0, 0, $(DOCKER_BIN_DIR), /usr/bin)
-#	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/foobar)
-#	cp $(DOCKER_BIN_DIR)/* $(PTXDIST_PLATFORMDIR)/root/usr/bin/
+
+	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/docker.service)
+	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/docker.socket)
+	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/containerd.service)
+
+	@$(call install_link, docker-bin, ../containerd.service, \
+		/etc/systemd/system/multi-user.target.wants/containerd.service)
+	@$(call install_link, docker-bin, ../docker.service, \
+        	/etc/systemd/system/multi-user.target.wants/docker.service)
 
 	@$(call install_finish,docker-bin)
 
