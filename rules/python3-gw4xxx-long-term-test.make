@@ -15,10 +15,10 @@ PACKAGES-$(PTXCONF_PYTHON3_GW4XXX_LONG_TERM_TEST) += python3-gw4xxx-long-term-te
 # Paths and names
 #
 PYTHON3_GW4XXX_LONG_TERM_TEST_VERSION	:= 0.1.3
-PYTHON3_GW4XXX_LONG_TERM_TEST_MD5	:= ce1d92de0f19de67d84780710ca7742a
+PYTHON3_GW4XXX_LONG_TERM_TEST_MD5	:= b337275bd6e8aab42f94cec919c7a98b
 PYTHON3_GW4XXX_LONG_TERM_TEST		:= gw4xxx-long-term-test-$(PYTHON3_GW4XXX_LONG_TERM_TEST_VERSION)
 PYTHON3_GW4XXX_LONG_TERM_TEST_SUFFIX	:= tar.gz
-PYTHON3_GW4XXX_LONG_TERM_TEST_URL	:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_GW4XXX_LONG_TERM_TEST).$(PYTHON3_GW4XXX_LONG_TERM_TEST_SUFFIX)
+PYTHON3_GW4XXX_LONG_TERM_TEST_URL	:= https://api.github.com/repos/iotmaxx/gw4xxx-long-term-test/tarball/$(PYTHON3_GW4XXX_LONG_TERM_TEST_VERSION)
 PYTHON3_GW4XXX_LONG_TERM_TEST_SOURCE	:= $(SRCDIR)/$(PYTHON3_GW4XXX_LONG_TERM_TEST).$(PYTHON3_GW4XXX_LONG_TERM_TEST_SUFFIX)
 PYTHON3_GW4XXX_LONG_TERM_TEST_DIR	:= $(BUILDDIR)/$(PYTHON3_GW4XXX_LONG_TERM_TEST)
 PYTHON3_GW4XXX_LONG_TERM_TEST_LICENSE	:= unknown
@@ -28,9 +28,19 @@ PYTHON3_GW4XXX_LONG_TERM_TEST_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(PYTHON3_GW4XXX_LONG_TERM_TEST_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, PYTHON3_GW4XXX_LONG_TERM_TEST)
+$(PYTHON3_GW4XXX_LONG_TERM_TEST_SOURCE):
+	@$(call targetinfo)
+	@$(call gh_token_get, PYTHON3_GW4XXX_LONG_TERM_TEST)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-gw4xxx-long-term-test.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_GW4XXX_LONG_TERM_TEST_DIR))
+	@$(call gh_token_extract, PYTHON3_GW4XXX_LONG_TERM_TEST)
+	@$(call patchin, $(PYTHON3_GW4XXX_LONG_TERM_TEST))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare

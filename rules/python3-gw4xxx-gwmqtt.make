@@ -18,7 +18,8 @@ PYTHON3_GW4XXX_GWMQTT_VERSION	:= 0.8.3
 PYTHON3_GW4XXX_GWMQTT_MD5	:= 5f754cebeba0ccf3aa2e8f53853afc9f
 PYTHON3_GW4XXX_GWMQTT		:= gw4xxx-gwmqtt-$(PYTHON3_GW4XXX_GWMQTT_VERSION)
 PYTHON3_GW4XXX_GWMQTT_SUFFIX	:= tar.gz
-PYTHON3_GW4XXX_GWMQTT_URL	:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_GW4XXX_GWMQTT).$(PYTHON3_GW4XXX_GWMQTT_SUFFIX)
+PYTHON3_GW4XXX_GWMQTT_URL       := https://api.github.com/repos/iotmaxx/gw4xxx-gwmqtt/tarball/$(PYTHON3_GW4XXX_GWMQTT_VERSION)
+#PYTHON3_GW4XXX_GWMQTT_URL	:= http://172.17.0.1:8080/iotmaxx/$(PYTHON3_GW4XXX_GWMQTT).$(PYTHON3_GW4XXX_GWMQTT_SUFFIX)
 PYTHON3_GW4XXX_GWMQTT_SOURCE	:= $(SRCDIR)/$(PYTHON3_GW4XXX_GWMQTT).$(PYTHON3_GW4XXX_GWMQTT_SUFFIX)
 PYTHON3_GW4XXX_GWMQTT_DIR	:= $(BUILDDIR)/$(PYTHON3_GW4XXX_GWMQTT)
 PYTHON3_GW4XXX_GWMQTT_LICENSE	:= unknown
@@ -28,9 +29,19 @@ PYTHON3_GW4XXX_GWMQTT_LICENSE_FILES	:=
 # Get
 # ----------------------------------------------------------------------------
 
-#$(PYTHON3_GW4XXX_GWMQTT_SOURCE):
-#	@$(call targetinfo)
-#	@$(call get, PYTHON3_GW4XXX_GWMQTT)
+$(PYTHON3_GW4XXX_GWMQTT_SOURCE):
+	@$(call targetinfo)
+	$(call gh_token_get, PYTHON3_GW4XXX_GWMQTT)
+
+# ----------------------------------------------------------------------------
+# Extract
+# ----------------------------------------------------------------------------
+$(STATEDIR)/python3-gw4xxx-gwmqtt.extract:
+	@$(call targetinfo)
+	@$(call clean, $(PYTHON3_GW4XXX_GWMQTT_DIR))
+	$(call gh_token_extract, PYTHON3_GW4XXX_GWMQTT)
+	@$(call patchin, $(PYTHON3_GW4XXX_GWMQTT))
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Prepare
