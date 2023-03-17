@@ -2,6 +2,6 @@
 
 config DOCKER_BIN
 	tristate
-	prompt "docker_bin"
+	prompt "docker-bin"
 	help
 	  FIXME

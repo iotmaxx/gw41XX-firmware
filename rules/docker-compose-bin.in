@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config DOCKER_COMPOSE_BIN
+	tristate
+	prompt "docker-compose-bin"
+	help
+	  FIXME
