@@ -3,5 +3,6 @@ Name=eth0
 KernelCommandLine=!root=/dev/nfs
 
 [Network]
-Address=192.168.153.37
+#Address=192.168.153.37
+DHCP=yes
 IPForward=ipv4
