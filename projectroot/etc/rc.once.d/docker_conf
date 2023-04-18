@@ -2,6 +2,7 @@
 
 from pathlib import Path
 import shutil
+import os
 
 configDockerDir = '/config/etc/docker'
 configDockerFile = configDockerDir + '/daemon.json'
