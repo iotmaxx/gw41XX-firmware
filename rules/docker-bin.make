@@ -73,7 +73,7 @@ $(STATEDIR)/docker-bin.targetinstall:
 	@$(call install_fixup,docker-bin,AUTHOR,"Ralf Glaser <glaser@iotmaxx.de>")
 	@$(call install_fixup,docker-bin,DESCRIPTION,missing)
 
-	@$(call install_link, docker-bin, /config/etc/docker, /etc/docker)
+#	@$(call install_link, docker-bin, /config/etc/docker, /etc/docker)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/containerd, /usr/bin/containerd)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/containerd-shim-runc-v2, /usr/bin/containerd-shim-runc-v2)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/ctr, /usr/bin/ctr)
@@ -83,7 +83,8 @@ $(STATEDIR)/docker-bin.targetinstall:
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/runc, /usr/bin/runc)
 	@$(call install_copy, docker-bin, 0, 0, 0755, $(DOCKER_BIN_DIR)/dockerd, /usr/bin/dockerd)
 
-	@$(call install_alternative, docker-bin, 0, 0, 0644, /config/etc/docker/daemon.json)
+	@$(call install_alternative, docker-bin, 0, 0, 0755, /etc/rc.once.d/docker_conf)
+	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/docker/daemon.json)
 	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/docker.service)
 	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/docker.socket)
 	@$(call install_alternative, docker-bin, 0, 0, 0644, /etc/systemd/system/containerd.service)

@@ -1,0 +1,23 @@
+#!/bin/python
+
+from pathlib import Path
+import shutil
+
+configDockerDir = '/config/etc/docker'
+configDockerFile = configDockerDir + '/daemon.json'
+orgDockerDir = '/etc/docker'
+
+print("use /config/etc/docker/ instead of /etc/docker/...")
+
+# no /config/etc/docker/daemon.json -> copy all non-existing files from /etc/docker to /config/etc/docker
+if not Path(configDockerFile).exists():
+    # create /config/etc
+    Path(configDockerDir).mkdir(parents=True, exist_ok=True)
+    for file_name in os.listdir(orgDockerDir):
+        src_file = orgDockerDir+'/'+file_name
+        dst_file = configDockerDir+'/'+file_name
+        if not Path(dst_file).exists():
+            shutil.copy2(src_file, dst_file)
+
+shutil.rmtree(orgDockerDir)
+Path(orgDockerDir).symlink_to(Path(configDockerDir))
