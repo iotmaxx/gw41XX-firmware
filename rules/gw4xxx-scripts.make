@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_GW4XXX_SCRIPTS) += gw4xxx-scripts
 #
 # Paths and names
 #
-GW4XXX_SCRIPTS_VERSION	:= 0.7.3
-GW4XXX_SCRIPTS_MD5	:= d0e412a394462cfbef07c8e5df24761d
+GW4XXX_SCRIPTS_VERSION	:= 0.8.0
+GW4XXX_SCRIPTS_MD5	:= 7a5a8caf626d1273b67fc2f83a7a8d5b
 GW4XXX_SCRIPTS		:= gw4xxx-scripts-$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SUFFIX	:= tar.gz
 GW4XXX_SCRIPTS_URL	:= https://api.github.com/repos/iotmaxx/gw4xxx-scripts/tarball/$(GW4XXX_SCRIPTS_VERSION)
@@ -94,6 +94,7 @@ $(STATEDIR)/gw4xxx-scripts.targetinstall:
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/webconfig_userpass, /etc/rc.once.d/webconfig_userpass)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/vpn_starter, /etc/rc.once.d/vpn_starter)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/chrony_conf, /etc/rc.once.d/chrony_conf)
+	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/move_shadow, /etc/rc.once.d/move_shadow)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/NetworkManager/dispatcher.d/startOpenVPN, /etc/NetworkManager/dispatcher.d/startOpenVPN)
 
 	@$(call install_finish, gw4xxx-scripts)
