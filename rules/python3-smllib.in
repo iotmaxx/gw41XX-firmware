@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_SMLLIB
+	tristate
+	select PYTHON3
+	prompt "python3-smllib"
+	help
+	  FIXME
