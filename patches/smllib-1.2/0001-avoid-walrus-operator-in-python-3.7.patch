@@ -1,0 +1,35 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Wed, 19 Apr 2023 11:59:26 +0000
+Subject: [PATCH] avoid walrus operator in python 3.7
+
+---
+ src/smllib/reader.py    | 2 +-
+ src/smllib/sml_frame.py | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/smllib/reader.py b/src/smllib/reader.py
+index e7afd7f3f7d4..b4bb03c0e051 100644
+--- a/src/smllib/reader.py
++++ b/src/smllib/reader.py
+@@ -32,7 +32,7 @@ class SmlStreamReader:
+             start = 0
+ 
+         end = -1
+-        while (end := self.bytes.find(b'\x1B\x1B\x1B\x1B\x1A', end + 1)) != -1:
++        while (end = self.bytes.find(b'\x1B\x1B\x1B\x1B\x1A', end + 1)) != -1:
+             pre = self.bytes[end - 4: end]
+             if pre != b'\x1B\x1B\x1B\x1B':
+                 break
+diff --git a/src/smllib/sml_frame.py b/src/smllib/sml_frame.py
+index 68028b55aa22..431a47457f19 100644
+--- a/src/smllib/sml_frame.py
++++ b/src/smllib/sml_frame.py
+@@ -115,7 +115,7 @@ class SmlFrame:
+         """Returns all obis values in the frame without parsing the frame"""
+         ret = []
+         pos = 0
+-        while (pos := self.bytes.find(b'\x77\x07\x01', pos)) != -1:
++        while (pos = self.bytes.find(b'\x77\x07\x01', pos)) != -1:
+             data = self.get_value(pos)
+             if not isinstance(data.value, list):
+                 continue
