@@ -1,0 +1,69 @@
+## SECTION=scripting_languages
+
+menuconfig PYTHON3
+	tristate "python3                       "
+	select HOST_PYTHON3
+	select HOST_PYTHON3_SETUPTOOLS
+	select LIBC_DL
+	select LIBC_CRYPT
+	select LIBC_M
+	select LIBC_UTIL
+	select LIBC_PTHREAD
+	select GCCLIBS_CXX
+	select EXPAT
+	select LIBFFI
+	select LIBUUID
+	select ZLIB
+	select NCURSES		if PYTHON3_NCURSES
+	select SQLITE		if PYTHON3_SQLITE
+	select BZIP2		if PYTHON3_BZ2
+	select BZIP2_LIBBZ2	if PYTHON3_BZ2
+	select XZ		if PYTHON3_LZMA
+	select READLINE		if PYTHON3_READLINE
+	select DB		if PYTHON3_DB
+	select OPENSSL		if PYTHON3_SSL
+	help
+	  Python is a dynamic object-oriented programming
+	  language that can be used for many kinds of
+	  software development. It offers strong support
+	  for integration with other languages and tools,
+	  comes with extensive standard libraries, and
+	  can be learned in a few days.
+
+if PYTHON3
+
+config PYTHON3_BZ2
+	bool "bz2 bindings"
+
+config PYTHON3_DB
+	bool "db bindings"
+
+config PYTHON3_LZMA
+	bool "lzma bindings"
+
+config PYTHON3_NCURSES
+	bool "ncurses bindings"
+
+config PYTHON3_READLINE
+	bool "readline bindings"
+
+config PYTHON3_SQLITE
+	bool "sqlite bindings"
+
+config PYTHON3_SSL
+	bool "ssl & hashlib bindings"
+
+config PYTHON3_SYMLINK
+	bool
+	prompt "install symbolic link /usr/bin/python"
+	default y
+
+config PYTHON3_DISTUTILS
+	bool
+	prompt "Include distutils packages"
+
+endif
+
+menu "python3 Extra Modules         "
+source "generated/python3.in"
+endmenu
