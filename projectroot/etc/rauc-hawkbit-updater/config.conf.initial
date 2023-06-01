@@ -24,7 +24,7 @@ auth_token                = cb115a721af28f781b493fa467819ef5
 bundle_download_location  = /tmp/bundle.raucb
 
 # time in seconds to wait before retrying
-retry_wait                = 60
+retry_wait                = 86400
 
 # connection timeout in seconds
 connect_timeout           = 20
