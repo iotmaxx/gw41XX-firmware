@@ -20,6 +20,7 @@
 # umpf-release: 5.18/customers/iotmaxx/gateway/20220630-1
 # umpf-topic-range: f7dea400d2968409070f573f13ba040febe1362f..2f9960251e2b8a7a7fc673c0fc1eccf7d88ee444
 0101-Release-5.18-customers-iotmaxx-gateway-20220630-1.patch
+0102-enable-VUSB-EXT-switching-from-userspace.patch
 # umpf-end
 #tag:base --start-number 1000
-# 95c691e12e00ab9265c410e8b867056a  - git-ptx-patches magic
+# 4fba4b1a9c25b2d8365a87fb55ccbaa1  - git-ptx-patches magic
