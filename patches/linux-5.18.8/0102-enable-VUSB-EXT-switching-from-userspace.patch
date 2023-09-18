@@ -1,0 +1,43 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 7 Jul 2023 14:09:11 +0000
+Subject: [PATCH] enable VUSB EXT switching from userspace
+
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 6deb2ceffe4e..7781d99e62c3 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -132,12 +132,8 @@ reg_usb_otg1_vbus: regulator-usb-otg1-vbus {
+ 	reg_usb_otg2_vbus: regulator-usb-otg2-vbus {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "usb_otg2_vbus";
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&pinctrl_usb_otg2_vbus_reg>;
+ 		regulator-min-microvolt = <5000000>;
+ 		regulator-max-microvolt = <5000000>;
+-		gpio = <&gpio1 7 GPIO_ACTIVE_HIGH>;
+-		enable-active-high;
+ 	};
+ };
+ 
+@@ -225,7 +221,7 @@ &flexcan1 {
+ 
+ &gpio1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pinctrl_gpio1_lpsr>, <&pinctrl_gpio1>;
++	pinctrl-0 = <&pinctrl_gpio1_lpsr>, <&pinctrl_gpio1>, <&pinctrl_usb_otg2_vbus_reg>;
+ 
+ 	gpio-line-names = "gpio1_highside",
+ 			  "gpio1_lowside", "gpio1_pullup", "n_gpio1_in", "gpio2_highside", "gpio2_lowside",
+@@ -736,7 +732,7 @@ MX7D_PAD_LPSR_GPIO1_IO06__GPIO1_IO6		0x14 /* !USB_EXT_OC */
+ 
+ 	pinctrl_usb_otg2_vbus_reg: usbotg2vbusreggrp {
+ 		fsl,pins = <
+-			MX7D_PAD_LPSR_GPIO1_IO07__GPIO1_IO7		0x14 /* USB_EXT_PWR */
++			MX7D_PAD_LPSR_GPIO1_IO07__GPIO1_IO7		0x54 /* USB_EXT_PWR */
+ 		>;
+ 	};
+ };
