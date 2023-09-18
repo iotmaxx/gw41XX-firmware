@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_ZLIB) += zlib
 #
 # Paths and names
 #
-ZLIB_VERSION	:= 1.2.13
-ZLIB_MD5	:= 7d9fc1d78ae2fa3e84fe98b77d006c63
+ZLIB_VERSION	:= 1.3
+ZLIB_MD5	:= b49e70aacafacfceb1107943497f5545
 ZLIB		:= zlib-$(ZLIB_VERSION)
 ZLIB_SUFFIX	:= tar.xz
 ZLIB_URL	:= \
@@ -25,7 +25,7 @@ ZLIB_URL	:= \
 ZLIB_SOURCE	:= $(SRCDIR)/$(ZLIB).$(ZLIB_SUFFIX)
 ZLIB_DIR	:= $(BUILDDIR)/$(ZLIB)
 ZLIB_LICENSE	:= Zlib
-ZLIB_LICENSE_FILES := file://README;md5=d94b54713a28c31b7f90e784184eeb8d
+ZLIB_LICENSE_FILES := file://README;md5=ca6f8d30f1566a7608f7107433aaeea7
 
 # ----------------------------------------------------------------------------
 # Prepare
