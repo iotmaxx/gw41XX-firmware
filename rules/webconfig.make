@@ -11,9 +11,9 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.4.0
+WEBCONFIG_VERSION	:= 1.4.2
 WEBCONFIG_SUFFIX	:= tar.bz2
-WEBCONFIG		:= webconfig_$(WEBCONFIG_VERSION).$(WEBCONFIG_SUFFIX)
+WEBCONFIG		:= webconfig_$(WEBCONFIG_VERSION)_IoT.$(WEBCONFIG_SUFFIX)
 WEBCONFIG_LICENSE	:= unknown
 
 # ----------------------------------------------------------------------------
