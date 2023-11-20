@@ -67,6 +67,11 @@ $(STATEDIR)/dnsmasq.install:
 ifdef PTXCONF_DNSMASQ_BINDINTERFACES
 	sed -i '/bind-interfaces/s/^#//' "$(DNSMASQ_PKGDIR)/etc/dnsmasq.conf"
 endif   
+ifdef PTXCONF_DNSMASQ_BINDDYNAMIC
+#except-interface
+	sed -i -e '/except-interface=/s/^#//' -e '/except-interface=/s/$$/lo/' "$(DNSMASQ_PKGDIR)/etc/dnsmasq.conf"
+	sed -i -e '/bind-interfaces/s/^#//' -e '/bind-interfaces/s/bind-interfaces/bind-dynamic/' "$(DNSMASQ_PKGDIR)/etc/dnsmasq.conf"
+endif
 # allow additional config files
 	sed -i '\/conf-dir=\/etc\/dnsmasq.d\/,\*.conf/s/^#//' "$(DNSMASQ_PKGDIR)/etc/dnsmasq.conf"
 	@$(call touch)

@@ -85,6 +85,15 @@ config DNSMASQ_BINDINTERFACES
 	help
 	  enabling this removes conflict between dnsmasq and systemd-resolved
 
+config DNSMASQ_BINDDYNAMIC
+	bool
+	default n
+	prompt "enable bind-dynamic option"
+	help
+	  enabling this removes conflict between dnsmasq and systemd-resolved 
+	  and allows binding to interfaces that do not (yet) exist
+	
+
 choice
 	prompt "Kind of startup"
 	depends on !INITMETHOD_SYSTEMD
