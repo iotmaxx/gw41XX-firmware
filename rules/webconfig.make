@@ -11,7 +11,7 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.4.2
+WEBCONFIG_VERSION	:= 1.5.8
 WEBCONFIG_SUFFIX	:= tar.bz2
 WEBCONFIG		:= webconfig_$(WEBCONFIG_VERSION)_IoT.$(WEBCONFIG_SUFFIX)
 WEBCONFIG_LICENSE	:= unknown
@@ -76,6 +76,9 @@ $(STATEDIR)/webconfig.targetinstall:
 #	@$(call install_archive, webconfig, 0, 0, $(PTXDIST_WORKSPACE)/local_src/webconfig/$(WEBCONFIG), /)
 	@$(call install_archive, webconfig, 0, 0, local_src/webconfig/$(WEBCONFIG), /)
 	@$(call install_link, webconfig, /etc/systemd/system/webconfig.service, /etc/systemd/system/multi-user.target.wants/webconfig.service)
+	@$(call install_link, webconfig, /etc/systemd/system/webconfig_iptables.service, /etc/systemd/system/multi-user.target.wants/webconfig_iptables.service)
+	@$(call install_copy, webconfig, 0, 0, 755, /config/usr/lib/NetworkManager/system-connections)
+	@$(call install_link, webconfig, /config/usr/lib/NetworkManager/system-connections, /usr/lib/NetworkManager/system-connections)
 	@$(call install_copy, webconfig, 0, 0, 755, /var/lib/dnsmasq)
 
 	@$(call install_finish,webconfig)
