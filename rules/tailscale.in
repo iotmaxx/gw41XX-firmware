@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config TAILSCALE
+	tristate
+	select PYTHON3
+	prompt "tailscale"
+	help
+	  FIXME
