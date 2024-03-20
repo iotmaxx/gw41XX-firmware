@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Wed, 6 Dec 2023 09:33:56 +0000
+Subject: [PATCH] increase retries when no SIM present
+
+---
+ src/mm-iface-modem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/mm-iface-modem.c b/src/mm-iface-modem.c
+index 8bf0893c01a2..be05bf4a7a8b 100644
+--- a/src/mm-iface-modem.c
++++ b/src/mm-iface-modem.c
+@@ -420,7 +420,7 @@ mm_iface_modem_abort_invocation_if_state_not_reached (MMIfaceModem          *sel
+  * are modems on which the SIM takes more than 15s to be ready, luckily,
+  * they happen to be QMI modems where the SIM's iccid in load_sim_slots
+  * lets us know that there is a sim */
+-#define MAX_UNLOCK_REQUIRED_RETRIES_NO_SIM     6
++#define MAX_UNLOCK_REQUIRED_RETRIES_NO_SIM     30
+ #define MAX_UNLOCK_REQUIRED_RETRIES_SIM_EXISTS 30
+ 
+ /* Time between retries */
