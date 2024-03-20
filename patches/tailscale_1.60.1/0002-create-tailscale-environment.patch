@@ -1,0 +1,42 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Wed, 20 Mar 2024 09:28:32 +0000
+Subject: [PATCH] create tailscale environment
+
+---
+ systemd/create_tsenv | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
+ create mode 100644 systemd/create_tsenv
+
+diff --git a/systemd/create_tsenv b/systemd/create_tsenv
+new file mode 100644
+index 000000000000..626230dbdea9
+--- /dev/null
++++ b/systemd/create_tsenv
+@@ -0,0 +1,27 @@
++#!/bin/python
++
++from pathlib import Path
++
++tsConfigPath = Path("/config/etc/default/tailscaled")
++tsConfigName = Path.joinpath(tsConfigPath,"tailscaled")
++
++tsConfigContent = '''
++# Set the port to listen on for incoming VPN packets.
++# Remote nodes will automatically be informed about the new port number,
++# but you might want to configure this in order to set external firewall
++# settings.
++PORT="41641"
++
++# Extra flags you might want to pass to tailscaled.
++FLAGS=""
++'''
++
++print("tailscale environment file...",end='')
++
++if not tsConfigName.exists():
++    Path(tsConfigPath).mkdir(parents=True, exist_ok=True)
++    with open(tsConfigName,'w') as f:
++        print(tsConfigContent,file=f)
++    print("created")
++else:
++    print("exists")
