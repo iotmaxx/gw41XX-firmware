@@ -87,7 +87,7 @@ $(STATEDIR)/tailscale.targetinstall:
 #	@$(call install_copy, tailscale, 0, 0, 0755, $(TAILSCALE_DIR)/tailscaled, /usr/sbin/tailscaled)
 #	@$(call install_copy, tailscale, 0, 0, 0755, $(TAILSCALE_DIR)/tailscale, /usr/bin/tailscale)
 	@$(call install_copy, tailscale, 0, 0, 0755, $(TAILSCALE_DIR)/systemd/create_tsenv, /etc/rc.once.d/create_tsenv)
-	@$(call install_copy, tailscale, 0, 0, 0600, $(TAILSCALE_DIR)/systemd/tailscaled.defaults, /config/etc/default/tailscaled/tailscaled)
+	@$(call install_copy, tailscale, 0, 0, 0600, $(TAILSCALE_DIR)/systemd/tailscaled.defaults, /config/etc/default/tailscaled)
 	@$(call install_copy, tailscale, 0, 0, 0644, $(TAILSCALE_DIR)/systemd/tailscaled.service, /etc/systemd/system/tailscaled.service)
 	@$(call install_link, tailscale, /etc/systemd/system/tailscaled.service, /etc/systemd/system/multi-user.target.wants/tailscaled.service)
 	

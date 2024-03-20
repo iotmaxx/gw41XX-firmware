@@ -1,5 +1,5 @@
 From: Ralf Glaser <glaser@iotmaxx.de>
-Date: Wed, 20 Mar 2024 09:28:32 +0000
+Date: Wed, 20 Mar 2024 10:13:09 +0000
 Subject: [PATCH] create tailscale environment
 
 ---
@@ -9,7 +9,7 @@ Subject: [PATCH] create tailscale environment
 
 diff --git a/systemd/create_tsenv b/systemd/create_tsenv
 new file mode 100644
-index 000000000000..626230dbdea9
+index 000000000000..96eb5999c535
 --- /dev/null
 +++ b/systemd/create_tsenv
 @@ -0,0 +1,27 @@
@@ -17,7 +17,7 @@ index 000000000000..626230dbdea9
 +
 +from pathlib import Path
 +
-+tsConfigPath = Path("/config/etc/default/tailscaled")
++tsConfigPath = Path("/config/etc/default")
 +tsConfigName = Path.joinpath(tsConfigPath,"tailscaled")
 +
 +tsConfigContent = '''
