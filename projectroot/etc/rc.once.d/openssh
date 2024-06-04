@@ -1,0 +1,41 @@
+#!/bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+
+get_hostkeys() {
+	hostkeys="$(sed -E -n -e 's/^HostKey[[:space:]]+(.*)/\1/p' /etc/ssh/sshd_config)" || return
+	# pick secure defaults if no HostKey directives are found
+	echo "${hostkeys:-/etc/ssh/ssh_host_ed25519_key}"
+}
+
+create_key() {
+	keyfile="$1"
+	keytype="$(echo "$keyfile" | sed -E -e 's/.*ssh_host_(.*)_key$/\1/')"
+	keydir=$(dirname "$keyfile")
+
+	mkdir -p "$keydir"
+
+	keygen_args=
+	case "$keytype" in
+		rsa) keygen_args="-b 4096" ;;
+	esac
+
+	echo "Create $keytype key; this may take some time ..."
+	rm -f "$keyfile" &&
+	ssh-keygen -q -f "$keyfile" -N '' -t "$keytype" $keygen_args || return
+	echo "Created $keytype key."
+}
+
+create_keys() {
+	hostkeys="$(get_hostkeys)" || return
+
+	for keyfile in $hostkeys; do
+		[ -s "$keyfile" ] && ssh-keygen -l -f "${keyfile}.pub" > /dev/null && continue
+		create_key "$keyfile" || return
+	done
+}
+
+if ! create_keys; then
+	echo "Generating SSH keys failed!"
+	exit 1
+fi
