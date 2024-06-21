@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Thu, 20 Jun 2024 12:44:41 +0000
+Subject: [PATCH] change eeprom page size to 4
+
+---
+ arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+index 7781d99e62c3..165cd56c5606 100644
+--- a/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/imx7d-iotmaxx-gw4100.dts
+@@ -350,7 +350,7 @@ tpm: tpm@20 {
+ 	eeprom1: eeprom@50 {
+ 		compatible = "atmel,24c64";
+ 		vcc-supply = <&reg_ldo_misc_3v3>;
+-		pagesize = <32>;
++		pagesize = <4>;
+ 		reg = <0x50>;
+ 	};
+ 
