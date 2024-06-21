@@ -21,3 +21,6 @@ tmpfs	/run			tmpfs	nosuid,nodev,strictatime,mode=0755	0 0
 # data partitions
 /dev/data		/data		ext4	defaults,data=journal,noatime,nodev	0 2
 /dev/data_inactive	/data_inactive	ext4	defaults,data=journal,noatime,nodev	0 2
+
+# sd card
+/dev/mmcblk1p1		/mnt/sdcard	auto	rw,user,exec,umask=000,nofail 0 2 

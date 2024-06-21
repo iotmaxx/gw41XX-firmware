@@ -43,8 +43,8 @@ ROOT_MNT_SDCARD_VERSION	:= 0
 
 $(STATEDIR)/root-mnt-sdcard.compile:
 	@$(call targetinfo)
-	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard
-	@touch $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard/.empty
+#	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard
+#	@touch $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard/.empty
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -71,8 +71,8 @@ $(STATEDIR)/root-mnt-sdcard.targetinstall:
 # TODO: Add here all files that should be copied to the target
 # Note: Add everything before(!) call to macro install_finish
 #
-	@$(call install_copy, root-mnt-sdcard, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard/.empty, /mnt/sdcard/.empty)
-
+#	@$(call install_copy, root-mnt-sdcard, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/mnt/sdcard/.empty, /mnt/sdcard/.empty)
+	@$(call install_copy, root-mnt-sdcard, 0, 0, 0755, /mnt/sdcard)
 	@$(call install_finish,root-mnt-sdcard)
 
 	@$(call touch)
