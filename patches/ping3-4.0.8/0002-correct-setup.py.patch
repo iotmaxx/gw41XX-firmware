@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 21 Jun 2024 13:00:37 +0000
+Subject: [PATCH] correct setup.py
+
+---
+ setup.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/setup.py b/setup.py
+index 0b3325616844..3d895c13995c 100644
+--- a/setup.py
++++ b/setup.py
+@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
+ 
+ version = 'unknown'
+ #with file('mypkg/mymod.py') as f:
+-with open("gwmqtt/__init__.py") as f:
++with open("ping3/__init__.py") as f:
+     for line in f:
+         if line.startswith('__version__'):
+             _, _, version = line.replace('"', '').split()
