@@ -17,10 +17,11 @@
 0010-ARM-imx7d-iotmaxx-move-default-console-to-uart7.patch
 0011-enable-GPIO1_IN-pullup.patch
 0012-add-usr_button-pullup.patch
+0013-change-eeprom-page-size-to-4.patch
 # umpf-release: 5.18/customers/iotmaxx/gateway/20220630-1
 # umpf-topic-range: f7dea400d2968409070f573f13ba040febe1362f..2f9960251e2b8a7a7fc673c0fc1eccf7d88ee444
 0101-Release-5.18-customers-iotmaxx-gateway-20220630-1.patch
 0102-enable-VUSB-EXT-switching-from-userspace.patch
 # umpf-end
 #tag:base --start-number 1000
-# 4fba4b1a9c25b2d8365a87fb55ccbaa1  - git-ptx-patches magic
+# bee3b0750f3e8fb7d28fc532e9a28490  - git-ptx-patches magic
