@@ -22,7 +22,7 @@ PYTHON3_PAHO_MQTT_URL		:= https://files.pythonhosted.org/packages/32/d3/6dcb8fd1
 PYTHON3_PAHO_MQTT_SOURCE	:= $(SRCDIR)/$(PYTHON3_PAHO_MQTT).$(PYTHON3_PAHO_MQTT_SUFFIX)
 PYTHON3_PAHO_MQTT_DIR		:= $(BUILDDIR)/$(PYTHON3_PAHO_MQTT)
 PYTHON3_PAHO_MQTT_LICENSE	:= EPL-1.0 and BSD-3-Clause
-#PYTHON3_PAHO_MQTT_LICENSE_FILES	:= 
+PYTHON3_PAHO_MQTT_LICENSE_FILES	:= file://LICENSE.txt;md5=eb48c6ee2cb9f5b8b9fe75e6f817bdfc
 
 # ----------------------------------------------------------------------------
 # Get
