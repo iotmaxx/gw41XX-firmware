@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_PEEWEE
+	tristate
+	select PYTHON3
+	prompt "python3-peewee"
+	help
+	  FIXME
