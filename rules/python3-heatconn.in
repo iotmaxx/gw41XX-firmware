@@ -5,7 +5,7 @@ config PYTHON3_HEATCONN
 	select PYTHON3
        	select PYTHON3_GW4XXX_HAL
         select PYTHON3_JSON_CONFIG
-	select JUCONN_CONF
+#	select JUCONN_CONF
 	prompt "python3-heatconn"
 	help
 	  heatconn connector
