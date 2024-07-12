@@ -1,8 +1,0 @@
-## SECTION=python3
-
-config PYTHON3_PYPARSING
-	tristate
-	select PYTHON3	
-	prompt "python3-pyparsing"
-	help
-	  Python parsing module

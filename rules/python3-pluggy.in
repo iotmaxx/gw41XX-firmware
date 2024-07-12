@@ -1,8 +1,0 @@
-## SECTION=python3
-
-config PYTHON3_PLUGGY
-	tristate
-	select PYTHON3	
-	prompt "python3-pluggy"
-	help
-	  plugin and hook calling mechanisms for python

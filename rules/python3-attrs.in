@@ -1,8 +1,0 @@
-## SECTION=python3
-
-config PYTHON3_ATTRS
-	tristate
-	select PYTHON3
-	prompt "python3-attrs"
-	help
-	  attrs is the Python package that will bring back the joy of writing classes by relieving you from the drudgery of implementing object protocols (aka dunder methods).

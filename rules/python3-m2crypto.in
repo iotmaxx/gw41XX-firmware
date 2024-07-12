@@ -3,8 +3,8 @@
 config PYTHON3_M2CRYPTO
 	bool
 	select PYTHON3
-	select HOST_SWIG
-	select HOST_SWIG_PYTHON3_SUPPORT
+#	select HOST_SWIG
+#	select HOST_SWIG_PYTHON3_SUPPORT
 	prompt "python3-m2crypto"
 	help
 	  M2Crypto: A Python crypto and SSL toolkit

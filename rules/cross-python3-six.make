@@ -57,7 +57,7 @@ $(STATEDIR)/cross-python3-six.compile:
 	@$(call targetinfo)
 	cd $(PTXDIST_PLATFORMDIR)/build-cross/six-1.16.0 && \
 	PATH=$(HOST_CROSS_PATH) \
-	$(PTXDIST_SYSROOT_CROSS)/bin/python3.10 setup.py build
+	$(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR) setup.py build
 
 #	PATH=/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-cross/bin:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-cross/sbin:\
 #	/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-host/lib/wrapper:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-host/bin:\
@@ -76,7 +76,7 @@ $(STATEDIR)/cross-python3-six.install:
 	@$(call targetinfo)
 	cd $(PTXDIST_PLATFORMDIR)/build-cross/six-1.16.0 && \
 	PATH=$(HOST_CROSS_PATH) \
-	$(PTXDIST_SYSROOT_CROSS)/bin/python3.10 setup.py install
+	$(PTXDIST_SYSROOT_CROSS)/bin/python$(PYTHON3_MAJORMINOR) setup.py install
 
 #	cd /home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/build-cross/six-1.16.0 && PATH=/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-cross/bin:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-cross/sbin:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-host/lib/wrapper:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-host/bin:/home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-host/sbin:/home/ptx/next_rgl_20210709/gw41XX-firmware/selected_toolchain:/usr/local/lib/ptxdist-2021.06.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin /home/ptx/next_rgl_20210709/gw41XX-firmware/platform-iotmaxx-gateway/sysroot-cross/bin/python3.7 setup.py install
 #	@$(call world/install, CROSS_PYTHON3_SIX)
