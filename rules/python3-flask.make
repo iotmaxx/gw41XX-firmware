@@ -14,11 +14,11 @@ PACKAGES-$(PTXCONF_PYTHON3_FLASK) += python3-flask
 #
 # Paths and names
 #
-PYTHON3_FLASK_VERSION	:= 1.1.2
-PYTHON3_FLASK_MD5	:= 0da4145d172993cd28a6c619630cc19c
+PYTHON3_FLASK_VERSION	:= 2.1.3
+PYTHON3_FLASK_MD5	:= 3c1d9aaeaed0f0b72b8b0aa5bc069f45
 PYTHON3_FLASK		:= Flask-$(PYTHON3_FLASK_VERSION)
 PYTHON3_FLASK_SUFFIX	:= tar.gz
-PYTHON3_FLASK_URL	:= https://files.pythonhosted.org/packages/4e/0b/cb02268c90e67545a0e3a37ea1ca3d45de3aca43ceb7dbf1712fb5127d5d/$(PYTHON3_FLASK).$(PYTHON3_FLASK_SUFFIX)
+PYTHON3_FLASK_URL	:= $(call ptx/mirror-pypi, flask, $(PYTHON3_FLASK).$(PYTHON3_FLASK_SUFFIX))
 PYTHON3_FLASK_SOURCE	:= $(SRCDIR)/$(PYTHON3_FLASK).$(PYTHON3_FLASK_SUFFIX)
 PYTHON3_FLASK_DIR	:= $(BUILDDIR)/$(PYTHON3_FLASK)
 PYTHON3_FLASK_LICENSE	:= BSD-3
@@ -36,11 +36,11 @@ PYTHON3_FLASK_CONF_TOOL	:= python3
 # Prepare
 # ----------------------------------------------------------------------------
 
-$(STATEDIR)/python3-flask.prepare:
-	@$(call targetinfo)
-	@$(call world/prepare, PYTHON3_FLASK)
-	@echo -e '[DEFAULT]\nlibrary_dirs =\ninclude_dirs =' > $(PYTHON3_FLASK_DIR)/site.cfg
-	@$(call touch)
+#$(STATEDIR)/python3-flask.prepare:
+#	@$(call targetinfo)
+#	@$(call world/prepare, PYTHON3_FLASK)
+#	@echo -e '[DEFAULT]\nlibrary_dirs =\ninclude_dirs =' > $(PYTHON3_FLASK_DIR)/site.cfg
+#	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
