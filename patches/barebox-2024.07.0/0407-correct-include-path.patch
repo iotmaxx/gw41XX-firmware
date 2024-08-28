@@ -1,0 +1,18 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Wed, 28 Aug 2024 08:54:11 +0000
+Subject: [PATCH] correct include path
+
+---
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+index 0b1c019881c5..d3b48414d306 100644
+--- a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+@@ -1,4 +1,4 @@
+-#include <arm/imx7d-iotmaxx-gw4100.dts>
++#include <arm/nxp/imx/imx7d-iotmaxx-gw4100.dts>
+ 
+ / {
+ 	aliases {

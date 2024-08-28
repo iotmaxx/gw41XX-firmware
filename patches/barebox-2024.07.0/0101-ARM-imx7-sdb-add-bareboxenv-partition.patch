@@ -1,0 +1,49 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Thu, 13 Feb 2020 08:41:33 +0100
+Subject: [PATCH] ARM: imx7: sdb: add bareboxenv partition
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/dts/imx7d-sdb.dts | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
+
+diff --git a/arch/arm/dts/imx7d-sdb.dts b/arch/arm/dts/imx7d-sdb.dts
+index 7beb065920b3..59481828bc85 100644
+--- a/arch/arm/dts/imx7d-sdb.dts
++++ b/arch/arm/dts/imx7d-sdb.dts
+@@ -12,6 +12,11 @@
+ / {
+ 	chosen {
+ 		stdout-path = &uart1;
++
++		environment {
++			compatible = "barebox,environment";
++			device-path = &bareboxenv;
++		};
+ 	};
+ 
+ 	memory@80000000 {
+@@ -39,3 +44,23 @@
+ 	/delete-property/ assigned-clocks;
+ 	/delete-property/ assigned-clock-parents;
+ };
++
++&usdhc1 {
++	status = "okay";
++
++	partitions {
++		compatible = "fixed-partitions";
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		barebox@0 {
++			label = "barebox";
++			reg = <0x0 0xe0000>;
++		};
++
++		bareboxenv: bareboxenv@e0000 {
++			label = "bareboxenv";
++			reg = <0xe0000 0x20000>;
++		};
++	};
++};

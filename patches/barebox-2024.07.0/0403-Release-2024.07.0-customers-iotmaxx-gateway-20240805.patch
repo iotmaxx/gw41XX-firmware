@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Mon, 5 Aug 2024 14:18:43 +0000
+Subject: [PATCH] Release-2024.07.0-customers-iotmaxx-gateway-20240805
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index d43ed4cfb15a..9a10409c984c 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 2024
+ PATCHLEVEL = 07
+ SUBLEVEL = 0
+-EXTRAVERSION =-20220708-1
++EXTRAVERSION =-20240805-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

@@ -1,0 +1,68 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Tue, 27 Aug 2024 14:16:56 +0000
+Subject: [PATCH] correct include paths and macros
+
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c    |  8 ++++----
+ arch/arm/boards/iotmaxx-gw4100/lowlevel.c | 18 +++++++++---------
+ 2 files changed, 13 insertions(+), 13 deletions(-)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index 58ba3c0869c1..5298988da17d 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -8,10 +8,10 @@
+ #include <libfile.h>
+ #include <linux/micrel_phy.h>
+ #include <linux/phy.h>
+-#include <mach/bbu.h>
+-#include <mach/generic.h>
+-#include <mach/imx7-regs.h>
+-#include <mach/iomux-mx7.h>
++#include <mach/imx/bbu.h>
++#include <mach/imx/generic.h>
++#include <mach/imx/imx7-regs.h>
++#include <mach/imx/iomux-mx7.h>
+ #include <magicvar.h>
+ #include <mfd/imx7-iomuxc-gpr.h>
+ #include <net.h>
+diff --git a/arch/arm/boards/iotmaxx-gw4100/lowlevel.c b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+index 1d24256cda11..7001365abd2d 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
++++ b/arch/arm/boards/iotmaxx-gw4100/lowlevel.c
+@@ -3,14 +3,14 @@
+ #include <io.h>
+ #include <common.h>
+ #include <linux/sizes.h>
+-#include <mach/generic.h>
++#include <mach/imx/generic.h>
+ #include <asm/barebox-arm-head.h>
+ #include <asm/barebox-arm.h>
+-#include <mach/imx7-ccm-regs.h>
+-#include <mach/iomux-mx7.h>
+-#include <mach/debug_ll.h>
++#include <mach/imx/imx7-ccm-regs.h>
++#include <mach/imx/iomux-mx7.h>
++#include <mach/imx/debug_ll.h>
+ #include <asm/cache.h>
+-#include <mach/esdctl.h>
++#include <mach/imx/esdctl.h>
+ 
+ extern char __dtb_z_imx7d_iotmaxx_gw4100_start[];
+ 
+@@ -19,11 +19,11 @@ static inline void setup_uart(void)
+ 	void __iomem *ccm = IOMEM(MX7_CCM_BASE_ADDR);
+ 
+ 	writel(IMX7_CCM_CCGR_SETTINGn_NEEDED(0),
+-	       ccm + IMX7_CCM_CCGRn_CLR(IMX7_CCM_CCGR_UART3));
+-	writel(IMX7_CCM_TARGET_ROOTn_ENABLE | IMX7_UART2_CLK_ROOT__OSC_24M,
+-	       ccm + IMX7_CCM_TARGET_ROOTn(IMX7_UART3_CLK_ROOT));
++	       ccm + IMX7_CCM_CCGRn_CLR(IMX7_CCM_CCGR_UART(3)));
++	writel(IMX7_CCM_TARGET_ROOTn_ENABLE | IMX7_UART_CLK_ROOT__OSC_24M,
++	       ccm + IMX7_CCM_TARGET_ROOTn(IMX7_UART_CLK_ROOT(3)));
+ 	writel(IMX7_CCM_CCGR_SETTINGn_NEEDED(0),
+-	       ccm + IMX7_CCM_CCGRn_SET(IMX7_CCM_CCGR_UART3));
++	       ccm + IMX7_CCM_CCGRn_SET(IMX7_CCM_CCGR_UART(3)));
+ 
+ 	imx7_setup_pad(MX7D_PAD_UART3_TX_DATA__UART3_DCE_TX);
+ 

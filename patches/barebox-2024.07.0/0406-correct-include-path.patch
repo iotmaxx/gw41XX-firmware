@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Wed, 28 Aug 2024 08:53:52 +0000
+Subject: [PATCH] correct include path
+
+---
+ arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+index 149b8516a09f..a695ad0a1fe8 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
++++ b/arch/arm/boards/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
+@@ -16,7 +16,7 @@ ivtofs 0x400
+  * 1a8150d4b16fbafa6f1d207ddb85eda7dc399e2d
+  */
+ 
+-#include <mach/imx7-ddr-regs.h>
++#include <mach/imx/imx7-ddr-regs.h>
+ 
+ wm 32 0x30340004 0x4F400005
+ 

@@ -1,0 +1,21 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Fri, 8 Jul 2022 12:04:14 +0200
+Subject: [PATCH] Release 2021.04.0/customers/iotmaxx/gateway/20220708-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 9a10bb5d0408..8cd8c57b98ec 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 2021
+ PATCHLEVEL = 04
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION =-20220708-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

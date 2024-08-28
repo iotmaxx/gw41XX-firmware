@@ -1,0 +1,94 @@
+From: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+Date: Mon, 24 Feb 2020 15:57:43 +0100
+Subject: [PATCH] ARM: imx7: sdb: add bootstate
+
+Signed-off-by: Steffen Trumtrar <s.trumtrar@pengutronix.de>
+---
+ arch/arm/dts/imx7d-sdb.dts | 61 ++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+
+diff --git a/arch/arm/dts/imx7d-sdb.dts b/arch/arm/dts/imx7d-sdb.dts
+index 59481828bc85..35a28ca599b8 100644
+--- a/arch/arm/dts/imx7d-sdb.dts
++++ b/arch/arm/dts/imx7d-sdb.dts
+@@ -10,6 +10,10 @@
+ #include <arm/imx7d-sdb.dts>
+ 
+ / {
++	aliases {
++		state = &state;
++	};
++
+ 	chosen {
+ 		stdout-path = &uart1;
+ 
+@@ -23,6 +27,58 @@
+ 		device_type = "memory";
+ 		reg = <0x80000000 0x40000000>;
+ 	};
++
++	state: state {
++		magic = <0x496f546d>;
++		compatible = "barebox,state";
++		backend-type = "raw";
++		backend = <&state_mmc>;
++		backend-stridesize = <1024>;
++		#address-cells = <1>;
++		#size-cells = <1>;
++
++		bootstate {
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			system0 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x0 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x4 0x4>;
++					type = "uint32";
++					default = <21>;
++				};
++			};
++
++			system1 {
++				#address-cells = <1>;
++				#size-cells = <1>;
++
++				remaining_attempts {
++					reg = <0x10 0x4>;
++					type = "uint32";
++					default = <3>;
++				};
++				priority {
++					reg = <0x14 0x4>;
++					type = "uint32";
++					default = <20>;
++				};
++			};
++
++			last_chosen {
++				reg = <0x20 0x4>;
++				type = "uint32";
++			};
++		};
++	};
+ };
+ 
+ &extended_io {
+@@ -62,5 +118,10 @@
+ 			label = "bareboxenv";
+ 			reg = <0xe0000 0x20000>;
+ 		};
++
++		state_mmc: state@100000 {
++			label = "state";
++			reg = <0x100000 0x20000>;
++		};
+ 	};
+ };

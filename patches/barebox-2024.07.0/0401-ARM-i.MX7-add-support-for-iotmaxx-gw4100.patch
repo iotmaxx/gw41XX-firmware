@@ -1,0 +1,67 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Mon, 5 Aug 2024 13:55:30 +0000
+Subject: [PATCH] ARM-i.MX7-add-support-for-iotmaxx-gw4100
+
+---
+ arch/arm/boards/Makefile  | 1 +
+ arch/arm/dts/Makefile     | 1 +
+ arch/arm/mach-imx/Kconfig | 5 +++++
+ images/Makefile.imx       | 5 +++++
+ 4 files changed, 12 insertions(+)
+
+diff --git a/arch/arm/boards/Makefile b/arch/arm/boards/Makefile
+index e0dc27cb3d21..3f048ef21350 100644
+--- a/arch/arm/boards/Makefile
++++ b/arch/arm/boards/Makefile
+@@ -51,6 +51,7 @@ obj-$(CONFIG_MACH_GW_VENTANA)			+= gateworks-ventana/
+ obj-$(CONFIG_MACH_HABA_KNX_LITE)		+= haba-knx/
+ obj-$(CONFIG_MACH_IMX233_OLINUXINO)		+= imx233-olinuxino/
+ obj-$(CONFIG_MACH_INNOCOMM_WB15)			+= innocomm-imx8mm-wb15/
++obj-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100)		+= iotmaxx-gw4100/
+ obj-$(CONFIG_MACH_KAMSTRUP_MX7_CONCENTRATOR)	+= kamstrup-mx7-concentrator/
+ obj-$(CONFIG_MACH_KARO_QSXP_ML81)		+= karo-qsxp-ml81/
+ obj-$(CONFIG_MACH_KONTRON_SAMX6I)		+= kontron-samx6i/
+diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
+index 40d61ce8db66..c86cc49106fc 100644
+--- a/arch/arm/dts/Makefile
++++ b/arch/arm/dts/Makefile
+@@ -34,6 +34,7 @@ lwl-$(CONFIG_MACH_GRINN_LITEBOARD) += imx6ul-liteboard.dtb.o
+ lwl-$(CONFIG_MACH_GUF_SANTARO) += imx6q-guf-santaro.dtb.o
+ lwl-$(CONFIG_MACH_GUF_VINCELL) += imx53-guf-vincell.dtb.o imx53-guf-vincell-lt.dtb.o
+ lwl-$(CONFIG_MACH_GW_VENTANA) += imx6q-gw54xx.dtb.o
++lwl-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += imx7d-iotmaxx-gw4100.dtb.o
+ lwl-$(CONFIG_MACH_KAMSTRUP_MX7_CONCENTRATOR) += imx7d-flex-concentrator-mfg.dtb.o
+ lwl-$(CONFIG_MACH_KARO_QSXP_ML81) += imx8mp-karo-qsxp-ml81-qsbase4.dtb.o
+ lwl-$(CONFIG_MACH_KOENIGBAUER_ALPHAJET) += imx8mp-koenigbauer-alphajet.dtb.o
+diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
+index 4d10def3c25d..55025819b959 100644
+--- a/arch/arm/mach-imx/Kconfig
++++ b/arch/arm/mach-imx/Kconfig
+@@ -552,6 +552,11 @@ config MACH_PHYTEC_PHYCORE_IMX7
+ 	bool "Phytec phyCORE i.MX7"
+ 	select ARCH_IMX7
+ 
++config MACH_IOTMAXX_IMX7D_GW4100
++	bool "IoTMaxx i.MX7D MAXX GW4100 Gateway"
++	select ARCH_IMX7
++	select ARM_USE_COMPRESSED_DTB
++
+ config MACH_VARISCITE_SOM_MX7
+ 	bool "Variscite VAR-SOM-MX7"
+ 	select ARCH_IMX7
+diff --git a/images/Makefile.imx b/images/Makefile.imx
+index d0f1f156ea6c..3ff22726e34e 100644
+--- a/images/Makefile.imx
++++ b/images/Makefile.imx
+@@ -421,6 +421,11 @@ CFG_start_imx7d_sabresd.pblb.imximg = $(board)/freescale-mx7-sabresd/flash-heade
+ FILE_barebox-freescale-mx7-sabresd.img = start_imx7d_sabresd.pblb.imximg
+ image-$(CONFIG_MACH_FREESCALE_MX7_SABRESD) += barebox-freescale-mx7-sabresd.img
+ 
++pblb-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += start_imx7d_iotmaxx_gw4100
++CFG_start_imx7d_iotmaxx_gw4100.pblb.imximg = $(board)/iotmaxx-gw4100/flash-header-iotmaxx-imx7d-gw4100.imxcfg
++FILE_barebox-iotmaxx-imx7d-gw4100.img = start_imx7d_iotmaxx_gw4100.pblb.imximg
++image-$(CONFIG_MACH_IOTMAXX_IMX7D_GW4100) += barebox-iotmaxx-imx7d-gw4100.img
++
+ pblb-$(CONFIG_MACH_PHYTEC_PHYCORE_IMX7) += start_phytec_phycore_imx7
+ CFG_start_phytec_phycore_imx7.pblb.imximg = $(board)/phytec-phycore-imx7/flash-header-phytec-phycore-imx7.imxcfg
+ FILE_barebox-phytec-phycore-imx7.img = start_phytec_phycore_imx7.pblb.imximg
