@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_GW4XXX_SCRIPTS) += gw4xxx-scripts
 #
 # Paths and names
 #
-GW4XXX_SCRIPTS_VERSION	:= 0.9.4
-GW4XXX_SCRIPTS_MD5	:= 5399a12b3cbb2f28ea060a7967f55acb
+GW4XXX_SCRIPTS_VERSION	:= 0.9.7
+GW4XXX_SCRIPTS_MD5	:= 606f0008a2042ae830787185ad2bc906
 GW4XXX_SCRIPTS		:= gw4xxx-scripts-$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SUFFIX	:= tar.gz
 GW4XXX_SCRIPTS_URL	:= https://api.github.com/repos/iotmaxx/gw4xxx-scripts/tarball/$(GW4XXX_SCRIPTS_VERSION)
@@ -96,6 +96,7 @@ $(STATEDIR)/gw4xxx-scripts.targetinstall:
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/chrony_conf, /etc/rc.once.d/chrony_conf)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/move_shadow, /etc/rc.once.d/move_shadow)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/move_hostname, /etc/rc.once.d/move_hostname)
+	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/move_anyviz_to_opt, /etc/rc.once.d/move_anyviz_to_opt)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/rc.once.d/customer_update_script, /etc/rc.once.d/customer_update_script)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/usr/sbin/customer-rc-once, /usr/sbin/customer-rc-once)
 	@$(call install_copy, gw4xxx-scripts, 0, 0, 0644, $(GW4XXX_SCRIPTS_DIR)/etc/systemd/system/customer_rc-once.service, /etc/systemd/system/customer_rc-once.service)
