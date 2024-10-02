@@ -1,0 +1,20 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Thu, 12 Sep 2024 14:15:31 +0000
+Subject: [PATCH] add support for bh2228fv
+
+---
+ drivers/spi/spidev.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/spi/spidev.c b/drivers/spi/spidev.c
+index 05e6d007f9a7..5304728c68c2 100644
+--- a/drivers/spi/spidev.c
++++ b/drivers/spi/spidev.c
+@@ -700,6 +700,7 @@ static const struct class spidev_class = {
+ };
+ 
+ static const struct spi_device_id spidev_spi_ids[] = {
++	{ .name = "bh2228fv" },
+ 	{ .name = "dh2228fv" },
+ 	{ .name = "ltc2488" },
+ 	{ .name = "sx1301" },
