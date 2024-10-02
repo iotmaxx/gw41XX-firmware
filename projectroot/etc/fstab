@@ -18,6 +18,9 @@ tmpfs	/run			tmpfs	nosuid,nodev,strictatime,mode=0755	0 0
 # config partition
 /dev/mmcblk2p6		/config	ext4	defaults,data=journal,noatime,nodev	0 2
 
+# opt partition
+/dev/mmcblk2p7          /opt ext4    defaults,data=journal,noatime,nodev     0 2
+
 # data partitions
 /dev/data		/data		ext4	defaults,data=journal,noatime,nodev	0 2
 /dev/data_inactive	/data_inactive	ext4	defaults,data=journal,noatime,nodev	0 2

@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config PREPARE_OPT_MOUNT
+	tristate
+	select PYTHON3
+	prompt "prepare_opt_mount"
+	help
+	  FIXME
