@@ -1,0 +1,12 @@
+[Unit]
+Description=ensure opt partition is ext4 formatted
+Before=opt.mount
+PartOf=local-fs.target
+DefaultDependencies=no
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ensureext4fs /dev/mmcblk2p7
+
+[Install]
+WantedBy=local-fs.target
