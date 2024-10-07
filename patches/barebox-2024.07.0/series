@@ -33,13 +33,7 @@
 0405-create-iotmaxx-gw-dts-file.patch
 0406-correct-include-path.patch
 0407-correct-include-path.patch
+0408-blspec-apply-overlays-from-global-environment.patch
 # umpf-end
 #tag:base --start-number 1000
-#1000-ARM-i.MX7-add-support-for-iotmaxx-gw4100.patch
-#1001-ARM-i.MX7-add-support-for-iotmaxx-gw4100-1.patch
-#1002-Release-2024.07.0-customers-iotmaxx-gateway-20240805.patch
-#1003-correct-include-paths-and-macros.patch
-#1004-create-iotmaxx-gw-dts-file.patch
-#1005-correct-include-path.patch
-#1006-correct-include-path.patch
-# 1da132469b67223736766da8d8f3ebfb  - git-ptx-patches magic
+# 83e328c30c3bc1f3845bfc67c838e0b7  - git-ptx-patches magic
