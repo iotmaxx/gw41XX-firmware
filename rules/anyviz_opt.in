@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config ANYVIZ_OPT
+	tristate
+	select PYTHON3
+	prompt "anyviz_opt"
+	help
+	  FIXME
