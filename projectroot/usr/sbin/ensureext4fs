@@ -1,0 +1,23 @@
+#!/bin/sh
+
+echo "Checking fs type"
+
+#partition="/dev/mmcblk2p7"
+
+result=`file -s $1`
+
+#echo $result
+
+case "$result" in
+  *ext4*)
+    echo "keep ext4"
+    ;;
+  *ext2*)
+    echo "ext2 -> ext4"
+    yes | /usr/sbin/mkfs.ext4 $1
+    ;;
+  *)
+    echo "unformatted -> ext4"
+    /usr/sbin/mkfs.ext4 $1
+    ;;
+esac
