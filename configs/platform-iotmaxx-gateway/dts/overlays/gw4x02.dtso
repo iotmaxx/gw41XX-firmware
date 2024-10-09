@@ -1,6 +1,12 @@
 /dts-v1/;
 /plugin/;
 
+&{/chosen} {
+        overlays {
+                expansion = "gw4x02";
+        };
+};
+
 &i2c4 {
 	#address-cells = <1>;
 	#size-cells = <0>;

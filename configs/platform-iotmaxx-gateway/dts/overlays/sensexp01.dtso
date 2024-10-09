@@ -3,7 +3,7 @@
 
 &{/chosen} {
 	overlays {
-		sensexp01 = __TIMESTAMP__;
+		expansion = "sensexp01";
 	};
 };
 
