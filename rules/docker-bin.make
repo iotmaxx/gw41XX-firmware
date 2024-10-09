@@ -11,8 +11,8 @@
 #
 PACKAGES-$(PTXCONF_DOCKER_BIN) += docker-bin
 
-DOCKER_BIN_VERSION	:= 23.0.1
-DOCKER_BIN_MD5		:= 5c85bbe5c4228d77b73533029645fd87
+DOCKER_BIN_VERSION	:= 27.3.1
+DOCKER_BIN_MD5		:= 9fe2ebf784c29ca64b5b4efbe9d6cfe0
 DOCKER_BIN		:= docker-$(DOCKER_BIN_VERSION)
 DOCKER_BIN_SUFFIX	:= tgz
 DOCKER_BIN_URL		:= https://download.docker.com/linux/static/stable/armhf/$(DOCKER_BIN).$(DOCKER_BIN_SUFFIX)
