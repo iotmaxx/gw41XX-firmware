@@ -1,0 +1,13 @@
+[Unit]
+Description=restart unit stored in /opt
+Requires=opt.mount
+
+[Service]
+Type=oneshot
+ExecStartPre=/bin/mkdir -p /opt/systemd/system/customer.target.wants
+ExecStart=/bin/systemctl daemon-reload
+ExecStartPost=/bin/systemctl start customer.target
+
+[Install]
+WantedBy=multi-user.target
+
