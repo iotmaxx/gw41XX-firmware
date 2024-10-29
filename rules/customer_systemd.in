@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config CUSTOMER_SYSTEMD
+	tristate
+	select PYTHON3
+	prompt "customer_systemd"
+	help
+	  FIXME
