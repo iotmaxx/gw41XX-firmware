@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config LINUX_LICENSES
+	tristate
+	select PYTHON3
+	prompt "linux-licenses"
+	help
+	  FIXME
