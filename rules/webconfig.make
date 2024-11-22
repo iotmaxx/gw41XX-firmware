@@ -11,10 +11,10 @@
 #
 PACKAGES-$(PTXCONF_WEBCONFIG) += webconfig
 
-WEBCONFIG_VERSION	:= 1.6.3
+WEBCONFIG_VERSION	:= 1.6.10
 WEBCONFIG_SUFFIX	:= tar.bz2
 WEBCONFIG		:= webconfig_$(WEBCONFIG_VERSION).$(WEBCONFIG_SUFFIX)
-WEBCONFIG_LICENSE	:= unknown
+WEBCONFIG_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Get
