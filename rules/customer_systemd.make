@@ -18,7 +18,7 @@ CUSTOMER_SYSTEMD_VERSION	:= 20241028
 CUSTOMER_SYSTEMD_MD5		:=
 CUSTOMER_SYSTEMD                := customer_systemd-$(CUSTOMER_SYSTEMD_VERSION)
 CUSTOMER_SYSTEMD_SRC		:= local_src/$(CUSTOMER_SYSTEMD)
-CUSTOMER_SYSTEMD_LICENSE	:= unknown
+CUSTOMER_SYSTEMD_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

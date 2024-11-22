@@ -12,6 +12,7 @@
 PACKAGES-$(PTXCONF_ROOT_MNT_SDCARD) += root-mnt-sdcard
 
 ROOT_MNT_SDCARD_VERSION	:= 0
+ROOT_MNT_SDCARD_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Get

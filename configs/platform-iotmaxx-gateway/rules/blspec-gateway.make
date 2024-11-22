@@ -14,6 +14,7 @@
 PACKAGES-$(PTXCONF_BLSPEC_GATEWAY) += blspec-gateway
 
 BLSPEC_GATEWAY_VERSION		   := 5.5
+BLSPEC_GATEWAY_LICENSE		:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

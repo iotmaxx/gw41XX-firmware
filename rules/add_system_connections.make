@@ -17,7 +17,7 @@ ADD_SYSTEM_CONNECTION           := add_system_connections-$(ADD_SYSTEM_CONNECTIO
 #ADD_SYSTEM_CONNECTION_URL       := lndir://local_src/$(ADD_SYSTEM_CONNECTION)
 #ADD_SYSTEM_CONNECTION_DIR 	:= $(BUILDDIR)/$(ADD_SYSTEM_CONNECTION)
 ADD_SYSTEM_CONNECTION_DIR       := local_src/$(ADD_SYSTEM_CONNECTION)
-ADD_SYSTEM_CONNECTIONS_LICENSE  := unknown
+ADD_SYSTEM_CONNECTIONS_LICENSE  := ignore
 
 # ----------------------------------------------------------------------------
 # Prepare

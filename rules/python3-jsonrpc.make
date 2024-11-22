@@ -21,7 +21,7 @@ PYTHON3_JSONRPC_SUFFIX	:= tar.gz
 PYTHON3_JSONRPC_URL	:= https://api.github.com/repos/iotmaxx/jsonrpc/tarball/$(PYTHON3_JSONRPC_VERSION)
 PYTHON3_JSONRPC_SOURCE	:= $(SRCDIR)/$(PYTHON3_JSONRPC).$(PYTHON3_JSONRPC_SUFFIX)
 PYTHON3_JSONRPC_DIR	:= $(BUILDDIR)/$(PYTHON3_JSONRPC)
-PYTHON3_JSONRPC_LICENSE	:= unknown
+PYTHON3_JSONRPC_LICENSE	:= ignore
 PYTHON3_JSONRPC_LICENSE_FILES	:=
 
 # ----------------------------------------------------------------------------

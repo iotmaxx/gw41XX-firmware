@@ -14,7 +14,7 @@
 PACKAGES-$(PTXCONF_PROJECTFILES) += projectfiles
 
 PROJECTFILES_VERSION := 20200525
-
+PROJECTFILES_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

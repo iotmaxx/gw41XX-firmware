@@ -12,6 +12,7 @@
 PACKAGES-$(PTXCONF_ROOT_DATA2) += root-data2
 
 ROOT_DATA2_VERSION	:= 0
+ROOT_DATA2_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Compile

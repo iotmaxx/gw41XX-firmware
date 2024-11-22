@@ -14,6 +14,7 @@
 PACKAGES-$(PTXCONF_NETWORKD_CONFIG) += networkd-config
 
 NETWORKD_CONFIG_VERSION	:= 1
+NETWORKD_CONFIG_LICENSE := ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install
