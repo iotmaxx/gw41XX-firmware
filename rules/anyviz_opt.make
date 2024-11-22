@@ -19,6 +19,7 @@ ANYVIZ_OPT			:= anyvizcloudadapter-MUSL-$(ANYVIZ_OPT_VERSION)
 ANYVIZ_OPT_JSON			:= anyviz.json
 ANYVIZ_OPT_SRC			:= local_src/anyviz
 ANYVIZ_OPT_DIR         		:= $(BUILDDIR)/$(ANYVIZ_OPT)
+ANYVIZ_OPT_LICENSE		:= ignore
 # ----------------------------------------------------------------------------
 # Get
 # ----------------------------------------------------------------------------
@@ -78,6 +79,7 @@ $(STATEDIR)/anyviz_opt.targetinstall:
 	@$(call install_fixup, anyviz_opt,DESCRIPTION,missing)
 
 	@$(call install_copy, anyviz_opt, 0, 0, 0755, $(ANYVIZ_OPT_SRC)/$(ANYVIZ_OPT), /opt/bin/anyvizcloudadapter)
+	@$(call install_copy, anyviz_opt, 0, 0, 0755, $(ANYVIZ_OPT_SRC)/$(ANYVIZ_OPT), /usr/bin/anyvizcloudadapter)
 #	@jq '.Anyviz.version = "$(ANYVIZ_OPT_VERSION)"' $(ANYVIZ_OPT_SRC)/anyviz.json > $(ANYVIZ_OPT_DIR)/anyviz.json
 	@$(call install_copy, anyviz_opt, 0, 0, 0444, $(ANYVIZ_OPT_DIR)/$(ANYVIZ_OPT_JSON), /config/iot_launcher.d/$(ANYVIZ_OPT_JSON))
 
