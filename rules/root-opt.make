@@ -12,6 +12,7 @@
 PACKAGES-$(PTXCONF_ROOT_OPT) += root-opt
 
 ROOT_OPT_VERSION	:= 0
+ROOT_OPT_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Compile
@@ -19,8 +20,8 @@ ROOT_OPT_VERSION	:= 0
 
 $(STATEDIR)/root-opt.compile:
 	@$(call targetinfo)
-	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/opt
-	@touch $(PTXDIST_SYSROOT_TARGET)/opt/.empty
+#	@mkdir -p $(PTXDIST_SYSROOT_TARGET)/opt
+#	@touch $(PTXDIST_SYSROOT_TARGET)/opt/.empty
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -44,7 +45,8 @@ $(STATEDIR)/root-opt.targetinstall:
 	@$(call install_fixup,root-opt,AUTHOR,"Steffen Trumtrar <s.trumtrar@pengutronix.de>")
 	@$(call install_fixup,root-opt,DESCRIPTION,missing)
 
-	@$(call install_copy, root-opt, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/opt/.empty, /opt/.empty)
+#	@$(call install_copy, root-opt, 0, 0, 0644, $(PTXDIST_SYSROOT_TARGET)/opt/.empty, /opt/.empty)
+	@$(call install_copy, root-opt, 0, 0, 0755, /opt)
 
 	@$(call install_finish,root-opt)
 
