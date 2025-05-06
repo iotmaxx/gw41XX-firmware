@@ -1,0 +1,36 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Thu, 10 Apr 2025 12:07:43 +0000
+Subject: [PATCH] usb power off
+
+---
+ arch/arm/boards/iotmaxx-gw4100/board.c | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/board.c b/arch/arm/boards/iotmaxx-gw4100/board.c
+index 5298988da17d..3cf240b6943c 100644
+--- a/arch/arm/boards/iotmaxx-gw4100/board.c
++++ b/arch/arm/boards/iotmaxx-gw4100/board.c
+@@ -106,6 +106,8 @@ static const iomux_v3_cfg_t gw4100_expansion_pad_list[] = {
+ 	MX7D_PAD_LCD_CLK__GPIO3_IO0 | DEF_PU, /* input, 100k PU */
+ };
+ 
++#define MX7D_USB_POWER IMX_GPIO_NR(1, 7)
++
+ static int imx7d_iotmaxx_read_eeprom(const char *file, struct eepromData *data)
+ {
+ 	int fd;
+@@ -286,3 +288,14 @@ static int imx7d_iotmaxx_gateway_ethernet_init(void)
+ 	return 0;
+ }
+ late_initcall(imx7d_iotmaxx_gateway_ethernet_init);
++
++static int imx7d_ext_usb_shutdown(void)
++{
++        unsigned int vbus_gpio = MX7D_USB_POWER;
++        pr_info("ext. usb power off\n");
++        gpio_request(vbus_gpio, "usb-vbus");
++        gpio_direction_output(vbus_gpio, 0);
++        gpio_free(vbus_gpio);
++        return 0;
++}
++device_initcall(imx7d_ext_usb_shutdown);
