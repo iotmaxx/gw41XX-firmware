@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_PYTHON3_GW4XXX_HAL) += python3-gw4xxx-hal
 #
 # Paths and names
 #
-PYTHON3_GW4XXX_HAL_VERSION	:= 0.3.16
-PYTHON3_GW4XXX_HAL_MD5		:= 6111b27b70493fce08982b7b6d7094a8
+PYTHON3_GW4XXX_HAL_VERSION	:= 0.3.17
+PYTHON3_GW4XXX_HAL_MD5		:= 530bfe7c08f1f2c116b526f1725eea26
 PYTHON3_GW4XXX_HAL		:= python3-gw4xxx-hal-$(PYTHON3_GW4XXX_HAL_VERSION)
 PYTHON3_GW4XXX_HAL_SUFFIX	:= tar.gz
 PYTHON3_GW4XXX_HAL_URL		:= https://github.com/iotmaxx/gw4xxx-hal/archive/$(PYTHON3_GW4XXX_HAL_VERSION)/$(PYTHON3_GW4XXX_HAL).$(PYTHON3_GW4XXX_HAL_SUFFIX)
@@ -83,7 +83,10 @@ $(STATEDIR)/python3-gw4xxx-hal.targetinstall:
 #	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, $(PYTHON3_SITEPACKAGES)/gw4xxx-hal,, *.pyc)
 	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py */tests)
 
-#	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0755, $(PYTHON3_GW4XXX_HAL_DIR)/foobar, /dev/null)
+	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0755, $(PYTHON3_GW4XXX_HAL_DIR)/root/usr/sbin/usb-pwr-cycle.py, /usr/sbin/usb-pwr-cycle.py)
+	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0644, $(PYTHON3_GW4XXX_HAL_DIR)/root/etc/systemd/system/ext_usb_reset.service, /etc/systemd/system/ext_usb_reset.service)
+	@$(call install_link, python3-gw4xxx-hal, /etc/systemd/system/ext_usb_reset.service, \
+                /etc/systemd/system/basic.target.wants/ext_usb_reset.service)
 
 	@$(call install_finish, python3-gw4xxx-hal)
 
