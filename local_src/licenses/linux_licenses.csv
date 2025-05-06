@@ -1,0 +1,230 @@
+
+ add_system_connections, 20210222, ignore
+ anyviz_opt, 0.9.9.1, ignore
+ barebox, 2024.07.0, GPL-2.0-only
+ base, 1, ignore
+ berlios-can-utils, v2021.06.0, GPL-2.0
+ blspec-gateway, 5.5, ignore
+ boost, 1_83_0, BSL-1.0
+ busybox, 1.36.1, GPL-2.0-only
+ bzip2, 1.0.8, bzip2-1.0.6
+ ca-certificates, NSS_3_101_RTM, MPL-2.0
+ chrony, 4.2, GPL-2.0-only AND RSA-MD
+ coreutils, 9.4, GPL-3.0-or-later
+ cross-python3-six, 1.16.0, MIT
+ customer_systemd, 20241028, ignore
+ dbus, 1.15.8, (AFL-2.1 OR GPL-2.0-or-later) AND MIT
+ dbus-glib, 0.104, AFL-2.1 AND GPL-2.0-or-later
+ dnsmasq, 2.89, GPL-2.0-only OR GPL-3.0-only
+ docker-bin, 27.3.1, Apache-2.0
+ docker-compose-bin, 2.29.7, Apache-2.0
+ dosfstools, 4.2, GPL-3.0-or-later
+ dt-utils, 2023.11.0, GPL-2.0-only AND GPL-2.0-or-later AND Zlib
+ e2fsprogs, 1.47.1, GPL-2.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND MIT
+ expat, 2.6.2, MIT
+ file, 5.39, BSD-2-Clause
+ gcclibs, 13.2.1, GPL-3.0-only WITH GCC-exception-3.1
+ gdbserver, 13.2, GPL-2.0-only AND GPL-3.0-or-later
+ glib, 2.80.3, LGPL-2.1-or-later
+ glibc, 2.37, GPL-2.0-or-later AND LGPL-2.1-or-later
+ gnutls, 3.7.7, LGPL-3.0-or-later AND GPL-3.0-or-later
+ gobject-introspection, 1.72.0, LGPL-2.1-or-later AND GPL-2.0-or-later
+ gw4xxx-scripts, 0.9.9, GPL-3.0-or-later
+ haveged, 1.9.13, GPL-3.0-or-later
+ htop, 3.0.1, GPL-2.0-only
+ hwdata, 0.383, GPL-2.0-or-later OR XFree86-1.0
+ initmethod-systemd, 1.0.0, ignore
+ iproute2, 6.9.0, GPL-2.0-only
+ iptables, 1.8.10, GPL-2.0-only
+ iw, 6.9, ISC
+ json-glib, 1.8.0, LGPL-2.1-only
+ kernel, 6.10.3, GPL-2.0-only
+ ldd, 2.7, LGPL-2.1-or-later
+ less, 590, GPL-3.0-or-later OR BSD-2-Clause
+ libcap, 2.70, BSD-3-Clause OR GPL-2.0-only
+ libcap-ng, 0.8.5, LGPL-2.1-or-later AND GPL-2.0-or-later
+ libcurl, 8.8.0, curl
+ libelf, 0.190, (LGPL-3.0-or-later OR GPL-2.0-or-later) AND GPL-3.0-or-later
+ libevent, 2.1.12, BSD-3-Clause AND 0BSD AND MIT
+ libffi, 3.4.6, MIT
+ libftdi1, 1.5, LGPL-2.1-only AND MIT AND GPL-2.0-only
+ libgmp, 6.2.1, GPL-2.0-or-later OR LGPL-3.0-or-later
+ libgpiod, 1.6.3, LGPL-2.1-only
+ libgudev, 238, LGPL-2.1-or-later
+ libkmod, 32, GPL-2.0-only AND LGPL-2.0-only
+ liblzo, 2.10, GPL-2.0-or-later
+ libmbim, 1.31.6-dev, GPL-2.0-or-later AND LGPL-2.1-or-later
+ libmicrohttpd, 0.9.75, LGPL-2.1-only OR GPL-2.0-only WITH eCos-exception-2.0
+ libndp, 1.7, LGPL-2.1-only
+ libnewt, 0.52.21, GPL-2.0-only
+ libnl3, 3.9.0, LGPL-2.1-only AND BSD-3-Clause
+ libpcap, 1.10.4, BSD-3-Clause
+ libpcre, 8.45, BSD-3-Clause
+ libqmi, 1.35.6-dev, GPL-2.0-or-later AND LGPL-2.1-or-later
+ libseccomp, 2.5.5, LGPL-2.1-only
+ libsocketcan, 0.0.11, LGPL-2.1-or-later
+ libtasn1, 4.19.0, LGPL-2.1-only AND GPL-3.0-only
+ libusb, 1.0.27, LGPL-2.1-or-later
+ libxml2, 2.13.1, MIT AND ISC
+ libxslt, 1.1.40, MIT
+ libyaml, 0.2.5, MIT
+ linux-firmware, 20240610, proprietary
+ linux-licenses, 0.1.0, ignore
+ lz4, 1.9.4, BSD-2-Clause AND GPL-2.0-or-later
+ machine-id, 1, ignore
+ mbw, 2.0, GPL-3.0-only
+ memtester, 4.5.0, GPL-2.0-only
+ memtool, 2018.03.0, GPL-2.0-only
+ microcom, 2019.01.0, GPL-2.0-or-later
+ mmc-utils, 2022-09-27-gdfc3b6ecda84, GPL-2.0-only AND BSD-3-Clause
+ mobile-broadband-provider-info, 20220725, public_domain
+ modemmanager, 1.23.12-dev, GPL-2.0-or-later AND LGPL-2.1-or-later
+ mosquitto, 2.0.14, EPL-2.0 OR BSD-3-Clause
+ nano, 2.9.2, GPL-3.0-or-later
+ ncurses, 6.4, MIT
+ nettle, 3.8.1, GPL-2.0-or-later OR LGPL-3.0-or-later
+ networkd-config, 1, ignore
+ networkmanager, 1.48.0, GPL-2.0-or-later AND LGPL-2.0-or-later
+ networkmanager-openvpn, 1.8.12, GPL-2.0-or-later
+ ntp, 4.2.8p18, ntp
+ openssh, 9.8p1, BSD AND BSD-2-Clause AND BSD-3-Clause AND MIT AND Beerware AND ISC
+ openssl, 3.3.1, Apache-2.0
+ openvpn, 2.6.11, GPL-2.0-only WITH (openvpn-openssl-exception AND custom-exception) AND BSD-2-Clause AND BSD-3-Clause AND ((GPL-2.0-only WITH Linux-syscall-note) OR MIT)
+ os-release, 1.0, ignore
+ pcre2, 10.44, BSD-3-Clause
+ ppp, 2.4.9, BSD AND GPL-2.0-only
+ prepare_opt_mount, 0.1.0, ignore
+ procps, 4.0.4, GPL-2.0-or-later AND LGPL-2.1-or-later
+ projectfiles, 20200525, ignore
+ pyserial3, 3.5, BSD
+ python3, 3.11.6
+ python3-aenum, 2.2.4, BSD
+ python3-aniso8601, 9.0.1, BSD-3-Clause
+ python3-async-timeout, 4.0.2, Apache-2.0
+ python3-attrs, 20.2.0, MIT
+ python3-certifi, 2021.10.8, MPL-2.0
+ python3-cffi, 1.16.0, MIT
+ python3-charset-normalizer, 2.0.12, MIT
+ python3-click, 8.1.7, BSD-3
+ python3-crccheck, 1.0, GPL-3.0-or-later
+ python3-csdoverip, 0.3.17, ignore
+ python3-dateutil, 2.8.2, Apache-2.0
+ python3-decorator, 4.0.6, BSD-2-Clause
+ python3-dominate, 2.6.0, LGPL-3.0-only
+ python3-execute-start-scripts, 0.1.4, GPL-3.0-or-later
+ python3-flask, 2.1.3, BSD-3
+ python3-flask-bootstrap, 3.3.7.1, BSD-3-Clause
+ python3-flask-cors, 3.0.8, MIT
+ python3-flask-jwt-extended, 3.24.1, MIT
+ python3-flask-restful, 0.3.9, BSD-2-Clause
+ python3-flask-wtf, 0.15.1, BSD-3-Clause
+ python3-gbulb, 0.6.4, Apache-2.0
+ python3-gi, 3.42.1, LGPL-2.1-or-later
+ python3-gunicorn, 20.1.0, MIT
+ python3-gw-watchdog, 0.1.6, GPL-3.0-or-later
+ python3-gw4xxx-con-check, 0.3.0, ignore
+ python3-gw4xxx-flask, 0.1.11, GPL-3.0-or-later
+ python3-gw4xxx-gps-ctrl, 0.1.2, ignore
+ python3-gw4xxx-gwmqtt, 0.16.2, ignore
+ python3-gw4xxx-hal, 0.3.15, GPL-3.0-or-later
+ python3-gw4xxx-launcher, 0.3.0, GPL-3.0-or-later
+ python3-idna, 2.10, BSD-3-Clause
+ python3-importlib-metadata, 2.0.0, Apache
+ python3-iniconfig, 1.0.0, Apache
+ python3-iniherit, 0.3.9, MIT
+ python3-ipython, 4.1.1, BSD-3-Clause
+ python3-ipython-genutils, 0.1.0, BSD-3-Clause
+ python3-itsdangerous, 2.1.2, BSD-3-Clause
+ python3-jinja2, 3.1.3, BSD-3-Clause
+ python3-json-config, 0.1.1, GPL-3.0-or-later
+ python3-jsonpath-rw, 1.4.0, Apache-2.0
+ python3-jsonrpc, 0.1.0, ignore
+ python3-lxml, 4.9.2, BSD
+ python3-mako, 1.3.2, MIT
+ python3-markupsafe, 2.1.5, BSD-3-Clause
+ python3-modbus-server, 0.2.2, ignore
+ python3-more-itertools, 8.4.0, MIT
+ python3-multidict, 4.7.6, Apache-2.0
+ python3-netifaces, 0.11.0, MIT
+ python3-opcua, 0.98.7, LGPL-3.0-only
+ python3-packaging, 20.4, BSD-2-Clause OR Apache-2.0
+ python3-paho-mqtt, 1.6.1, EPL-2.0 OR BSD-3-Clause
+ python3-paramiko, 3.4.0, LGPL-3.0-or-later
+ python3-path-py, 8.1.2, MIT
+ python3-peewee, 3.17.6, MIT
+ python3-pexpect, 4.8.0, ISC
+ python3-pickleshare, 0.6, MIT
+ python3-ping3, 4.0.8, MIT
+ python3-pluggy, 0.13.1, MIT
+ python3-ply, 3.11, BSD
+ python3-psutil, 5.7.2, BSD-3-Clause
+ python3-ptyprocess, 0.6.0, ISC
+ python3-py, 1.9.0, MIT
+ python3-pycparser, 2.21, BSD-3-Clause
+ python3-pycryptodome, 3.18.0, BSD-2-Clause Unlicense
+ python3-pydbus, 0.6.0, Apache
+ python3-pyjwt, 1.7.1, MIT
+ python3-pymeterbus, 0.8.3, BSD-3-Clause
+ python3-pymodbus, 2.5.3, BSD-3-Clause
+ python3-pyparsing, 2.4.7, MIT
+ python3-pyroute2, 0.5.14, BSD
+ python3-pytest, 6.0.1, Apache
+ python3-python-can, 3.3.4, GNU
+ python3-pytz, 2023.3, MIT
+ python3-pyyaml, 6.0, MIT
+ python3-regex, 2021.8.28, Apache-2.0
+ python3-requests, 2.27.1, Apache-2.0
+ python3-setuptools, 67.4.0, MIT
+ python3-simplegeneric, 0.8.1, ZPL-2.1
+ python3-simplejson, 3.17.5, MIT
+ python3-six, 1.16.0, MIT
+ python3-smbus2, 0.3.0, MIT
+ python3-smllib, 1.2, GPL-3.0-or-later
+ python3-spidev, 3.6, MIT
+ python3-systemd, 235, LGPL-2.1-or-later
+ python3-text-unidecode, 1.3, ClArtistic
+ python3-toml, 0.10.1, Apache
+ python3-tornado, 6.4, Apache-2.0
+ python3-traitlets, 4.1.0, BSD-3-Clause
+ python3-transitions, 0.5.3, MIT
+ python3-umodbus, 1.0.4, MPL-2.0
+ python3-urllib3, 1.26.8, MIT
+ python3-visitor, 0.1.3, MIT
+ python3-websockets, 6.0, BSD
+ python3-werkzeug, 2.2.3, BSD-3-Clause
+ python3-wrapt, 1.12.1, BSD
+ python3-wtforms, 2.3.3, BSD-3-Clause
+ python3-yarl, 1.8.2, Apache-2.0
+ python3-zipp, 3.7.0, MIT
+ rauc, 1.11.3, LGPL-2.1-or-later
+ rauc-hawkbit-updater, 1.2, LGPL-2.1-only
+ rc-once, 1.0.0, ignore
+ readline, 8.2, GPL-3.0-or-later
+ root-data1, 0, ignore
+ root-data2, 0, ignore
+ root-mnt-sdcard, 0, ignore
+ root-opt, 0, ignore
+ rootfs, 1.0.0, ignore
+ rsync3, 3.2.7, GPL-3.0-only
+ screen, 4.9.1, GPL-2.0-or-later
+ slang, 2.3.2, GPL-2.0-or-later
+ socat, 1.7.3.2, GPL-2.0-only
+ sqlite, 3400000, public_domain
+ sqlitecpp, 2.4.0, MIT
+ squashfs-tools, 4.5.1, GPL-2.0-or-later
+ strace, 6.9, LGPL-2.1-or-later AND GPL-2.0-only WITH Linux-syscall-note
+ strongswan, 5.9.14, GPL
+ systemd, 256.1, GPL-2.0-or-later AND LGPL-2.1-only
+ tcpdump, 4.99.4, BSD-3-Clause
+ termcap, 1.3.1, GPL-2.0-only
+ timezone, 1.0, public_domain
+ usbip, 5.8, GPL-2.0-only
+ usbutils, 017, GPL-2.0-only
+ usr-rootfs, 1.0, ignore
+ util-linux, 2.40, GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.0-or-later AND BSD-3-Clause AND BSD-4-Clause AND public_domain
+ webconfig, 1.6.10, ignore
+ wget, 1.21.3, GPL-3.0-or-later
+ wireless, 30, GPL-2.0-only
+ wpa_supplicant, 2.10, GPL-2.0-only
+ xz, 5.4.4, public_domain AND LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-3.0-or-later
+ zlib, 1.3.1, Zlib
