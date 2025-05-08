@@ -1,0 +1,8 @@
+## SECTION=project_specific
+
+config QBEE_AGENT
+	tristate
+	select CA_CERTIFICATES
+	prompt "qbee-agent"
+	help
+	  FIXME
