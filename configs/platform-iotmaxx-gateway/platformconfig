@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2024.07.1
+# PTXdist 2025.05.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -16,11 +16,11 @@ PTXCONF__platformconfig_MAGIC__=y
 # ------------------------------------
 #
 PTXCONF_PLATFORM="iotmaxx-gateway"
-PTXCONF_PLATFORM_VERSION="-copernicus"
+PTXCONF_PLATFORM_VERSION="-deneb"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF_VIRTUAL=y
-PTXCONF_PLATFORMCONFIG_VERSION="2024.07.1"
+PTXCONF_PLATFORMCONFIG_VERSION="2025.05.0"
 
 #
 # architecture                  
