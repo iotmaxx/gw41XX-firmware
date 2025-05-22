@@ -62,10 +62,14 @@ PYTHON3_GW4XXX_HAL_CONF_TOOL	:= python3
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/python3-gw4xxx-hal.install:
-#	@$(call targetinfo)
-#	@$(call world/install, PYTHON3_GW4XXX_HAL)
-#	@$(call touch)
+$(STATEDIR)/python3-gw4xxx-hal.install:
+	@$(call targetinfo)
+	@$(call world/install, PYTHON3_GW4XXX_HAL)
+	@install -D -m 0755 $(PYTHON3_GW4XXX_HAL_DIR)/root/usr/sbin/usb-pwr-cycle.py \
+                $(PYTHON3_GW4XXX_HAL_PKGDIR)/usr/sbin/usb-pwr-cycle.py
+	@install -D -m 0644 $(PYTHON3_GW4XXX_HAL_DIR)/root/etc/systemd/system/ext_usb_reset.service \
+                $(PYTHON3_GW4XXX_HAL_PKGDIR)/etc/systemd/system/ext_usb_reset.service
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,11 +84,10 @@ $(STATEDIR)/python3-gw4xxx-hal.targetinstall:
 	@$(call install_fixup, python3-gw4xxx-hal,AUTHOR,"Ralf Glaser <glaser@iotmaxx.de>")
 	@$(call install_fixup, python3-gw4xxx-hal,DESCRIPTION,missing)
 
-#	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, $(PYTHON3_SITEPACKAGES)/gw4xxx-hal,, *.pyc)
 	@$(call install_glob, python3-gw4xxx-hal, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py */tests)
 
-	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0755, $(PYTHON3_GW4XXX_HAL_DIR)/root/usr/sbin/usb-pwr-cycle.py, /usr/sbin/usb-pwr-cycle.py)
-	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0644, $(PYTHON3_GW4XXX_HAL_DIR)/root/etc/systemd/system/ext_usb_reset.service, /etc/systemd/system/ext_usb_reset.service)
+	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0755, -, /usr/sbin/usb-pwr-cycle.py)
+	@$(call install_copy, python3-gw4xxx-hal, 0, 0, 0644, -, /etc/systemd/system/ext_usb_reset.service)
 	@$(call install_link, python3-gw4xxx-hal, /etc/systemd/system/ext_usb_reset.service, \
                 /etc/systemd/system/basic.target.wants/ext_usb_reset.service)
 
