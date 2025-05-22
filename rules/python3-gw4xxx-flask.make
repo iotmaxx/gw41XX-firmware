@@ -62,10 +62,12 @@ PYTHON3_GW4XXX_FLASK_CONF_TOOL	:= python3
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/python3-gw4xxx-flask.install:
-#	@$(call targetinfo)
-#	@$(call world/install, PYTHON3_GW4XXX_FLASK)
-#	@$(call touch)
+$(STATEDIR)/python3-gw4xxx-flask.install:
+	@$(call targetinfo)
+	@$(call world/install, PYTHON3_GW4XXX_FLASK)
+	@install -D -m 0755 $(PYTHON3_GW4XXX_FLASK_DIR)/root/etc/rc.once.d/flaskonhal_create_service \
+                $(PYTHON3_GW4XXX_FLASK_PKGDIR)/etc/rc.once.d/flaskonhal_create_service
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -81,7 +83,7 @@ $(STATEDIR)/python3-gw4xxx-flask.targetinstall:
 	@$(call install_fixup, python3-gw4xxx-flask,DESCRIPTION,missing)
 
 #	@$(call install_copy, python3-gw4xxx-flask, 0, 0, 0755, $(PYTHON3_GW4XXX_FLASK_DIR)/foobar, /dev/null)
-	@$(call install_copy, python3-gw4xxx-flask, 0, 0, 0755, $(PYTHON3_GW4XXX_FLASK_DIR)/root/etc/rc.once.d/flaskonhal_create_service, /etc/rc.once.d/flaskonhal_create_service)
+	@$(call install_copy, python3-gw4xxx-flask, 0, 0, 0755, -, /etc/rc.once.d/flaskonhal_create_service)
 	@$(call install_glob, python3-gw4xxx-flask, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py */tests)
 	@$(call install_finish, python3-gw4xxx-flask)
 
