@@ -3,6 +3,7 @@
 config PYTHON3_DOMINATE
 	bool
 	select PYTHON3
+	select HOST_PYTHON3_PYBUILD
 	prompt "python3-dominate"
 	help
 	  Dominate is a Python library for creating and manipulating HTML documents using an elegant DOM API.
