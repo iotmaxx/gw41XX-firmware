@@ -62,10 +62,14 @@ PYTHON3_GW4XXX_LAUNCHER_CONF_TOOL	:= python3
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/python3-gw4xxx-launcher.install:
-#	@$(call targetinfo)
-#	@$(call world/install, PYTHON3_GW4XXX_LAUNCHER)
-#	@$(call touch)
+$(STATEDIR)/python3-gw4xxx-launcher.install:
+	@$(call targetinfo)
+	@$(call world/install, PYTHON3_GW4XXX_LAUNCHER)
+	@install -D -m 0644 $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.service \
+                $(PYTHON3_GW4XXX_LAUNCHER_PKGDIR)/etc/systemd/system/iot_launcher.service
+	@install -D -m 0755 $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher_create_config \
+                $(PYTHON3_GW4XXX_LAUNCHER_PKGDIR)/etc/rc.once.d/iot_launcher_create_config
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -81,7 +85,7 @@ $(STATEDIR)/python3-gw4xxx-launcher.targetinstall:
 	@$(call install_fixup, python3-gw4xxx-launcher,DESCRIPTION,missing)
 
 	@$(call install_glob, python3-gw4xxx-launcher, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)
-	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.service, /etc/systemd/system/iot_launcher.service)
+	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, -, /etc/systemd/system/iot_launcher.service)
 
 	@$(call install_link, python3-gw4xxx-launcher, /etc/systemd/system/iot_launcher.service, \
                 /etc/systemd/system/multi-user.target.wants/iot_launcher.service)
@@ -89,7 +93,7 @@ $(STATEDIR)/python3-gw4xxx-launcher.targetinstall:
 	$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, /config/iot_launcher.d)
 #	python3 -c 'import json; launchMe = {"launch": $(PTXCONF_LAUNCH_ADAPTER)};jfile=open("$(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json", "w"); json.dump(launchMe,jfile);jfile.close()'
 #	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0644, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher.json, /config/iot_launcher.json)
-	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, $(PYTHON3_GW4XXX_LAUNCHER_DIR)/iot_launcher_create_config, /etc/rc.once.d/iot_launcher_create_config)
+	@$(call install_copy, python3-gw4xxx-launcher, 0, 0, 0755, -, /etc/rc.once.d/iot_launcher_create_config)
 	 
 	@$(call install_finish, python3-gw4xxx-launcher)
 
