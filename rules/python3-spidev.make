@@ -55,8 +55,8 @@ $(STATEDIR)/python3-spidev.targetinstall:
 	@$(call install_fixup, python3-spidev, AUTHOR, "Niklas Sill <sill@iotmaxx.de>")
 	@$(call install_fixup, python3-spidev, DESCRIPTION, missing)
 
-	@$(call install_copy, python3-spidev, 0, 0, 0644, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/spidev.cpython-311-arm-linux-gnueabihf.so)
-
+#	@$(call install_copy, python3-spidev, 0, 0, 0644, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/spidev.cpython-311-arm-linux-gnueabihf.so)
+	@$(call install_lib, python3-spidev, 0, 0, 0644, python$(PYTHON3_MAJORMINOR)/site-packages/spidev.cpython*)
 	@$(call install_finish, python3-spidev)
 
 	@$(call touch)
