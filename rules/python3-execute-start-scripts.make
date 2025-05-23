@@ -62,10 +62,12 @@ PYTHON3_EXECUTE_START_SCRIPTS_CONF_TOOL	:= python3
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/python3-execute-start-scripts.install:
-#	@$(call targetinfo)
-#	@$(call world/install, PYTHON3_EXECUTE_START_SCRIPTS)
-#	@$(call touch)
+$(STATEDIR)/python3-execute-start-scripts.install:
+	@$(call targetinfo)
+	@$(call world/install, PYTHON3_EXECUTE_START_SCRIPTS)
+	@install -D -m 0644 $(PYTHON3_EXECUTE_START_SCRIPTS_DIR)/etc/systemd/system/execute_start_scripts.service \
+                $(PYTHON3_EXECUTE_START_SCRIPTS_PKGDIR)/etc/systemd/system/execute_start_scripts.service
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -80,7 +82,7 @@ $(STATEDIR)/python3-execute-start-scripts.targetinstall:
 	@$(call install_fixup, python3-execute-start-scripts,AUTHOR,"Ralf Glaser <glaser@iotmaxx.de>")
 	@$(call install_fixup, python3-execute-start-scripts,DESCRIPTION,missing)
 
-	@$(call install_copy, python3-execute-start-scripts, 0, 0, 0644, $(PYTHON3_EXECUTE_START_SCRIPTS_DIR)/etc/systemd/system/execute_start_scripts.service, /etc/systemd/system/execute_start_scripts.service)
+	@$(call install_copy, python3-execute-start-scripts, 0, 0, 0644, -, /etc/systemd/system/execute_start_scripts.service)
 	@$(call install_link, python3-execute-start-scripts, /etc/systemd/system/execute_start_scripts.service, \
                 /etc/systemd/system/multi-user.target.wants/execute_start_scripts.service)
 	@$(call install_glob, python3-execute-start-scripts, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py)

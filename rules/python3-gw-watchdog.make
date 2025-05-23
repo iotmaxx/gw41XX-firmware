@@ -62,10 +62,12 @@ PYTHON3_GW_WATCHDOG_CONF_TOOL	:= python3
 # Install
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/python3-gw-watchdog.install:
-#	@$(call targetinfo)
-#	@$(call world/install, PYTHON3_GW_WATCHDOG)
-#	@$(call touch)
+$(STATEDIR)/python3-gw-watchdog.install:
+	@$(call targetinfo)
+	@$(call world/install, PYTHON3_GW_WATCHDOG)
+	@install -D -m 0644 -t $(PYTHON3_GW_WATCHDOG_PKGDIR)/etc/systemd/system/ \
+		$(PYTHON3_GW_WATCHDOG_DIR)/etc/systemd/system/gw-watchdog.service $(PYTHON3_GW_WATCHDOG_DIR)/etc/systemd/system/gw-watchdog.timer
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -83,8 +85,8 @@ $(STATEDIR)/python3-gw-watchdog.targetinstall:
 #	@$(call install_copy, python3-gw-watchdog, 0, 0, 0755, $(PYTHON3_GW_WATCHDOG_DIR)/foobar, /dev/null)
 	@$(call install_glob, python3-gw-watchdog, 0, 0, -, /usr/lib/python$(PYTHON3_MAJORMINOR)/site-packages/,,  *.py */tests)
 
-	@$(call install_copy, python3-gw-watchdog, 0, 0, 0644, $(PYTHON3_GW_WATCHDOG_DIR)/etc/systemd/system/gw-watchdog.service, /etc/systemd/system/gw-watchdog.service)
-	@$(call install_copy, python3-gw-watchdog, 0, 0, 0644, $(PYTHON3_GW_WATCHDOG_DIR)/etc/systemd/system/gw-watchdog.timer, /etc/systemd/system/gw-watchdog.timer)
+	@$(call install_copy, python3-gw-watchdog, 0, 0, 0644, -, /etc/systemd/system/gw-watchdog.service)
+	@$(call install_copy, python3-gw-watchdog, 0, 0, 0644, -, /etc/systemd/system/gw-watchdog.timer)
 
 	@$(call install_link, python3-gw-watchdog, /etc/systemd/system/gw-watchdog.timer, \
                 /etc/systemd/system/multi-user.target.wants/gw-watchdog.timer)
