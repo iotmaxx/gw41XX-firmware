@@ -14,15 +14,15 @@ PACKAGES-$(PTXCONF_GW4XXX_SCRIPTS) += gw4xxx-scripts
 #
 # Paths and names
 #
-GW4XXX_SCRIPTS_VERSION	:= 0.10.3
-GW4XXX_SCRIPTS_MD5	:= 3ea3e50a5bb155128d20c9ae4e96a15d
+GW4XXX_SCRIPTS_VERSION	:= 0.10.5
+GW4XXX_SCRIPTS_MD5	:= 29fd8f59bd9cd0cec0b44c4981730d36
 GW4XXX_SCRIPTS		:= gw4xxx-scripts-$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SUFFIX	:= tar.gz
 GW4XXX_SCRIPTS_URL	:= https://api.github.com/repos/iotmaxx/gw4xxx-scripts/tarball/$(GW4XXX_SCRIPTS_VERSION)
 GW4XXX_SCRIPTS_SOURCE	:= $(SRCDIR)/$(GW4XXX_SCRIPTS).$(GW4XXX_SCRIPTS_SUFFIX)
 GW4XXX_SCRIPTS_DIR	:= $(BUILDDIR)/$(GW4XXX_SCRIPTS)
 GW4XXX_SCRIPTS_LICENSE	:= GPL-3.0-or-later
-GW4XXX_SCRIPTS_LICENSE_FILES	:=
+GW4XXX_SCRIPTS_LICENSE_FILES	:= file://LICENSE;md5=1ebbd3e34237af26da5dc08a4e440464
 
 # ----------------------------------------------------------------------------
 # Get
@@ -102,10 +102,10 @@ $(STATEDIR)/gw4xxx-scripts.targetinstall:
 	@$(call install_tree, gw4xxx-scripts, 0, 0, $(GW4XXX_SCRIPTS_DIR)/etc, /etc)
 
 
-	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/usr/sbin/customer-rc-once, /usr/sbin/customer-rc-once)
+#	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/usr/sbin/customer-rc-once, /usr/sbin/customer-rc-once)
 #	@$(call install_copy, gw4xxx-scripts, 0, 0, 0644, $(GW4XXX_SCRIPTS_DIR)/etc/systemd/system/customer_rc-once.service, /etc/systemd/system/customer_rc-once.service)
-	@$(call install_link, gw4xxx-scripts, /etc/systemd/system/customer_rc-once.service, \
-                /etc/systemd/system/multi-user.target.wants/customer_rc-once.service)
+#	@$(call install_link, gw4xxx-scripts, /etc/systemd/system/customer_rc-once.service, \
+#                /etc/systemd/system/multi-user.target.wants/customer_rc-once.service)
 
 #	@$(call install_copy, gw4xxx-scripts, 0, 0, 0755, $(GW4XXX_SCRIPTS_DIR)/etc/NetworkManager/dispatcher.d/startOpenVPN, /etc/NetworkManager/dispatcher.d/startOpenVPN)
 
