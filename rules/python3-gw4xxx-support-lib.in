@@ -1,0 +1,9 @@
+## SECTION=python3
+
+config PYTHON3_GW4XXX_SUPPORT_LIB
+	tristate
+	select PYTHON3
+	select HOST_PYTHON3_PYBUILD
+	prompt "python3-gw4xxx-support-lib"
+	help
+	  FIXME
