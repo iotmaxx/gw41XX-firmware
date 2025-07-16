@@ -1,0 +1,8 @@
+## SECTION=python3
+
+config PYTHON3_VOLUPTUOUS
+	tristate
+	select PYTHON3
+	prompt "python3-voluptuous"
+	help
+	  FIXME
