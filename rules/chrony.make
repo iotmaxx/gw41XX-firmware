@@ -15,12 +15,11 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	:= 4.2
-CHRONY_MD5	:= 07282f8e76a4399d6c17009bb6345614
+CHRONY_VERSION	:= 4.6.1
+CHRONY_MD5	:= 81a83f54d5f8e1d5fd9afcf8a40c493d
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
-#CHRONY_URL	:= http://download.tuxfamily.org/chrony/$(CHRONY).$(CHRONY_SUFFIX)
-CHRONY_URL      := https://chrony-project.org/releases/$(CHRONY).$(CHRONY_SUFFIX)
+CHRONY_URL	:= https://chrony-project.org/releases/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_SOURCE	:= $(SRCDIR)/$(CHRONY).$(CHRONY_SUFFIX)
 CHRONY_DIR	:= $(BUILDDIR)/$(CHRONY)
 CHRONY_LICENSE	:= GPL-2.0-only AND RSA-MD
@@ -51,8 +50,8 @@ CHRONY_CONF_OPT		:= \
 	--without-tomcrypt \
 	$(call ptx/ifdef, PTXCONF_CHRONY_ADVANCED_COMMAND,,--disable-cmdmon) \
 	$(call ptx/ifdef, PTXCONF_CHRONY_ADVANCED_COMMAND,--enable-debug,) \
-	--disable-refclock \
-	--disable-phc \
+	$(call ptx/ifdef, PTXCONF_CHRONY_REFCLK,,--disable-refclock) \
+	$(call ptx/ifdef, PTXCONF_CHRONY_PHC_REFCLK,,--disable-phc) \
 	$(call ptx/ifdef, PTXCONF_CHRONY_PPS_REFCLK,,--disable-pps) \
 	$(call ptx/ifdef, PTXCONF_GLOBAL_IPV6,,--disable-ipv6) \
 	--with-user=$(call ptx/ifdef, PTXCONF_INITMETHOD_SYSTEMD,chrony,root) \
@@ -88,7 +87,6 @@ $(STATEDIR)/chrony.targetinstall:
 		/usr/sbin/chronyd)
 	@$(call install_copy, chrony, 0, 0, 0755, -, \
 		/usr/bin/chronyc)
-	@$(call install_copy, chrony, chrony, chrony, 0700, /var/lib/chrony)
 
 # command helper script
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
@@ -102,16 +100,15 @@ endif
 
 # generic one
 ifdef PTXCONF_CHRONY_INSTALL_CONFIG
-	@$(call install_link, chrony, /config/etc/chrony, /etc/chrony)
-#	@$(call install_alternative, chrony, 0, 0, 0644, /etc/chrony/chrony.conf)
-#	@$(call install_alternative, chrony, 0, 0, 0600, /etc/chrony/chrony.keys)
+	@$(call install_alternative, chrony, 0, 0, 0644, /etc/chrony/chrony.conf)
+	@$(call install_alternative, chrony, 0, 0, 0600, /etc/chrony/chrony.keys)
 
 # modify placeholders with data from configuration
-#	@$(call install_replace, chrony, /etc/chrony/chrony.conf, \
-#		@UNCONFIGURED_CHRONY_SERVER_IP@, $(PTXCONF_CHRONY_DEFAULT_NTP_SERVER))
+	@$(call install_replace, chrony, /etc/chrony/chrony.conf, \
+		@UNCONFIGURED_CHRONY_SERVER_IP@, $(PTXCONF_CHRONY_DEFAULT_NTP_SERVER))
 
-#	@$(call install_replace, chrony, /etc/chrony/chrony.keys, \
-#		@UNCONFIGURED_CHRONY_ACCESS_KEY@, $(PTXCONF_CHRONY_DEFAULT_ACCESS_KEY))
+	@$(call install_replace, chrony, /etc/chrony/chrony.keys, \
+		@UNCONFIGURED_CHRONY_ACCESS_KEY@, $(PTXCONF_CHRONY_DEFAULT_ACCESS_KEY))
 endif
 
 #	#
@@ -132,6 +129,9 @@ ifdef PTXCONF_CHRONY_SYSTEMD_UNIT
 	@$(call install_link, chrony, ../chronyd.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/chronyd.service)
 endif
+
+#namespace
+	@$(call install_copy, chrony, 0, 0, 0755, /var/lib/chrony)
 
 	@$(call install_finish, chrony)
 
