@@ -64,6 +64,8 @@ $(STATEDIR)/dnsmasq.install:
 	@$(call world/install, DNSMASQ)
 	@install -vD -m 644 "$(DNSMASQ_DIR)/dnsmasq.conf.example" \
 		"$(DNSMASQ_PKGDIR)/etc/dnsmasq.conf"
+	@install -vD -m 644 "$(DNSMASQ_DIR)/dbus/dnsmasq.conf" \
+		"$(DNSMASQ_PKGDIR)/usr/share/dbus-1/system.d/dnsmasq.conf"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -107,11 +109,12 @@ ifdef PTXCONF_DNSMASQ_DHCP
 #	# for the 'dnsmasq.leases' file
 	@$(call install_copy, dnsmasq, 0, 0, 0755, /var/lib/misc)
 endif
-
+# install DBUS policy
 ifdef PTXCONF_DNSMASQ_DBUS
-	$(call install_copy, dnsmasq, 0, 0, 0755, $(DNSMASQ_DIR)/dbus/dnsmasq.conf, /usr/share/dbus-1/system.d/dnsmasq.conf)
+	@$(call install_alternative, dnsmasq, 0, 0, 0644, /usr/share/dbus-1/system.d/dnsmasq.conf)
 endif
-
 	@$(call install_finish, dnsmasq)
+
 	@$(call touch)
+
 # vim: syntax=make
