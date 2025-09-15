@@ -16,10 +16,11 @@ PACKAGES-$(PTXCONF_MBW) += mbw
 # Paths and names
 #
 MBW_VERSION	:= 2.0
-MBW_MD5		:= 46ca7401ae650734965e7a25453557d4
+MBW_MD5		:= 9eac3aeea8225ee156df3f1c5e8c13c9
 MBW		:= mbw-$(MBW_VERSION)
 MBW_SUFFIX	:= tar.gz
-MBW_URL		:= https://github.com/raas/mbw/archive/refs/tags/v$(MBW_VERSION)/$(MBW).$(MBW_SUFFIX)
+MBW_URL		:= https://api.github.com/repos/raas/mbw/tarball/v$(MBW_VERSION)
+#https://github.com/raas/mbw/archive/refs/tags/v$(MBW_VERSION)/$(MBW).$(MBW_SUFFIX)
 MBW_SOURCE	:= $(SRCDIR)/$(MBW).$(MBW_SUFFIX)
 MBW_DIR		:= $(BUILDDIR)/$(MBW)
 MBW_LICENSE	:=  GPL-3.0-only
