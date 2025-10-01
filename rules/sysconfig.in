@@ -1,0 +1,9 @@
+## SECTION=project_specific
+
+config SYSCONFIG
+	tristate
+	prompt "sysconfig"
+	help
+	  FIXME
+
+# vim: ft=kconfig tw=80
