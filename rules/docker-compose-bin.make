@@ -11,8 +11,8 @@
 #
 PACKAGES-$(PTXCONF_DOCKER_COMPOSE_BIN) += docker-compose-bin
 
-DOCKER_COMPOSE_BIN_VERSION      := 2.29.7
-DOCKER_COMPOSE_BIN_MD5          := 907dbeb53bb69a280330037fff1e596d
+DOCKER_COMPOSE_BIN_VERSION      := 2.39.4
+DOCKER_COMPOSE_BIN_MD5          := 50528b2ef6f481a6450fbb525ea54e12
 DOCKER_COMPOSE_BIN              := docker-compose-linux-armv7
 DOCKER_COMPOSE_BIN_URL          := https://github.com/docker/compose/releases/download/v$(DOCKER_COMPOSE_BIN_VERSION)/docker-compose-linux-armv7
 #DOCKER_COMPOSE_BIN_DIR          := $(BUILDDIR)/$(DOCKER_BIN)
