@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_CHRONY) += chrony
 #
 # Paths and names
 #
-CHRONY_VERSION	:= 4.6.1
-CHRONY_MD5	:= 81a83f54d5f8e1d5fd9afcf8a40c493d
+CHRONY_VERSION	:= 4.7
+CHRONY_MD5	:= a1ab6e972527a9cbf6bf862679352ed3
 CHRONY		:= chrony-$(CHRONY_VERSION)
 CHRONY_SUFFIX	:= tar.gz
 CHRONY_URL	:= https://chrony-project.org/releases/$(CHRONY).$(CHRONY_SUFFIX)
@@ -41,9 +41,10 @@ CHRONY_CONF_TOOL	:= autoconf
 CHRONY_CONF_OPT		:= \
 	--localstatedir=/var \
 	--prefix=/usr \
-	--sysconfdir=/etc/chrony \
+	--sysconfdir=/etc \
 	--disable-readline \
 	--without-editline \
+	$(call ptx/ifdef, PTXCONF_CHRONY_ENABLE_NTS,,--disable-nts) \
 	$(call ptx/ifdef, PTXCONF_CHRONY_USE_NETTLE,,--disable-sechash) \
 	$(call ptx/ifdef, PTXCONF_CHRONY_USE_NETTLE,,--without-nettle) \
 	--without-nss \
@@ -88,6 +89,9 @@ $(STATEDIR)/chrony.targetinstall:
 	@$(call install_copy, chrony, 0, 0, 0755, -, \
 		/usr/bin/chronyc)
 
+# 
+	@$(call install_copy, chrony, 0, 0, 0755, /var/lib/chrony)
+
 # command helper script
 ifdef PTXCONF_CHRONY_INSTALL_CHRONY_COMMAND
 	@$(call install_alternative, chrony, 0, 0, 0755, /usr/bin/chrony_command)
@@ -129,9 +133,6 @@ ifdef PTXCONF_CHRONY_SYSTEMD_UNIT
 	@$(call install_link, chrony, ../chronyd.service, \
 		/usr/lib/systemd/system/multi-user.target.wants/chronyd.service)
 endif
-
-#namespace
-	@$(call install_copy, chrony, 0, 0, 0755, /var/lib/chrony)
 
 	@$(call install_finish, chrony)
 
