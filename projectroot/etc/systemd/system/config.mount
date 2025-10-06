@@ -5,7 +5,7 @@
 Documentation=man:fstab(5) man:systemd-fstab-generator(8)
 SourcePath=/etc/fstab
 Before=local-fs.target
-Before=systemd-networkd.service
+Before=systemd-networkd.service systemd-resolved.service
 Requires=systemd-fsck@dev-mmcblk2p6.service
 After=systemd-fsck@dev-mmcblk2p6.service
 After=blockdev@dev-mmcblk2p6.target
