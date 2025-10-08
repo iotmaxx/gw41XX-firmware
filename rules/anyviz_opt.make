@@ -14,7 +14,8 @@ PACKAGES-$(PTXCONF_ANYVIZ_OPT) += anyviz_opt
 #
 # Paths and names
 #
-ANYVIZ_OPT_VERSION		:= 0.9.9.1
+# latest version of cloudadapter here: https://download.anyviz.de/anyviz/ARM_MUSL/anyvizcloudadapter
+ANYVIZ_OPT_VERSION		:= 2.1.1.2
 ANYVIZ_OPT			:= anyvizcloudadapter-MUSL-$(ANYVIZ_OPT_VERSION)
 ANYVIZ_OPT_JSON			:= anyviz.json
 ANYVIZ_OPT_SRC			:= local_src/anyviz
