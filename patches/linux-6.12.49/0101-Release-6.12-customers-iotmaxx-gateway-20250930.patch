@@ -1,13 +1,13 @@
 From: Ralf Glaser <glaser@iotmaxx.de>
-Date: Mon, 5 Aug 2024 10:58:37 +0000
-Subject: [PATCH] Release-6.10-customers-iotmaxx-gateway-20240805-1
+Date: Fri, 17 Oct 2025 10:06:43 +0000
+Subject: [PATCH] Release-6.12-customers-iotmaxx-gateway-20250930
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index c0af6d8aeb05..dcd50f98d756 100644
+index 66ae67c52da8..21c306cc6133 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -2,7 +2,7 @@
@@ -15,7 +15,7 @@ index c0af6d8aeb05..dcd50f98d756 100644
  PATCHLEVEL = 12
  SUBLEVEL = 49
 -EXTRAVERSION =
-+EXTRAVERSION = 20250930
++EXTRAVERSION = -20250930
  NAME = Baby Opossum Posse
  
  # *DOCUMENTATION*
