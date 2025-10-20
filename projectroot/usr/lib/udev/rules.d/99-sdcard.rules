@@ -1,0 +1,7 @@
+# add noatime?
+
+#ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="vfat", RUN{program}+="/usr/bin/systemd-mount --no-block --automount=yes --collect --options=nosuid,nodev,uid=1000,gid=1000,umask=002 %E{DEVNAME} /media/%E{ID_FS_LABEL_ENC}"
+ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="vfat", RUN{program}+="/usr/bin/systemd-mount --no-block --collect --options=rw,user,exec,nofail,umask=000 %E{DEVNAME} /mnt/sdcard"
+ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="ext4", RUN{program}+="/usr/bin/systemd-mount --no-block --collect --options=rw,user,exec,nofail %E{DEVNAME} /mnt/sdcard"
+
+LABEL="sdcard_end"
