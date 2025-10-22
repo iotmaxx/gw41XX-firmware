@@ -37,6 +37,12 @@ $(STATEDIR)/projectfiles.targetinstall:
 #	udev rules
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
 		/usr/lib/udev/rules.d/99-data-partition.rules)
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+                /usr/lib/udev/rules.d/99-sdcard.rules)
+
+# 	systemd units
+	@$(call install_alternative, projectfiles, 0, 0, 0644, \
+		/etc/systemd/system/sdcarddecrypt.service)
 
 #	rauc-hawkbit-updater
 	@$(call install_alternative, projectfiles, 0, 0, 0644, \
