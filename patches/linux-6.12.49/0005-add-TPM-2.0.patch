@@ -1,0 +1,84 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Tue, 21 Oct 2025 10:49:01 +0000
+Subject: [PATCH] add TPM2.0
+
+---
+ arch/arm/boot/dts/nxp/imx/imx7d-iotmaxx-gw4100.dts | 23 +++++++++++++++++-----
+ 1 file changed, 18 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/nxp/imx/imx7d-iotmaxx-gw4100.dts b/arch/arm/boot/dts/nxp/imx/imx7d-iotmaxx-gw4100.dts
+index 165cd56c5606..5c8a9e8d6fed 100644
+--- a/arch/arm/boot/dts/nxp/imx/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/boot/dts/nxp/imx/imx7d-iotmaxx-gw4100.dts
+@@ -150,7 +150,7 @@ &adc2 {
+ &ecspi2 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_ecspi2>;
+-	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>;
++	cs-gpios = <&gpio4 23 GPIO_ACTIVE_LOW>, <&gpio3 16 GPIO_ACTIVE_LOW>;
+ 	status = "okay";
+ 
+ 	flash: spi-flash@0 {
+@@ -164,6 +164,18 @@ partition@1 {
+ 			reg = <0x0 0x10000>;
+ 		};
+ 	};
++
++	tpm1: slb9670@1 {
++		compatible = "infineon,slb9670";
++		reg = <1>;	/* CE1 */
++		#address-cells = <1>;
++		#size-cells = <0>;
++		spi-max-frequency = <32000000>;
++		status = "okay";
++		interrupt-parent = <&gpio2>;
++		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++	};
++
+ };
+ 
+ /* Expansion slot */
+@@ -238,7 +250,7 @@ &gpio2 {
+ 	pinctrl-0 = <&pinctrl_gpio2>;
+ 	status = "okay";
+ 
+-	gpio-line-names = "",
++	gpio-line-names = "n_tpm2_dv_int",
+ 			  "", "5v_periph_en", "", "sim_cd1", "sim_cd2",
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "gsm_pwr_en_3v3",
+@@ -256,7 +268,7 @@ &gpio3 {
+ 	gpio-line-names = "",
+ 			  "", "", "", "vusb_gsm_en", "",
+ 			  "", "", "", "", "",
+-			  "", "", "", "", "",
++			  "", "", "", "", "n_spi2_cs1",
+ 			  "", "", "", "", "",
+ 			  "", "", "", "", "sim_enable",
+ 			  "n_pmic_int", "n_usr_button", "", "", "",
+@@ -274,7 +286,7 @@ &gpio4 {
+ 			  "", "", "", "", "",
+ 			  "", "n_can_term_en", "", "led_usr2", "led_usr1",
+ 			  "sim_sel", "gsm_reset", "", "n_gsm_pwr_ind", "",
+-			  "", "", "", "", "",
++			  "", "", "n_spi2_cs0", "", "",
+ 			  "", "", "", "", "",
+ 			  "";
+ 
+@@ -339,7 +351,7 @@ usb_hub: usb-hub@8 {
+ 		clock-names = "refclk";
+ 	};
+ 
+-	tpm: tpm@20 {
++	tpm0: tpm@20 {
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&pinctrl_tpm_irq>;
+ 		compatible = "infineon,slb9645tt";
+@@ -430,6 +442,7 @@ MX7D_PAD_ECSPI2_MISO__ECSPI2_MISO		0x7c /* 100 k PU */
+ 			MX7D_PAD_ECSPI2_MOSI__ECSPI2_MOSI		0x74 /* 100 k PU */
+ 			MX7D_PAD_ECSPI2_SCLK__ECSPI2_SCLK		0x00 /* fast slew rate */
+ 			MX7D_PAD_ECSPI2_SS0__GPIO4_IO23			0x00 /* fast slew rate */
++			MX7D_PAD_LCD_DATA11__GPIO3_IO16			0x00 /* fast slew rate */
+ 		>;
+ 	};
+ 
