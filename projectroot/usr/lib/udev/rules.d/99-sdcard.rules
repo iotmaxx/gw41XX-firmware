@@ -1,7 +1,5 @@
-# add noatime?
-
-#ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="vfat", RUN{program}+="/usr/bin/systemd-mount --no-block --automount=yes --collect --options=nosuid,nodev,uid=1000,gid=1000,umask=002 %E{DEVNAME} /media/%E{ID_FS_LABEL_ENC}"
 ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="vfat", RUN{program}+="/usr/bin/systemd-mount --no-block --collect --options=rw,user,exec,nofail,umask=000 %E{DEVNAME} /mnt/sdcard"
 ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="ext4", RUN{program}+="/usr/bin/systemd-mount --no-block --collect --options=rw,user,exec,nofail %E{DEVNAME} /mnt/sdcard"
-
-LABEL="sdcard_end"
+ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="btrfs", RUN{program}+="/usr/bin/systemd-mount --no-block --collect --options=rw,user,exec,nofail %E{DEVNAME} /mnt/sdcard"
+ACTION=="add", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="crypto_LUKS", ENV{SYSTEMD_WANTS}="sdcarddecrypt.service"
+ACTION=="remove", KERNEL=="mmcblk1p1", SUBSYSTEM=="block", RUN{program}+="/usr/bin/systemctl stop sdcarddecrypt.service"
