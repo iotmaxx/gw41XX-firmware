@@ -1,0 +1,11 @@
+[Unit]
+Description=Automount encrypted sdcard
+After=config.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/cryptsetup --key-file=/config/.sdcard/sdkey luksOpen /dev/mmcblk1p1 sdcard
+ExecStart=/usr/bin/mount /dev/mapper/sdcard /mnt/sdcard
+ExecStop=/usr/bin/umount /mnt/sdcard
+ExecStop=/usr/sbin/cryptsetup luksClose /dev/mapper/sdcard
+RemainAfterExit=yes
