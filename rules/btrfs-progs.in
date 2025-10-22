@@ -1,0 +1,13 @@
+## SECTION=disk_and_file
+
+config BTRFS_PROGS
+	tristate
+	prompt "btrfs-progs"
+	select LIBBLKID	
+	select ZLIB
+	select ZSTD
+	select UDEV
+	help
+	  Btrfs filesystem utilities.
+
+# vim: ft=kconfig tw=80
