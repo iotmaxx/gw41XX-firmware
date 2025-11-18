@@ -21,8 +21,9 @@ BTRFS_PROGS_SUFFIX	:= tar.gz
 BTRFS_PROGS_URL		:= https://github.com/kdave/btrfs-progs/archive/refs/tags/v$(BTRFS_PROGS_VERSION).$(BTRFS_PROGS_SUFFIX)
 BTRFS_PROGS_SOURCE	:= $(SRCDIR)/$(BTRFS_PROGS).$(BTRFS_PROGS_SUFFIX)
 BTRFS_PROGS_DIR		:= $(BUILDDIR)/$(BTRFS_PROGS)
-BTRFS_PROGS_LICENSE	:= GPL-2.0-ONLY
-BTRFS_PROGS_LICENSE_FILES	:= file://COPYING;md5=fcb02dc552a041dee27e4b85c7396067
+BTRFS_PROGS_LICENSE	:= GPL-2.0-only AND LGPL-2.1-or-later
+BTRFS_PROGS_LICENSE_FILES := 	file://COPYING;md5=fcb02dc552a041dee27e4b85c7396067 \
+				file://libbtrfsutil/COPYING;md5=4fbd65380cdd255951079008b364516c
 
 # ----------------------------------------------------------------------------
 # Get
@@ -36,7 +37,8 @@ BTRFS_PROGS_LICENSE_FILES	:= file://COPYING;md5=fcb02dc552a041dee27e4b85c7396067
 # Prepare
 # ----------------------------------------------------------------------------
 
-#BTRFS_PROGS_CONF_ENV	:= $(CROSS_ENV)
+BTRFS_PROGS_CONF_ENV	:= $(CROSS_ENV) \
+	ac_cv_path_PYTHON=$(CROSS_PYTHON3)
 
 #
 # autoconf
@@ -45,10 +47,10 @@ BTRFS_PROGS_CONF_TOOL	:= autoconf
 BTRFS_PROGS_CONF_OPT	:=  \
 	$(CROSS_AUTOCONF_USR) \
 	--disable-backtrace \
-	--disable-python \
 	--disable-convert \
 	--disable-static \
-	--disable-documentation
+	--disable-documentation \
+#	--disable-python 
 
 $(STATEDIR)/btrfs-progs.prepare:
 	@$(call targetinfo)
@@ -60,10 +62,10 @@ $(STATEDIR)/btrfs-progs.prepare:
 # Compile
 # ----------------------------------------------------------------------------
 
-#$(STATEDIR)/btrfs-progs.compile:
-#	@$(call targetinfo)
-#	@$(call world/compile, BTRFS_PROGS)
-#	@$(call touch)
+$(STATEDIR)/btrfs-progs.compile:
+	@$(call targetinfo)
+	@$(call world/compile, BTRFS_PROGS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install

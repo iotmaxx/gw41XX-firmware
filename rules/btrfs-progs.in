@@ -3,6 +3,7 @@
 config BTRFS_PROGS
 	tristate
 	prompt "btrfs-progs"
+	select PYTHON3
 	select LIBBLKID	
 	select ZLIB
 	select ZSTD
