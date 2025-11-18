@@ -1,5 +1,6 @@
 [Unit]
 Description=Automount encrypted sdcard
+IgnoreOnIsolate=true
 After=config.mount
 
 [Service]
