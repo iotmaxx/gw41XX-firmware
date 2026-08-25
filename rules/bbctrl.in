@@ -1,0 +1,10 @@
+## SECTION=project_specific
+
+config BBCTRL
+	tristate
+	select PYTHON3
+	prompt "bbctrl"
+	help
+	  FIXME
+
+# vim: ft=kconfig tw=80
