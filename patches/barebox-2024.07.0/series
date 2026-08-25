@@ -36,6 +36,7 @@
 0408-blspec-apply-overlays-from-global-environment.patch
 0501-create-iotmaxx-gw-dts-file.patch
 0502-usb-power-off.patch
+0601-console-disable-switch.patch
 # umpf-end
 #tag:base --start-number 1000
-# f377204ebae21f0a97b6736344c1be9d  - git-ptx-patches magic
+# 2af3e6038236baeded7bb11338e96a49  - git-ptx-patches magic

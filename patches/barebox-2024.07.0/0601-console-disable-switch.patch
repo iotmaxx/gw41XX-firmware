@@ -1,0 +1,50 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Mon, 3 Aug 2026 12:49:57 +0000
+Subject: [PATCH] console disable switch
+
+---
+ arch/arm/boards/iotmaxx-gw4100/env/init/console | 16 ++++++++++++++++
+ arch/arm/dts/imx7d-iotmaxx-gw4100.dts           |  7 +++++++
+ 2 files changed, 23 insertions(+)
+ create mode 100644 arch/arm/boards/iotmaxx-gw4100/env/init/console
+
+diff --git a/arch/arm/boards/iotmaxx-gw4100/env/init/console b/arch/arm/boards/iotmaxx-gw4100/env/init/console
+new file mode 100644
+index 000000000000..6dabb9669e2b
+--- /dev/null
++++ b/arch/arm/boards/iotmaxx-gw4100/env/init/console
+@@ -0,0 +1,16 @@
++#!/bin/sh
++
++if [ "$state.console_disable" = "1" ]; then
++	# Silence all barebox console output completely
++	global.loglevel=0
++
++	# Optional: Also ensure Linux doesn't print to the serial port
++	global.linux.bootargs.console="console=null"
++
++	# disable any input on console
++	global.console_disable_input=1
++else
++	# Default behavior (Console On)
++	global.loglevel=7
++fi
++
+diff --git a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+index d3b48414d306..a4605590dc36 100644
+--- a/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
++++ b/arch/arm/dts/imx7d-iotmaxx-gw4100.dts
+@@ -76,6 +76,13 @@ last_chosen {
+ 				reg = <0x20 0x4>;
+ 				type = "uint32";
+ 			};
++
++			/* New variable for your dynamic boot arguments */
++			console_disable {
++				reg = <0x30 0x01>; 
++				type = "uint8";
++				default = <0>;      /* Enabled by default */
++			};
+ 		};
+ 	};
+ };
