@@ -14,7 +14,7 @@ PACKAGES-$(PTXCONF_BBCTRL) += bbctrl
 #
 # Paths and names
 #
-BBCTRL_VERSION	:= 0.1.0
+BBCTRL_VERSION	:= 1.0.1
 BBCTRL_SUFFIX	:= tar.gz
 BBCTRL		:= bbctrl-$(BBCTRL_VERSION).$(BBCTRL_SUFFIX)
 BBCTRL_LICENSE	:= ignore
