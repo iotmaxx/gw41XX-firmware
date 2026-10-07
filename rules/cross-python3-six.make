@@ -9,7 +9,7 @@
 #
 # We provide this package
 #
-PACKAGES-$(PTXCONF_CROSS_PYTHON3_SIX) += cross-python3-six
+CROSS_PACKAGES-$(PTXCONF_CROSS_PYTHON3_SIX) += cross-python3-six
 
 #
 # Paths and names
