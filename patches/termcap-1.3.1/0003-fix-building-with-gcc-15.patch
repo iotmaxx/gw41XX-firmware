@@ -1,0 +1,60 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Mon, 2 Feb 2026 09:48:32 +0100
+Subject: [PATCH] fix building with gcc 15
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ termcap.c | 12 ++++++------
+ tparam.c  |  2 +-
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/termcap.c b/termcap.c
+index 1a90751291aa..4d3cec641276 100644
+--- a/termcap.c
++++ b/termcap.c
+@@ -126,7 +126,7 @@ xrealloc (ptr, size)
+    for tgetnum, tgetflag and tgetstr to find.  */
+ static char *term_entry;
+ 
+-static char *tgetst1 ();
++static char *tgetst1 (char *ptr, char **area);
+ 
+ /* Search entry BP for capability CAP.
+    Return a pointer to the capability (in BP) if found,
+@@ -317,7 +317,7 @@ void
+ tputs (str, nlines, outfun)
+      register char *str;
+      int nlines;
+-     register int (*outfun) ();
++     register int (*outfun) (int);
+ {
+   register int padcount = 0;
+   register int speed;
+@@ -389,10 +389,10 @@ struct termcap_buffer
+ 
+ /* Forward declarations of static functions.  */
+ 
+-static int scan_file ();
+-static char *gobble_line ();
+-static int compare_contin ();
+-static int name_match ();
++static int scan_file (char *str, int fd, register struct termcap_buffer *bufp);
++static char *gobble_line (int fd, register struct termcap_buffer *bufp, char *append_end);
++static int compare_contin (register char *str1, register char *str2);
++static int name_match (char *line, char *name);
+ 
+ #ifdef VMS
+ 
+diff --git a/tparam.c b/tparam.c
+index 9311b5bfd2cd..1dfdbcad67f3 100644
+--- a/tparam.c
++++ b/tparam.c
+@@ -92,7 +92,7 @@ xrealloc (ptr, size)
+ 
+    The fourth and following args to tparam serve as the parameter values.  */
+ 
+-static char *tparam1 ();
++static char *tparam1 (char *string, char *outstring, int len, char *up, char *left, register int *argp);
+ 
+ /* VARARGS 2 */
+ char *

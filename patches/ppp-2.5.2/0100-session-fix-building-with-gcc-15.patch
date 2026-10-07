@@ -1,0 +1,29 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Thu, 5 Feb 2026 22:56:11 +0100
+Subject: [PATCH] session: fix building with gcc 15
+
+This fixes:
+
+session.c: In function 'session_start':
+session.c:185:18: error: conflicting types for 'getspnam'; have 'struct spwd *(void)'
+In file included from session.c:85:
+.../usr/include/shadow.h:90:21: note: previous declaration of 'getspnam' with type 'struct spwd *(const char *)'
+session.c:319:16: error: too many arguments to function 'getspnam'; expected 0, have 1
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ pppd/session.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/pppd/session.c b/pppd/session.c
+index f08d8e191ef6..9cc75389915b 100644
+--- a/pppd/session.c
++++ b/pppd/session.c
+@@ -182,7 +182,6 @@ session_start(const int flags, const char *user, const char *passwd, const char
+     char *cbuf;
+ #ifdef HAVE_SHADOW_H
+     struct spwd *spwd;
+-    struct spwd *getspnam();
+     long now = 0;
+ #endif /* #ifdef HAVE_SHADOW_H */
+ #endif /* #ifdef PPP_WITH_PAM */
