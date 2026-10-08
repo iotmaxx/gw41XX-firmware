@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Mon, 5 Aug 2024 08:36:25 +0000
+Subject: [PATCH] dt-bindings-Add-vendor-prefix-for-IoTmaxx-GmbH
+
+---
+ Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index fbf47f0bacf1..b4c5d3b556b5 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -718,6 +718,8 @@ patternProperties:
+     description: Inverse Path
+   "^iom,.*":
+     description: Iomega Corporation
++  "^iotmaxx,.*":
++    description: IoTmaxx GmbH
+   "^irondevice,.*":
+     description: Iron Device Corporation
+   "^isee,.*":

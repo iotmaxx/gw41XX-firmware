@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Thu, 8 Oct 2026 12:11:41 +0000
+Subject: [PATCH] 0101-Release-6.18-customers-iotmaxx-gateway-20261008
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 84df9673f9b6..334acac697b9 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 18
+ SUBLEVEL = 55
+-EXTRAVERSION =
++EXTRAVERSION = -20261008
+ NAME = Baby Opossum Posse
+ 
+ # *DOCUMENTATION*

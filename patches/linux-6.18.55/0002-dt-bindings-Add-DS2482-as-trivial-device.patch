@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Tue, 30 Sep 2025 11:49:48 +0000
+Subject: [PATCH] dt-bindings-Add-DS2482-as-trivial-device
+
+---
+ Documentation/devicetree/bindings/trivial-devices.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/trivial-devices.yaml b/Documentation/devicetree/bindings/trivial-devices.yaml
+index 9bf0fb17a05e..e5187bcbb059 100644
+--- a/Documentation/devicetree/bindings/trivial-devices.yaml
++++ b/Documentation/devicetree/bindings/trivial-devices.yaml
+@@ -175,6 +175,8 @@ properties:
+           - maxim,ds1803-100
+             # 10 kOhm digital potentiometer with I2C interface
+           - maxim,ds3502
++            # 10-bit 8 channels 300ks/s SPI ADC with temperature sensor
++          - maxim,ds2482
+             # Temperature Sensor, I2C interface
+           - maxim,max1619
+             # 3-Channel Remote Temperature Sensor

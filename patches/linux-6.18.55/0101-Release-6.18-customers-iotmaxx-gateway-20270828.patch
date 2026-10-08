@@ -1,0 +1,21 @@
+From: Ralf Glaser <glaser@iotmaxx.de>
+Date: Fri, 28 Aug 2026 11:42:34 +0000
+Subject: [PATCH] add date
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 3c9141925807..6aa692b59211 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 6
+ PATCHLEVEL = 18
+ SUBLEVEL = 46
+-EXTRAVERSION =
++EXTRAVERSION = -20270828
+ NAME = Baby Opossum Posse
+ 
+ # *DOCUMENTATION*
