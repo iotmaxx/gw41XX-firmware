@@ -15,9 +15,9 @@ PACKAGES-$(PTXCONF_SYSTEMD) += systemd
 #
 # Paths and names
 #
-SYSTEMD_VERSION		:= 257.7
+SYSTEMD_VERSION		:= 261.1
 SYSTEMD_VERSION_MAJOR	:= $(firstword $(subst -, ,$(subst ., ,$(SYSTEMD_VERSION))))
-SYSTEMD_MD5		:= e4f510caa8f1dd16c62832ca0e0b1d4b
+SYSTEMD_SHA256		:= f9b9da1103d1714703503d1746971ccbeeae945663ef3ede3b7348169b5df064
 SYSTEMD			:= systemd-$(SYSTEMD_VERSION)
 SYSTEMD_SUFFIX		:= tar.gz
 #ifeq ($(SYSTEMD_VERSION),$(SYSTEMD_VERSION_MAJOR))
@@ -29,8 +29,8 @@ SYSTEMD_SOURCE		:= $(SRCDIR)/$(SYSTEMD).$(SYSTEMD_SUFFIX)
 SYSTEMD_DIR		:= $(BUILDDIR)/$(SYSTEMD)
 SYSTEMD_LICENSE		:= GPL-2.0-or-later AND LGPL-2.1-only
 SYSTEMD_LICENSE_FILES	:= \
-	file://LICENSE.GPL2;md5=751419260aa954499f7abaabaa882bbe \
-	file://LICENSE.LGPL2.1;md5=4fbd65380cdd255951079008b364516c
+	file://LICENSE.GPL2;md5=c09786363500a9acc29b147e6e72d2c6 \
+	file://LICENSE.LGPL2.1;md5=be0aaf4a380f73f7e00b420a007368f2
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -42,18 +42,15 @@ ifneq ($(PTXCONF_ARCH_X86)$(PTXCONF_ARCH_PPC),)
 SYSTEMD_WRAPPER_BLACKLIST := TARGET_HARDEN_PIE
 endif
 
-ifdef PTXCONF_KERNEL_HEADER
-SYSTEMD_CPPFLAGS	:= \
-	-isystem $(KERNEL_HEADERS_INCLUDE_DIR)
-endif
-
 SYSTEMD_CONF_TOOL	:= meson
 SYSTEMD_CONF_OPT	:= \
 	$(CROSS_MESON_USR) \
 	-Dacl=$(call ptx/endis,PTXCONF_SYSTEMD_UNITS_USER)d \
+	-Dadm-gid=4 \
 	-Dadm-group=true \
 	-Danalyze=true \
 	-Dapparmor=disabled \
+	-Daudio-gid=115 \
 	-Daudit=disabled \
 	-Dbacklight=false \
 	-Dbinfmt=false \
@@ -64,19 +61,20 @@ SYSTEMD_CONF_OPT	:= \
 	-Dbump-proc-sys-fs-file-max=true \
 	-Dbump-proc-sys-fs-nr-open=true \
 	-Dbzip2=disabled \
+	-Dcdrom-gid=105 \
 	-Dcertificate-root=/etc/ssl \
+	-Dclock-gid=221 \
 	-Dclock-valid-range-usec-max=$(call ptx/ifdef, PTXDIST_Y2038,946728000000000,473364000000000) \
 	-Dcompat-mutable-uid-boundaries=false \
 	-Dcoredump=$(call ptx/truefalse,PTXCONF_SYSTEMD_COREDUMP) \
 	-Dcreate-log-dirs=false \
-	-Dcryptolib=auto \
 	-Ddbus=disabled \
 	-Ddbuspolicydir=/usr/share/dbus-1/system.d \
 	-Ddbussessionservicedir=/usr/share/dbus-1/services \
 	-Ddbussystemservicedir=/usr/share/dbus-1/system-services \
+	-Ddefault-compression=auto \
 	-Ddefault-dns-over-tls=no \
 	-Ddefault-dnssec=no \
-	-Ddefault-hierarchy=unified \
 	-Ddefault-keymap=us \
 	-Ddefault-kill-user-processes=true \
 	-Ddefault-llmnr=yes \
@@ -87,6 +85,8 @@ SYSTEMD_CONF_OPT	:= \
 	-Ddefault-network=false \
 	-Ddefault-user-shell=/bin/sh \
 	-Ddev-kvm-mode=0660 \
+	-Ddialout-gid=106 \
+	-Ddisk-gid=107 \
 	-Ddns-over-tls=false \
 	-Ddns-servers= \
 	-Defi=false \
@@ -110,24 +110,29 @@ SYSTEMD_CONF_OPT	:= \
 	-Dhwdb=$(call ptx/truefalse,PTXCONF_SYSTEMD_UDEV_HWDB) \
 	-Didn=false \
 	-Dima=false \
+	-Dimds=disabled \
 	-Dimportd=disabled \
 	-Dinitrd=false \
+	-Dinput-gid=116 \
 	-Dinstall-sysconfdir=true \
 	-Dinstall-tests=false \
-	-Dintegration-tests=false \
 	-Dipe=true \
 	-Dkernel-install=false \
 	-Dkexec-path=/usr/sbin/kexec \
+	-Dkmem-gid=109 \
 	-Dkmod=enabled \
 	-Dkmod-path=/usr/bin/kmod \
+	-Dkvm-gid=36 \
 	-Dldconfig=false \
 	-Dlibarchive=disabled \
+	-Dlibc=glibc \
 	-Dlibcryptsetup=disabled \
 	-Dlibcurl=$(call ptx/endis,PTXCONF_SYSTEMD_LIBCURL)d \
 	-Dlibfido2=disabled \
 	-Dlibidn=disabled \
 	-Dlibidn2=disabled \
 	-Dlibiptc=$(call ptx/endis,PTXCONF_SYSTEMD_IPMASQUERADE)d \
+	-Dlibmount=enabled \
 	-Dlink-boot-shared=true \
 	-Dlink-executor-shared=true \
 	-Dlink-journalctl-shared=true \
@@ -142,6 +147,7 @@ SYSTEMD_CONF_OPT	:= \
 	-Dlog-message-verification=disabled \
 	-Dlog-trace=false \
 	-Dlogind=$(call ptx/truefalse,PTXCONF_SYSTEMD_LOGIND) \
+	-Dlp-gid=110 \
 	-Dlz4=$(call ptx/endis,PTXCONF_SYSTEMD_LZ4)d \
 	-Dmachined=$(call ptx/truefalse,PTXCONF_SYSTEMD_NSPAWN) \
 	-Dman=disabled \
@@ -153,11 +159,11 @@ SYSTEMD_CONF_OPT	:= \
 	-Dnetworkd=$(call ptx/truefalse,PTXCONF_SYSTEMD_NETWORK) \
 	-Dnobody-group=nogroup \
 	-Dnobody-user=nobody \
-	-Dnscd=false \
+	-Dnspawn=$(call ptx/endis,PTXCONF_SYSTEMD_NSPAWN)d \
 	-Dnsresourced=false \
 	-Dnss-myhostname=true \
 	-Dnss-mymachines=$(call ptx/endis,PTXCONF_SYSTEMD_NSPAWN)d \
-	-Dnss-resolve=$(call ptx/endis,PTXCONF_SYSTEMD_NETWORK)d \
+	-Dnss-resolve=$(call ptx/endis,PTXCONF_SYSTEMD_RESOLVED)d \
 	-Dnss-systemd=true \
 	-Dntp-servers= \
 	-Dok-color=green \
@@ -178,13 +184,15 @@ SYSTEMD_CONF_OPT	:= \
 	-Dquotaon-path=/usr/sbin/quotaon \
 	-Drandomseed=$(call ptx/falsetrue,PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED) \
 	-Dremote=$(call ptx/endis,PTXCONF_SYSTEMD_JOURNAL_REMOTE)d \
+	-Drender-gid=209 \
 	-Drepart=$(call ptx/endis,PTXCONF_SYSTEMD_REPART)d \
-	-Dresolve=$(call ptx/truefalse,PTXCONF_SYSTEMD_NETWORK) \
+	-Dresolve=$(call ptx/truefalse,PTXCONF_SYSTEMD_RESOLVED) \
 	-Drfkill=false \
 	-Dseccomp=$(call ptx/endis,PTXCONF_SYSTEMD_SECCOMP)d \
 	-Dselinux=$(call ptx/endis,PTXCONF_GLOBAL_SELINUX)d \
 	-Dservice-watchdog=3min \
 	-Dsetfont-path=/usr/bin/setfont \
+	-Dsgx-gid=214 \
 	-Dshared-lib-tag=$(SYSTEMD_VERSION_MAJOR) \
 	-Dslow-tests=false \
 	-Dsmack=false \
@@ -201,9 +209,16 @@ SYSTEMD_CONF_OPT	:= \
 	-Dsystem-alloc-uid-min=1 \
 	-Dsystem-gid-max=999 \
 	-Dsystem-uid-max=999 \
+	-Dsystemd-journal-gid=201 \
+	-Dsystemd-network-uid=202 \
+	-Dsystemd-resolve-uid=203 \
+	-Dsystemd-timesync-uid=204 \
+	-Dsysupdate=disabled \
+	-Dsysupdated=disabled \
 	-Dsysusers=false \
 	-Dsysvinit-path= \
 	-Dsysvrcnd-path= \
+	-Dtape-gid=111 \
 	-Dtests=false \
 	-Dtime-epoch=$(SOURCE_DATE_EPOCH) \
 	-Dtimedated=$(call ptx/truefalse,PTXCONF_SYSTEMD_TIMEDATE) \
@@ -217,12 +232,15 @@ SYSTEMD_CONF_OPT	:= \
 	-Dumount-path=/usr/bin/umount \
 	-Durlify=false \
 	-Duserdb=false \
-	-Dusers-gid=-1 \
+	-Dusers-gid=100 \
 	-Dutmp=false \
+	-Dutmp-gid=43 \
 	-Dvconsole=$(call ptx/truefalse,PTXCONF_SYSTEMD_VCONSOLE) \
 	-Dversion-tag=$(SYSTEMD_VERSION) \
+	-Dvideo-gid=113 \
 	-Dvmspawn=$(call ptx/endis,PTXCONF_SYSTEMD_NSPAWN)d \
-	-Dwheel-group=false \
+	-Dwheel-gid=10 \
+	-Dwheel-group=true \
 	-Dxdg-autostart=false \
 	-Dxenctrl=disabled \
 	-Dxkbcommon=disabled \
@@ -268,7 +286,6 @@ endif
 
 SYSTEMD_HELPER := \
 	systemd \
-	systemd-cgroups-agent \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_COREDUMP,systemd-coredump) \
 	systemd-executor \
 	systemd-fsck \
@@ -288,7 +305,7 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_DISABLE_RANDOM_SEED,,systemd-random-seed) \
 	systemd-remount-fs \
 	systemd-reply-password \
-	$(call ptx/ifdef, PTXCONF_SYSTEMD_NETWORK,systemd-resolved) \
+	$(call ptx/ifdef, PTXCONF_SYSTEMD_RESOLVED,systemd-resolved) \
 	systemd-shutdown \
 	systemd-sleep \
 	systemd-socket-proxyd \
@@ -299,6 +316,7 @@ SYSTEMD_HELPER := \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_TIMEDATE,systemd-timesyncd) \
 	systemd-update-done \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_UNITS_USER,systemd-user-runtime-dir) \
+	systemd-validatefs \
 	$(call ptx/ifdef, PTXCONF_SYSTEMD_VCONSOLE,systemd-vconsole-setup)
 
 SYSTEMD_UDEV_HELPER-y :=
@@ -314,6 +332,7 @@ SYSTEMD_UDEV_HELPER-$(PTXCONF_SYSTEMD_UDEV_MTD_PROBE)		+= mtd_probe
 SYSTEMD_UDEV_RULES-y := \
 	50-udev-default.rules \
 	60-persistent-alsa.rules \
+	60-persistent-hidraw.rules \
 	60-persistent-input.rules \
 	60-persistent-storage-mtd.rules \
 	60-persistent-storage-tape.rules \
@@ -333,6 +352,7 @@ SYSTEMD_UDEV_RULES-$(PTXCONF_SYSTEMD_UDEV_HWDB) += \
 	60-autosuspend.rules \
 	60-evdev.rules \
 	60-sensor.rules \
+	70-camera.rules \
 	70-joystick.rules \
 	70-mouse.rules \
 	70-touchpad.rules
@@ -424,6 +444,9 @@ endif
 
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/tmpfiles.d/)
 	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-default.conf)
+ifdef PTXCONF_ARCH_LP64
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/sysctl.d/50-pid-max.conf)
+endif
 
 ifdef PTXCONF_SYSTEMD_DBUS_SERVICES
 	@$(call install_copy, systemd, 0, 0, 0644, -, \
@@ -434,6 +457,7 @@ endif
 #	# systemd expects this directory to exist.
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd)
 	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd/coredump)
+	@$(call install_copy, systemd, 0, 0, 0755, /var/lib/systemd/network)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/machines)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/lib/private)
 	@$(call install_copy, systemd, 0, 0, 0700, /var/cache/private)
@@ -455,9 +479,7 @@ ifdef PTXCONF_INITMETHOD_SYSTEMD
 	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/halt)
 	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/poweroff)
 	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/reboot)
-	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/runlevel)
 	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/shutdown)
-	@$(call install_link, systemd, ../bin/systemctl, /usr/sbin/telinit)
 endif
 
 ifdef PTXCONF_SYSTEMD_COREDUMP
@@ -487,28 +509,30 @@ endif
 
 ifdef PTXCONF_SYSTEMD_NETWORK
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/networkctl)
-	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/resolvectl)
-	@$(call install_link, systemd, resolvectl, /usr/bin/systemd-resolve)
-	@$(call install_link, systemd, ../bin/resolvectl, /usr/sbin/resolvconf)
 	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/lib/systemd/systemd-network-generator)
-	@$(call install_lib, systemd, 0, 0, 0644, libnss_resolve)
-	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/systemd/resolv.conf)
-	@$(call install_alternative, systemd, 0, 0, 0644, \
-		/etc/systemd/resolved.conf)
-	@$(call install_link, systemd, ../systemd-resolved.service,  \
-		/usr/lib/systemd/system/multi-user.target.wants/systemd-resolved.service)
 	@$(call install_link, systemd, ../systemd-networkd.service,  \
 		/usr/lib/systemd/system/multi-user.target.wants/systemd-networkd.service)
 	@$(call install_link, systemd, ../systemd-networkd.socket,  \
 		/usr/lib/systemd/system/sockets.target.wants/systemd-networkd.socket)
 	@$(call install_link, systemd, ../systemd-networkd-wait-online.service,  \
 		/usr/lib/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service)
-
 	@$(call install_tree, systemd, 0, 0, -, /usr/lib/systemd/network)
 	@$(call install_alternative_tree, systemd, 0, 0, /usr/lib/systemd/network)
 else
 	@$(call install_alternative, systemd, 0, 0, 0644, \
 		/usr/lib/systemd/network/99-default.link)
+endif
+
+ifdef PTXCONF_SYSTEMD_RESOLVED
+	@$(call install_copy, systemd, 0, 0, 0755, -, /usr/bin/resolvectl)
+	@$(call install_link, systemd, resolvectl, /usr/bin/systemd-resolve)
+	@$(call install_link, systemd, ../bin/resolvectl, /usr/sbin/resolvconf)
+	@$(call install_lib, systemd, 0, 0, 0644, libnss_resolve)
+	@$(call install_copy, systemd, 0, 0, 0644, -, /usr/lib/systemd/resolv.conf)
+	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/etc/systemd/resolved.conf)
+	@$(call install_link, systemd, ../systemd-resolved.service,  \
+		/usr/lib/systemd/system/multi-user.target.wants/systemd-resolved.service)
 endif
 
 ifdef PTXCONF_SYSTEMD_POLKIT
@@ -536,6 +560,8 @@ ifdef PTXCONF_SYSTEMD_VCONSOLE
 	@$(call install_link, systemd, ../getty@.service,  \
 		/usr/lib/systemd/system/getty.target.wants/getty@tty1.service)
 	@$(call install_alternative, systemd, 0, 0, 0644, /etc/vconsole.conf)
+	@$(call install_alternative, systemd, 0, 0, 0644, \
+		/usr/share/systemd/language-fallback-map)
 endif
 
 #	# udev
